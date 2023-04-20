@@ -72,13 +72,13 @@
   letter-spacing: 0.25px;
 }
 
-@mixin body-m{
+@mixin body-s{
   font-size: $fs-xs;
   line-height: 133%;
   letter-spacing: 0.4px;
 }
 
-@mixin body-m{
+@mixin body-xs{
   font-size: $fs-xxs;
   line-height: 250%;
 }
