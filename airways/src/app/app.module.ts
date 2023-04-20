@@ -32,13 +32,18 @@ import { formatsReducer } from './core/store/reducers/formats.reducers';
     HomeModule,
 import { HeaderComponent } from './test/header/header.component';
 import { DatePickerComponent } from './test/date-picker/date-picker.component';
+import { MaterialDesignModule } from './material-design/material-design.module';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from './modules/core/core.module';
 
 @NgModule({
-  declarations: [AppComponent, StepperComponent, HeaderComponent, DatePickerComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
-    AppRoutingModule, BrowserAnimationsModule, MaterialDesignModule, ReactiveFormsModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MaterialDesignModule,
+    ReactiveFormsModule,
     CoreModule
   ],
   providers: [],
