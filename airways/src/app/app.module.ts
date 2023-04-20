@@ -29,6 +29,16 @@ import { MaterialDesignModule } from './material-design/material-design.module';
     HttpClientModule,
     CoreModule,
     HomeModule,
+import { HeaderComponent } from './test/header/header.component';
+import { DatePickerComponent } from './test/date-picker/date-picker.component';
+import { CoreModule } from './modules/core/core.module';
+
+@NgModule({
+  declarations: [AppComponent, StepperComponent, HeaderComponent, DatePickerComponent],
+  imports: [
+    BrowserModule,
+    AppRoutingModule, BrowserAnimationsModule, MaterialDesignModule, ReactiveFormsModule,
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent],

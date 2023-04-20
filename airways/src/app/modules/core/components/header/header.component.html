@@ -1,0 +1,44 @@
+<ng-container class="header">
+  <a class="header__logo" routerLink="/"></a>
+  <!-- добавить ngIf для роута -->
+  <div class="header__nav">
+    <div class="header__steps">
+      <span>Book flights</span>
+    </div>
+    <ng-template #steps>
+      <ul class="steps">
+        <li>
+          <div class="steps__icon">1</div>
+          <span>Flights</span>
+        </li>
+        <li class="steps__line"></li>
+        <li>
+          <div class="steps__icon">2</div>
+          <span>Passengers</span>
+        </li>
+        <li class="steps__line"></li>
+        <li>
+          <div class="steps__icon">3</div>
+          <span>Review & Payment</span>
+        </li>
+      </ul>
+    </ng-template>
+    <select name="date" id="date" class="header__date">
+      <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+      <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+      <option value="YYYY/DD/MM">YYYY/DD/MM</option>
+      <option value="YYYY/MM/DD">YYYY/MM/DD</option>
+    </select>
+    <select name="currency" id="currency" class="header__currency">
+      <option value="EUR">EUR</option>
+      <option value="USD">USD</option>
+      <option value="RUB">RUB</option>
+      <option value="PLN">PLN</option>
+    </select>
+    <button class="header__sign-in">
+      <div class="icon">Ic</div>
+      Sign in
+    </button>
+    <button class="header__cart"></button>
+  </div>
+</ng-container>
