@@ -4,9 +4,9 @@
 
 @include mat.core();
 
-$airways-primary: mat.define-palette(palette.$airways-palette);
-$airways-accent: mat.define-palette(mat.$pink-palette);
-$airways-warn: mat.define-palette(mat.$red-palette);
+$airways-primary: mat.define-palette(palette.$airwaysPrimary-palette);
+$airways-accent: mat.define-palette(palette.$airwaysAccent-palette);
+$airways-warn: mat.define-palette(palette.$airwaysWarn-palette);
 
 $airways-theme: mat.define-light-theme((
   color: (
