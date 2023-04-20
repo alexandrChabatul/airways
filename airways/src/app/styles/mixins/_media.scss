@@ -1,4 +1,4 @@
-@import '../constants/module.scss';
+@import '../constants';
 
 @mixin large {
   @media (min-width: $bp-l) {
