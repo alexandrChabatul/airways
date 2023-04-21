@@ -6,6 +6,7 @@ import { catchError, map, of, switchMap, tap } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { loginAction, loginFailureAction, loginSuccessAction } from '../actions/auth.actions';
 
+// TODO - Refactor to Auth module
 @Injectable()
 export class LoginEffect {
   login$ = createEffect(() => {
