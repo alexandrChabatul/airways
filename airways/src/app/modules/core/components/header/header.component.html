@@ -1,9 +1,10 @@
-<ng-container class="header">
-  <a class="header__logo" routerLink="/"></a>
+<header class="header">
+  <!-- <a class="header__logo" routerLink="/"></a> -->
+  <img src="../../../../../assets/images/logo.png" alt="Logo" class="header__logo" routerLink="/">
   <!-- добавить ngIf для роута -->
   <div class="header__nav">
     <div class="header__steps">
-      <span>Book flights</span>
+      <span class="header__book-flights">Book flights</span>
     </div>
     <ng-template #steps>
       <ul class="steps">
@@ -23,22 +24,24 @@
         </li>
       </ul>
     </ng-template>
-    <select name="date" id="date" class="header__date">
-      <option value="MM/DD/YYYY">MM/DD/YYYY</option>
-      <option value="DD/MM/YYYY">DD/MM/YYYY</option>
-      <option value="YYYY/DD/MM">YYYY/DD/MM</option>
-      <option value="YYYY/MM/DD">YYYY/MM/DD</option>
-    </select>
-    <select name="currency" id="currency" class="header__currency">
-      <option value="EUR">EUR</option>
-      <option value="USD">USD</option>
-      <option value="RUB">RUB</option>
-      <option value="PLN">PLN</option>
-    </select>
-    <button class="header__sign-in">
-      <div class="icon">Ic</div>
-      Sign in
-    </button>
-    <button class="header__cart"></button>
+    <div class="header__forms">
+      <mat-form-field appearance="fill" class="header__date">
+        <mat-select [(value)]="selectedDateFormat">
+          <mat-option [value]="option.value" *ngFor="let option of dateFormats">{{ option.viewValue }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="header__currency">
+        <mat-select [(value)]="selectedCurrencyFormat">
+          <mat-option [value]="option.value" *ngFor="let option of currencyFormats">{{ option.viewValue }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-button class="header__sign-in">
+        <img src="../../../../../assets/icons/sign-in.svg" alt="icon">
+        Sign in
+      </button>
+      <button mat-icon-button aria-label="Icon button with a basket icon" class="header__basket">
+        <mat-icon svgIcon="basket" aria-hidden="false" aria-label="Basket SVG icon"></mat-icon>
+      </button>
+    </div>
   </div>
-</ng-container>
+</header>
