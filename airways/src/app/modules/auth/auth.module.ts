@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginPageComponent } from './pages/login-page/login-page.component';
-import { SignupPageComponent } from './pages/signup-page/signup-page.component';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { AuthPageComponent } from './pages/auth-page/auth-page.component';
 
 @NgModule({
-  declarations: [SignupPageComponent, LoginPageComponent],
+  declarations: [SignupComponent, LoginComponent, AuthPageComponent],
   imports: [CommonModule],
 })
 export class AuthModule {}
