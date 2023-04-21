@@ -26,6 +26,6 @@ export class HeaderComponent {
   public selectedCurrencyFormat = this.currencyFormats[0].value;
 
   constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
-    iconRegistry.addSvgIcon('basket', sanitizer.bypassSecurityTrustResourceUrl('../../../../../assets/icons/basket.svg'));
+    iconRegistry.addSvgIcon('basket', sanitizer.bypassSecurityTrustResourceUrl('../../../../assets/icons/basket.svg'));
   }
 }
