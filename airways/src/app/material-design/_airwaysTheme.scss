@@ -1,0 +1,19 @@
+@use '_airwaysPallette.scss' as palette;
+
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$airways-primary: mat.define-palette(palette.$airwaysPrimary-palette);
+$airways-accent: mat.define-palette(palette.$airwaysAccent-palette);
+$airways-warn: mat.define-palette(palette.$airwaysWarn-palette);
+
+$airways-theme: mat.define-light-theme((
+  color: (
+    primary: $airways-primary,
+    accent: $airways-accent,
+    warn: $airways-warn,
+  )
+));
+
+@include mat.all-component-themes($airways-theme);
