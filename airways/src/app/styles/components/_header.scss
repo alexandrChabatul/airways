@@ -1,0 +1,64 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  padding: 25px 155px;
+  justify-content: space-between;
+  background-color: $neutral-70;
+
+  &__logo {
+    object-fit: contain;
+  }
+
+  &__nav {
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  &__steps {
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+  }
+
+  &__book-flights {
+    margin-right: 30px;
+    @include body-l;
+    color: $neutral-100;
+  }
+
+  &__forms {
+    display: flex;
+    align-items: center;
+    width: 60%;
+    gap: 2%;
+    padding: 0 20px;
+  }
+
+  &__currency {
+    .mat-mdc-select-arrow-wrapper {
+      display: none;
+    }
+
+    .mat-mdc-form-field-infix {
+      width: fit-content;
+    }
+  }
+
+  &__sign-in {
+    .mdc-button__label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+  display: none;
+}
+

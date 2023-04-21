@@ -21,6 +21,16 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+airways-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex-grow: 1;
+}
+
 p {
   margin: 0;
 }
@@ -28,3 +38,4 @@ p {
 a {
   text-decoration: none;
 }
+
