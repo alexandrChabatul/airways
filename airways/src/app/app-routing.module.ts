@@ -1,7 +1,30 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HomePageComponent } from './modules/home/pages/home-page/home-page.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: '',
+    component: HomePageComponent,
+  },
+  {
+    path: 'cart',
+    loadChildren: () =>
+      import('./lazy-loaded-modules/shopping-cart/shopping-cart.module').then(
+        (m) => m.ShoppingCartModule,
+      ),
+  },
+  {
+    path: 'booking',
+    loadChildren: () =>
+      import('./lazy-loaded-modules/booking/booking.module').then((m) => m.BookingModule),
+  },
+  {
+    path: 'account',
+    loadChildren: () =>
+      import('./lazy-loaded-modules/account/account.module').then((m) => m.AccountModule),
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
