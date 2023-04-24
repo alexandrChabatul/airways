@@ -137,9 +137,52 @@
   &__forms {
     display: flex;
     align-items: center;
-    width: 60%;
-    gap: 2%;
-    padding: 0 20px;
+    width: 50%;
+    justify-content: space-around;
+  }
+
+  &__date,
+  &__currency {
+    .mdc-text-field--filled {
+      background-color: $neutral-90;
+      border: 0.5px solid $neutral-60;
+      border-radius: 4px;
+    }
+
+    .mdc-text-field {
+      @include large {
+        padding: 0 10px;
+      }
+    }
+
+    .mat-mdc-select-value-text,
+    .mat-mdc-select-arrow {
+      @include label-l;
+      color: $neutral-100;
+
+      @include large {
+        @include label-m;
+      }
+    }
+
+    .mat-mdc-form-field-infix {
+      width: fit-content;
+      padding-top: 10px !important;
+      padding-bottom: 10px !important;
+      min-height: auto;
+    }
+
+    .mat-mdc-select-arrow-wrapper {
+      margin-left: 10px;
+    }
+
+    .mdc-line-ripple::before {
+      border: none;
+    }
+
+    .mat-mdc-select-arrow-wrapper {
+      height: auto;
+    }
   }
 
   &__currency {
