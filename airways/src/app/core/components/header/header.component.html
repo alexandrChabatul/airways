@@ -1,0 +1,51 @@
+<header class="header">
+  <img src="../../../../assets/images/logo.png" alt="Logo" class="header__logo" routerLink="/">
+  <div class="header__nav">
+    <div class="header__steps" *ngIf="isMainPage; else steps">
+      <span class="header__book-flights">Book flights</span>
+    </div>
+    <ng-template #steps>
+      <ul class="steps" *ngIf="isBookingPage">
+        <li class="steps__item">
+          <div class="steps__icon" [class.steps__icon_active] = "stepNumber === 1" [class.steps__icon_done] = "stepNumber > 1">
+            <p>1</p>
+          </div>
+          <span>Flights</span>
+        </li>
+        <li class="steps__divider"></li>
+        <li class="steps__item">
+          <div class="steps__icon" [class.steps__icon_active] = "stepNumber === 2" [class.steps__icon_done] = "stepNumber > 2">
+            <p>2</p>
+          </div>
+          <span>Passengers</span>
+        </li>
+        <li class="steps__divider"></li>
+        <li class="steps__item">
+          <div class="steps__icon" [class.steps__icon_active] = "stepNumber === 3">
+            <p>3</p>
+          </div>
+          <span>Review & Payment</span>
+        </li>
+      </ul>
+    </ng-template>
+    <div class="header__forms">
+      <mat-form-field appearance="fill" class="header__date">
+        <mat-select [value]="selectedDateFormat$ | async" (selectionChange)="changeDateFormat($event)">
+          <mat-option [value]="option.value" *ngFor="let option of dateFormats">{{ option.viewValue }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="header__currency">
+        <mat-select [value]="selectedCurrencyFormat$ | async" (selectionChange)="changeCurrencyFormat($event)">
+          <mat-option [value]="option.value" *ngFor="let option of currencyFormats">{{ option.viewValue }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-button class="header__sign-in">
+        <img src="../../../../assets/icons/sign-in.svg" alt="icon">
+        Sign in
+      </button>
+      <button mat-icon-button aria-label="Icon button with a basket icon" class="header__basket" routerLink="/cart">
+        <mat-icon svgIcon="basket" aria-hidden="false" aria-label="Basket SVG icon"></mat-icon>
+      </button>
+    </div>
+  </div>
+</header>

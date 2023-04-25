@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MaterialDesignModule } from './material-design/material-design.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { HomeModule } from './modules/home/home.module';
+import { formatsReducer } from './core/store/reducers/formats.reducers';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,7 +24,7 @@ import { HomeModule } from './modules/home/home.module';
     BrowserAnimationsModule,
     MaterialDesignModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot({ formats: formatsReducer }, {}),
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot(),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
