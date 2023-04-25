@@ -1,0 +1,90 @@
+@mixin title-l{
+  font-size: $fs-xl;
+  line-height: 117%;
+}
+
+@mixin title-m{
+  font-size: $fs-l;
+  line-height: 120%;
+  letter-spacing: 0.5px;
+}
+
+@mixin title-s{
+  font-size: $fs-m;
+  line-height: 150%;
+  letter-spacing: 0.5px;
+}
+
+@mixin title-xs{
+  font-size: $fs-m;
+  line-height: 150%;
+  letter-spacing: 0.15px;
+}
+
+@mixin subtitle-l{
+  font-size: $fs-xxl;
+  line-height: 120%;
+}
+
+@mixin subtitle-m{
+  font-size: $fs-l;
+  line-height: 100%;
+}
+
+@mixin subtitle-s{
+  font-size: $fs-xs;
+  line-height: 133%;
+}
+
+@mixin label-l{
+  font-size: $fs-m;
+  line-height: 100%;
+  letter-spacing: 0.5px;
+}
+
+@mixin label-m{
+  font-size: $fs-s;
+  line-height: 143%;
+  letter-spacing: 0.1px;
+}
+
+@mixin label-s{
+  font-size: $fs-xs;
+  line-height: 133%;
+  letter-spacing: 0.4px;
+}
+
+@mixin body-xl{
+  font-size: $fs-l;
+  line-height: 160%;
+  letter-spacing: 0.5px;
+}
+
+@mixin body-l{
+  font-size: $fs-m;
+  line-height: 150%;
+  letter-spacing: 0.5px;
+}
+
+@mixin body-m{
+  font-size: $fs-s;
+  line-height: 143%;
+  letter-spacing: 0.25px;
+}
+
+@mixin body-s{
+  font-size: $fs-xs;
+  line-height: 133%;
+  letter-spacing: 0.4px;
+}
+
+@mixin body-xs{
+  font-size: $fs-xxs;
+  line-height: 250%;
+}
+
+@mixin font-btn {
+  font-size: $fs-m;
+  line-height: 125%;
+  letter-spacing: 0.1px;
+}
