@@ -13,11 +13,17 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSelectModule } from '@angular/material/select';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [],
   imports: [CommonModule],
   exports: [
+    MatExpansionModule,
+    MatSelectModule,
+    MatAutocompleteModule,
     MatButtonModule,
     MatToolbarModule,
     MatStepperModule,
