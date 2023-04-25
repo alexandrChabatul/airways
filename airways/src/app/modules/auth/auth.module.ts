@@ -8,6 +8,6 @@ import { MaterialDesignModule } from 'src/app/material-design/material-design.mo
 @NgModule({
   declarations: [SignupComponent, LoginComponent, AuthPageComponent],
   imports: [CommonModule, MaterialDesignModule],
-  exports: [SignupComponent, LoginComponent, AuthPageComponent]
+  exports: [SignupComponent, LoginComponent, AuthPageComponent],
 })
 export class AuthModule {}
