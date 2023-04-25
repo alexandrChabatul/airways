@@ -8,6 +8,7 @@ import { changeDateFormat } from '../../store/actions/formats.actions';
 import { changeCurrencyFormat } from '../../store/actions/formats.actions';
 import { MatSelectChange } from '@angular/material/select';
 import { Observable } from 'rxjs';
+import { CURRENCY_FORMATS, DATE_FORMATS } from '../../constants/formats.constants';
 
 @Component({
   selector: 'airways-header',
@@ -15,19 +16,9 @@ import { Observable } from 'rxjs';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  public dateFormats = [
-    { value: 'MM/dd/yyyy', viewValue: 'MM/DD/YYYY' },
-    { value: 'dd/MM/yyyy', viewValue: 'DD/MM/YYYY' },
-    { value: 'yyyy/dd/MM', viewValue: 'YYYY/DD/MM' },
-    { value: 'yyyy/MM/dd', viewValue: 'YYYY/MM/DD' },
-  ];
+  public dateFormats = DATE_FORMATS;
 
-  public currencyFormats = [
-    { value: 'EUR', viewValue: 'EUR' },
-    { value: 'USD', viewValue: 'USD' },
-    { value: 'RUB', viewValue: 'RUB' },
-    { value: 'PLN', viewValue: 'PLN' },
-  ];
+  public currencyFormats = CURRENCY_FORMATS;
 
   public selectedDateFormat$!: Observable<string>;
 
@@ -53,7 +44,7 @@ export class HeaderComponent implements OnInit {
 
   public ngOnInit(): void {
     this.location.onUrlChange((path) => {
-      this.switchPage(path);
+      this.changeStepper(path);
     });
 
     this.selectedDateFormat$ = this.store.select(selectDateFormat);
@@ -61,7 +52,7 @@ export class HeaderComponent implements OnInit {
     this.selectedCurrencyFormat$ = this.store.select(selectCurrencyFormat);
   }
 
-  private switchPage(newPath: string): void {
+  private changeStepper(newPath: string): void {
     const pathArray = newPath.split('/');
     const mainPath = pathArray[1];
 

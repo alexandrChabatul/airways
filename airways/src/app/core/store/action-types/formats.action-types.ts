@@ -1,4 +1,4 @@
 export enum FormatsActionTypes {
-  CHANGE_CURRENCY_FORMAT = '[Core] Change currency format',
-  CHANGE_DATE_FORMAT = '[Core] Change date format',
+  CHANGE_CURRENCY_FORMAT = '[Formats] Change currency format',
+  CHANGE_DATE_FORMAT = '[Formats] Change date format',
 }

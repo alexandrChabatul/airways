@@ -1,5 +1,8 @@
+import { CurrencyFormatType, DateFormatType } from '../models/formats.models';
+
 export interface AppStateInterface {
   auth: AuthStateInterface;
+  formats: FormatsStateInterface;
 }
 
 export interface AuthStateInterface {
@@ -8,6 +11,6 @@ export interface AuthStateInterface {
 }
 
 export interface FormatsStateInterface {
-  dateFormat: string;
-  currencyFormat: string;
+  dateFormat: DateFormatType;
+  currencyFormat: CurrencyFormatType;
 }
