@@ -10,9 +10,7 @@
 - Install dependencies: `$ npm install`.
 - Start server: `$ npm run start-server`.
 
-### Server will work on port 3000
-
-`http://localhost:3000/`
+#### Url: http://localhost:3000/
 - 
 ##  Usage
 
@@ -183,6 +181,7 @@ None
 None
 
 </details>
+
 ----
 
 <a id="update"></a>**Update**
@@ -258,4 +257,5 @@ None
 None
 
 </details>
+
 ----

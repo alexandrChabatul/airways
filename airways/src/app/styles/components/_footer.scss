@@ -1,0 +1,86 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 35px 200px;
+
+  @include large {
+    padding: 35px 100px;
+  }
+
+  @include medium {
+    padding: 35px 50px;
+  }
+
+  @include small {
+    padding: 20px;
+  }
+
+  @include mobile {
+    padding: 10px;
+  }
+
+  &__info {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    @include body-m;
+    color: $primary;
+
+    @include small {
+      @include body-s;
+    }
+
+    @include mobile {
+      flex-direction: column;
+    }
+  }
+
+  .payment {
+    display: flex;
+    gap: 25px;
+    color: $neutral-black;
+
+    @include small {
+      gap: 10px;
+    }
+
+    &__container {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      align-items: center;
+
+      @include small {
+        gap: 5px;
+      }
+    }
+
+    &__icon {
+      @include mobile {
+        width: 15px;
+        height: auto;
+        object-fit: contain;
+      }
+    }
+  }
+
+  &__team {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    @include body-m;
+
+    @include small {
+      @include body-s;
+    }
+
+    @include mobile {
+      justify-content: flex-start;
+    }
+  }
+
+  &__link {
+    color: $neutral-30;
+  }
+}

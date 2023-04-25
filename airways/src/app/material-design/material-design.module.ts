@@ -37,6 +37,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatSlideToggleModule,
     MatIconModule,
     MatDividerModule,
+    MatSelectModule,
   ],
 })
 export class MaterialDesignModule {}
