@@ -13,6 +13,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
+import {MatTabsModule} from '@angular/material/tabs'; 
 
 @NgModule({
   declarations: [],
@@ -31,6 +32,7 @@ import { MatDividerModule } from '@angular/material/divider';
     MatSlideToggleModule,
     MatIconModule,
     MatDividerModule,
+    MatTabsModule,
   ],
 })
 export class MaterialDesignModule {}
