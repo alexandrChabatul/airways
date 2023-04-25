@@ -6,5 +6,5 @@
     "types": []
   },
   "files": ["src/main.ts"],
-  "include": ["src/**/*.d.ts", "src/**/*.model.ts", "src/environments/**/*.ts"]
+  "include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.model.ts", "src/environments/**/*.ts"]
 }
