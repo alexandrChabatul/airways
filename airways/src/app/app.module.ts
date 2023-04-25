@@ -23,7 +23,7 @@ import { formatsReducer } from './core/store/reducers/formats.reducers';
     BrowserAnimationsModule,
     MaterialDesignModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({formats: formatsReducer}, {}),
+    StoreModule.forRoot({ formats: formatsReducer }, {}),
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot(),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),

@@ -1,38 +1,42 @@
 import { Component, OnInit } from '@angular/core';
-import {DomSanitizer} from '@angular/platform-browser';
-import {MatIconRegistry} from '@angular/material/icon';
-import {Location} from '@angular/common';
+import { DomSanitizer } from '@angular/platform-browser';
+import { MatIconRegistry } from '@angular/material/icon';
+import { Location } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { selectCurrencyFormat, selectDateFormat } from '../../store/selectors/formats.selectors';
 import { changeDateFormat } from '../../store/actions/formats.actions';
 import { changeCurrencyFormat } from '../../store/actions/formats.actions';
 import { MatSelectChange } from '@angular/material/select';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'airways-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
   public dateFormats = [
-    {value: 'MM/dd/yyyy', viewValue: 'MM/DD/YYYY'},
-    {value: 'dd/MM/yyyy', viewValue: 'DD/MM/YYYY'},
-    {value: 'yyyy/dd/MM', viewValue: 'YYYY/DD/MM'},
-    {value: 'yyyy/MM/dd', viewValue: 'YYYY/MM/DD'},
+    { value: 'MM/dd/yyyy', viewValue: 'MM/DD/YYYY' },
+    { value: 'dd/MM/yyyy', viewValue: 'DD/MM/YYYY' },
+    { value: 'yyyy/dd/MM', viewValue: 'YYYY/DD/MM' },
+    { value: 'yyyy/MM/dd', viewValue: 'YYYY/MM/DD' },
   ];
 
   public currencyFormats = [
-    {value: 'EUR', viewValue: 'EUR'},
-    {value: 'USD', viewValue: 'USD'},
-    {value: 'RUB', viewValue: 'RUB'},
-    {value: 'PLN', viewValue: 'PLN'},
+    { value: 'EUR', viewValue: 'EUR' },
+    { value: 'USD', viewValue: 'USD' },
+    { value: 'RUB', viewValue: 'RUB' },
+    { value: 'PLN', viewValue: 'PLN' },
   ];
 
-  public selectedDateFormat = '';
-  public selectedCurrencyFormat = '';
+  public selectedDateFormat$!: Observable<string>;
+
+  public selectedCurrencyFormat$!: Observable<string>;
 
   public isMainPage = false;
+
   public isBookingPage = false;
+
   public stepNumber = 1;
 
   constructor(
@@ -40,8 +44,11 @@ export class HeaderComponent implements OnInit {
     sanitizer: DomSanitizer,
     private location: Location,
     private store: Store,
-    ) {
-    iconRegistry.addSvgIcon('basket', sanitizer.bypassSecurityTrustResourceUrl('../../../../assets/icons/basket.svg'));
+  ) {
+    iconRegistry.addSvgIcon(
+      'basket',
+      sanitizer.bypassSecurityTrustResourceUrl('../../../../assets/icons/basket.svg'),
+    );
   }
 
   public ngOnInit(): void {
@@ -49,27 +56,23 @@ export class HeaderComponent implements OnInit {
       this.switchPage(path);
     });
 
-    this.store.select(selectDateFormat).subscribe((val) => {
-      this.selectedDateFormat = val;
-    })
+    this.selectedDateFormat$ = this.store.select(selectDateFormat);
 
-    this.store.select(selectCurrencyFormat).subscribe((val) => {
-      this.selectedCurrencyFormat = val;
-    })
+    this.selectedCurrencyFormat$ = this.store.select(selectCurrencyFormat);
   }
 
   private switchPage(newPath: string): void {
     const pathArray = newPath.split('/');
     const mainPath = pathArray[1];
 
-    if (mainPath ===''){
+    if (mainPath === '') {
       this.isMainPage = true;
       this.isBookingPage = false;
     } else if (mainPath === 'booking') {
       this.isMainPage = false;
       this.isBookingPage = true;
 
-      if (pathArray.length > 2){
+      if (pathArray.length > 2) {
         const innerPath = pathArray[2];
 
         if (innerPath === 'passengers') {
@@ -88,11 +91,11 @@ export class HeaderComponent implements OnInit {
 
   public changeDateFormat(newValue: MatSelectChange): void {
     const dateFormat = newValue.value;
-    this.store.dispatch(changeDateFormat({dateFormat}));
+    this.store.dispatch(changeDateFormat({ dateFormat }));
   }
 
   public changeCurrencyFormat(newValue: MatSelectChange): void {
     const currencyFormat = newValue.value;
-    this.store.dispatch(changeCurrencyFormat({currencyFormat}));
+    this.store.dispatch(changeCurrencyFormat({ currencyFormat }));
   }
 }

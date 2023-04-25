@@ -30,12 +30,12 @@
     </ng-template>
     <div class="header__forms">
       <mat-form-field appearance="fill" class="header__date">
-        <mat-select [value]="selectedDateFormat" (selectionChange)="changeDateFormat($event)">
+        <mat-select [value]="selectedDateFormat$ | async" (selectionChange)="changeDateFormat($event)">
           <mat-option [value]="option.value" *ngFor="let option of dateFormats">{{ option.viewValue }}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="fill" class="header__currency">
-        <mat-select [value]="selectedCurrencyFormat" (selectionChange)="changeCurrencyFormat($event)">
+        <mat-select [value]="selectedCurrencyFormat$ | async" (selectionChange)="changeCurrencyFormat($event)">
           <mat-option [value]="option.value" *ngFor="let option of currencyFormats">{{ option.viewValue }}</mat-option>
         </mat-select>
       </mat-form-field>

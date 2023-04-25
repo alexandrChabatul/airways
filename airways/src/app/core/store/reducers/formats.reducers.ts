@@ -9,14 +9,18 @@ const initialState: FormatsStateInterface = {
 
 export const formatsReducer = createReducer(
   initialState,
-  on(changeDateFormat,
+  on(
+    changeDateFormat,
     (state, action): FormatsStateInterface => ({
-    ...state,
-    dateFormat: action.dateFormat,
-    })),
-  on(changeCurrencyFormat,
+      ...state,
+      dateFormat: action.dateFormat,
+    }),
+  ),
+  on(
+    changeCurrencyFormat,
     (state, action): FormatsStateInterface => ({
       ...state,
       currencyFormat: action.currencyFormat,
-    }))
+    }),
+  ),
 );
