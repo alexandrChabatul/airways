@@ -9,16 +9,34 @@
   background-color: $neutral-70;
 
   @include large {
-    padding: 25px 80px;
+    padding: 25px 55px;
   }
 
   @include medium {
-    padding: 25px 30px;
+    padding: 10px 30px;
+  }
+
+  @include small {
+    padding: 10px;
   }
 
   &__logo {
     object-fit: contain;
     cursor: pointer;
+
+    @include medium {
+      position: absolute;
+      align-self: baseline;
+    }
+
+    @include small {
+      height: 30px;
+      width: auto;
+    }
+
+    @include mobile {
+      height: 25px;
+    }
   }
 
   &__nav {
@@ -26,18 +44,36 @@
     flex-grow: 1;
     justify-content: flex-end;
     align-items: center;
+
+    @include medium {
+      flex-direction: column-reverse;
+      align-items: flex-end;
+    }
   }
 
   &__steps {
     display: flex;
     flex-grow: 1;
     justify-content: flex-end;
+
+    @include medium {
+      width: 100%;
+      justify-content: center;
+    }
   }
 
   &__book-flights {
     margin-right: 30px;
     @include body-l;
     color: $neutral-100;
+
+    @include small {
+      @include body-m;
+    }
+
+    @include mobile {
+      @include body-s;
+    }
   }
 
   .steps {
@@ -45,6 +81,11 @@
     flex-grow: 1;
     justify-content: space-between;
     align-items: center;
+    min-width: 400px;
+
+    @include mobile {
+      min-width: auto;
+    }
 
     &__item {
       display: flex;
@@ -52,6 +93,16 @@
       color: $neutral-30;
       padding: 10px 15px;
       gap: 8px;
+
+      @include small {
+        padding: 5px 10px;
+        @include label-s;
+      }
+
+      @include mobile {
+        padding: 5px;
+        font-size: 10px;
+      }
     }
 
     &__icon {
@@ -66,6 +117,13 @@
       font-weight: 600;
       background-color: $neutral-30;
       border-radius: 100%;
+
+      @include small {
+        width: 13px;
+        height: 13px;
+        font-size: 10px;
+        font-weight: 400;
+      }
 
       &_active {
         color: transparent;
@@ -90,87 +148,204 @@
     align-items: center;
     width: 50%;
     justify-content: space-around;
-  }
+    min-width: 415px;
 
-  &__date,
-  &__currency {
-    .mdc-text-field--filled {
-      background-color: $neutral-90;
-      border: 0.5px solid $neutral-60;
-      border-radius: 4px;
+    @include medium {
+      width: 60%;
+      gap: 5px;
+      justify-content: flex-end;
     }
 
-    .mdc-text-field {
-      @include large {
-        padding: 0 10px;
-      }
+    @include mobile {
+      width: 100%;
+      min-width: auto;
+      gap: 2px;
+      flex-direction: column-reverse;
+      align-items: flex-end;
     }
 
-    .mat-mdc-select-value-text,
-    .mat-mdc-select-arrow {
-      @include label-l;
-      color: $neutral-100;
-
-      @include large {
-        @include label-m;
-      }
-    }
-
-    .mat-mdc-form-field-infix {
-      width: fit-content;
-      padding-top: 10px !important;
-      padding-bottom: 10px !important;
-      min-height: auto;
-    }
-
-    .mat-mdc-select-arrow-wrapper {
-      margin-left: 10px;
-    }
-
-    .mdc-line-ripple::before {
-      border: none;
-    }
-
-    .mat-mdc-select-arrow-wrapper {
-      height: auto;
-    }
-  }
-
-  &__currency {
-    .mat-mdc-select-arrow-wrapper {
-      display: none;
-    }
-  }
-
-  &__sign-in,
-  &__user {
-    &.mdc-button {
-      height: 40px;
-      padding: 10px 15px;
-      background-color: $neutral-90;
-      border: 0.5px solid $neutral-60;
-      border-radius: 4px;
-    }
-
-    .mdc-button__label {
+    .formats {
       display: flex;
+      justify-content: space-around;
       align-items: center;
-      gap: 8px;
-      @include font-btn;
-      color: $neutral-100;
+      flex-grow: 1;
+
+      @include mobile {
+        width: 100%;
+        display: none;
+
+        &.visible {
+          display: flex;
+        }
+      }
+
+      &__date,
+      &__currency {
+        .mdc-text-field--filled {
+          background-color: $neutral-90;
+          border: 0.5px solid $neutral-60;
+          border-radius: 4px;
+        }
+
+        .mdc-text-field {
+          @include large {
+            padding: 0 10px;
+          }
+
+          @include mobile {
+            padding: 0 5px;
+          }
+        }
+
+        .mat-mdc-select-value-text,
+        .mat-mdc-select-arrow {
+          @include label-l;
+          color: $neutral-100;
+
+          @include large {
+            @include label-m;
+          }
+
+          @include small {
+            @include label-s;
+          }
+        }
+
+        .mat-mdc-form-field-infix {
+          width: fit-content;
+          padding-top: 10px !important;
+          padding-bottom: 10px !important;
+          min-height: auto;
+
+          @include small {
+            padding-top: 5px !important;
+            padding-bottom: 5px !important;
+          }
+
+          @include mobile {
+            padding-top: 2px !important;
+            padding-bottom: 2px !important;
+          }
+        }
+
+        .mat-mdc-select-arrow-wrapper {
+          margin-left: 10px;
+        }
+
+        .mdc-line-ripple::before {
+          border: none;
+        }
+
+        .mat-mdc-select-arrow-wrapper {
+          height: auto;
+        }
+      }
+
+      &__currency {
+        .mat-mdc-select-arrow-wrapper {
+          display: none;
+        }
+      }
+    }
+
+    .user {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-grow: 1;
+
+      &__sign-in,
+      &__info {
+        &.mdc-button {
+          height: 40px;
+          padding: 10px 15px;
+          background-color: $neutral-90;
+          border: 0.5px solid $neutral-60;
+          border-radius: 4px;
+
+          @include small {
+            height: 32px;
+            padding: 5px 10px;
+          }
+
+          @include mobile {
+            padding: 5px;
+          }
+        }
+
+        .mdc-button__label {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          @include font-btn;
+          color: $neutral-100;
+
+          @include small {
+            font-size: 12px;
+            gap: 4px;
+          }
+        }
+      }
+
+      &__icon {
+        @include small {
+          width: 10px;
+          height: 12px;
+        }
+      }
+
+      &__info {
+        &.mdc-button {
+          background-color: transparent;
+          border: none;
+        }
+
+        .mdc-button__label {
+          color: $primary;
+        }
+      }
+
+      &__basket,
+      &__settings {
+        &.mat-mdc-icon-button.mat-mdc-button-base {
+          @include small {
+            width: 30px;
+            height: 30px;
+            padding: 0;
+          }
+        }
+      }
+
+      &__basket {
+        .basket__icon {
+          @include small {
+            width: 16px;
+            height: 16px;
+          }
+        }
+      }
+
+      &__settings {
+        display: none;
+
+        .settings__icon {
+          &.mat-icon {
+            width: auto;
+            height: auto;
+          }
+
+          &.material-icons {
+            font-size: 16px;
+          }
+        }
+
+        @include mobile {
+          display: block;
+        }
+      }
     }
   }
 
-  &__user {
-    &.mdc-button {
-      background-color: transparent;
-      border: none;
-    }
-
-    .mdc-button__label {
-      color: $primary;
-    }
-  }
 
   .mat-mdc-form-field-subscript-wrapper {
     display: none;
@@ -180,12 +355,28 @@
     @include label-s;
     line-height: 140%;
     color : $neutral-100;
+
+    @include small {
+      font-size: 10px;
+    }
   }
 
   .mat-badge-small.mat-badge-overlap.mat-badge-after .mat-badge-content {
     right: 5px;
     top: 5px;
+
+    @include small {
+      right: 0;
+      top: 0;
+      width: 12px;
+      height: 12px;
+    }
   }
 }
 
 
+.mat-mdc-option .mdc-list-item__primary-text {
+  @include small {
+    @include label-s;
+  }
+}

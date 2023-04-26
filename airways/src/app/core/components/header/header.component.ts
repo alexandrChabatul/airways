@@ -105,4 +105,9 @@ export class HeaderComponent implements OnInit {
   public navigateToUserPage(): void {
     // this.router.navigateByUrl('/user'); //TODO: change urls
   }
+
+  public toggleFormats(): void {
+    const elem = document.querySelector('#header-formats') as HTMLElement;
+    elem.classList.toggle('visible');
+  }
 }
