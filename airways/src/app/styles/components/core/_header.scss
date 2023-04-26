@@ -372,11 +372,10 @@
       height: 12px;
     }
   }
-}
 
-
-.mat-mdc-option .mdc-list-item__primary-text {
-  @include small {
-    @include label-s;
+  .mat-mdc-option .mdc-list-item__primary-text {
+    @include small {
+      @include label-s;
+    }
   }
 }
