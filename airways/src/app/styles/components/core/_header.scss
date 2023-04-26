@@ -127,12 +127,12 @@
 
       &_active {
         color: transparent;
-        background: $secondary-0 url('../../../assets/icons/active.svg') 3px/60% no-repeat;
+        background: $secondary-0 url('../../../../assets/icons/active.svg') 3px/60% no-repeat;
       }
 
       &_done {
         color: transparent;
-        background: $secondary-0 url('../../../assets/icons/done.svg') center/60% no-repeat;
+        background: $secondary-0 url('../../../../assets/icons/done.svg') center/60% no-repeat;
       }
     }
 
@@ -164,106 +164,7 @@
       align-items: flex-end;
     }
 
-    .mat-mdc-select-value-text,
-    .mat-mdc-select-arrow {
-      @include label-l;
-      color: $neutral-100;
-
-      @include large {
-        @include label-m;
-      }
-    }
-
-    .mat-mdc-form-field-infix {
-      width: fit-content;
-      padding-top: 10px !important;
-      padding-bottom: 10px !important;
-      min-height: auto;
-    }
-
-    .mat-mdc-select-arrow-wrapper {
-      margin-left: 10px;
-    }
-
-    .mdc-line-ripple::before {
-      border: none;
-    }
-
-    .mat-mdc-select-arrow-wrapper {
-      height: auto;
-    }
-  &__forms {
-    display: flex;
-    align-items: center;
-    width: 50%;
-    justify-content: space-around;
-  }
-
-  &__date,
-  &__currency {
-    .mdc-text-field--filled {
-      background-color: $neutral-90;
-      border: 0.5px solid $neutral-60;
-      border-radius: 4px;
-    }
-
-    .mdc-text-field {
-      @include large {
-        padding: 0 10px;
-      }
-    }
-
-    .mat-mdc-select-value-text,
-    .mat-mdc-select-arrow {
-      @include label-l;
-      color: $neutral-100;
-
-      @include large {
-        @include label-m;
-      }
-    }
-
-    .mat-mdc-form-field-infix {
-      width: fit-content;
-      padding-top: 10px !important;
-      padding-bottom: 10px !important;
-      min-height: auto;
-    }
-
-    .mat-mdc-select-arrow-wrapper {
-      margin-left: 10px;
-    }
-
-    .mdc-line-ripple::before {
-      border: none;
-    }
-
-    .mat-mdc-select-arrow-wrapper {
-      height: auto;
-    }
-  }
-
-  &__currency {
-    .mat-mdc-select-arrow-wrapper {
-      display: none;
-    }
-  }
-
-  &__sign-in,
-  &__user {
-    &.mdc-button {
-      height: 40px;
-      padding: 10px 15px;
-      background-color: $neutral-90;
-      border: 0.5px solid $neutral-60;
-      border-radius: 4px;
-    }
-
-
-    .mat-mdc-form-field-infix {
-      width: fit-content;
-    }
-    .mdc-button__label {
+    .formats {
       display: flex;
       justify-content: space-around;
       align-items: center;
@@ -470,5 +371,12 @@
       width: 12px;
       height: 12px;
     }
+  }
+}
+
+
+.mat-mdc-option .mdc-list-item__primary-text {
+  @include small {
+    @include label-s;
   }
 }
