@@ -1,12 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomePageComponent } from './modules/home/pages/home-page/home-page.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: HomePageComponent,
-  },
   {
     path: 'cart',
     loadChildren: () =>
@@ -23,6 +18,10 @@ const routes: Routes = [
     path: 'account',
     loadChildren: () =>
       import('./lazy-loaded-modules/account/account.module').then((m) => m.AccountModule),
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./lazy-loaded-modules/auth/auth.module').then((m) => m.AuthModule),
   },
 ];
 
