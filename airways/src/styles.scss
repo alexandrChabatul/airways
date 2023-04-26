@@ -55,3 +55,38 @@ li {
   list-style: none;
 }
 
+
+// MEDIA FOR MAT-SELECT
+
+.cdk-overlay-container {
+  @include large {
+    @include label-m;
+
+    .mat-mdc-option {
+      padding-left: 8px !important;
+      padding-right: 8px !important;
+    }
+
+    .mat-mdc-option .mat-pseudo-checkbox-minimal {
+      margin-left: 8px !important;
+    }
+
+    .mat-pseudo-checkbox {
+      width: 9px !important;
+      height: 9px !important;
+    }
+
+    .mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after {
+      width: 9px;
+      height: 4px;
+    }
+  }
+
+  @include small {
+    @include label-s;
+
+    .mat-mdc-option {
+      min-height: 24px !important;
+    }
+  }
+}
