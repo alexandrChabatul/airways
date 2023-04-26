@@ -142,7 +142,8 @@
     }
   }
 
-  &__sign-in {
+  &__sign-in,
+  &__user {
     &.mdc-button {
       height: 40px;
       padding: 10px 15px;
@@ -160,8 +161,30 @@
     }
   }
 
+  &__user {
+    &.mdc-button {
+      background-color: transparent;
+      border: none;
+    }
+
+    .mdc-button__label {
+      color: $primary;
+    }
+  }
+
   .mat-mdc-form-field-subscript-wrapper {
     display: none;
+  }
+
+  .mat-badge-content{
+    @include label-s;
+    line-height: 140%;
+    color : $neutral-100;
+  }
+
+  .mat-badge-small.mat-badge-overlap.mat-badge-after .mat-badge-content {
+    right: 5px;
+    top: 5px;
   }
 }
 

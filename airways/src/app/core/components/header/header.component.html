@@ -39,12 +39,30 @@
           <mat-option [value]="option.value" *ngFor="let option of currencyFormats">{{ option.viewValue }}</mat-option>
         </mat-select>
       </mat-form-field>
-      <button mat-button class="header__sign-in">
+      <button mat-button class="header__sign-in" *ngIf="!isUserLoggedIn; else userPage" (click)="navigateToLogin()">
         <img src="../../../../assets/icons/sign-in.svg" alt="icon">
         Sign in
       </button>
-      <button mat-icon-button aria-label="Icon button with a basket icon" class="header__basket" routerLink="/cart">
-        <mat-icon svgIcon="basket" aria-hidden="false" aria-label="Basket SVG icon"></mat-icon>
+      <ng-template #userPage>
+        <button mat-button class="header__user" (click)="navigateToUserPage()">
+          <img src="../../../../assets/icons/user.svg" alt="icon">
+          {{userName}}
+        </button>
+      </ng-template>
+      <button
+      mat-icon-button
+      aria-label="Icon button with a basket icon"
+      class="header__basket"
+      routerLink="/cart"
+      [matBadge]="orderCount"
+      [matBadgeHidden]="orderCount < 1"
+      matBadgeSize="small"
+      matBadgeColor="warn"
+      >
+      <img src="../../../../assets/icons/basket.svg" alt="cart not loginned" *ngIf="!isUserLoggedIn; else cartBlue">
+      <ng-template #cartBlue>
+        <img src="../../../../assets/icons/basket-blue.svg" alt="cart loginned">
+      </ng-template>
       </button>
     </div>
   </div>

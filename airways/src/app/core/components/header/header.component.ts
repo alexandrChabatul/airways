@@ -9,6 +9,7 @@ import { changeCurrencyFormat } from '../../store/actions/formats.actions';
 import { MatSelectChange } from '@angular/material/select';
 import { Observable } from 'rxjs';
 import { CURRENCY_FORMATS, DATE_FORMATS } from '../../constants/formats.constants';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'airways-header',
@@ -30,11 +31,18 @@ export class HeaderComponent implements OnInit {
 
   public stepNumber = 1;
 
+  public isUserLoggedIn = true; //TODO: get value from store
+
+  public userName = 'Harry Potter'; //TODO: get value from store
+
+  public orderCount = 1; //TODO: get value from store
+
   constructor(
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
     private location: Location,
     private store: Store,
+    private router: Router,
   ) {
     iconRegistry.addSvgIcon(
       'basket',
@@ -88,5 +96,13 @@ export class HeaderComponent implements OnInit {
   public changeCurrencyFormat(newValue: MatSelectChange): void {
     const currencyFormat = newValue.value;
     this.store.dispatch(changeCurrencyFormat({ currencyFormat }));
+  }
+
+  public navigateToLogin(): void {
+    // this.router.navigateByUrl('/login'); //TODO: change urls
+  }
+
+  public navigateToUserPage(): void {
+    // this.router.navigateByUrl('/user'); //TODO: change urls
   }
 }
