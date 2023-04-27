@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
   declarations: [],
@@ -35,6 +36,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatDividerModule,
     MatTabsModule,
     MatSelectModule,
+    MatBadgeModule,
   ],
 })
 export class MaterialDesignModule {}
