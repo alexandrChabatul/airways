@@ -3,6 +3,7 @@
   flex-direction: column;
   width: 100%;
   padding: 35px 200px;
+  border-top: 1px solid $secondary-40;
 
   @include large {
     padding: 35px 100px;

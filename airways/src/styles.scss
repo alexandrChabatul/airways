@@ -35,6 +35,19 @@ airways-root {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  padding-top: 98px;
+
+  @include medium {
+    padding-top: 108px;
+  }
+
+  @include small {
+    padding-top: 78px;
+  }
+
+  @include mobile {
+    padding-top: 104px;
+  }
 }
 
 main {

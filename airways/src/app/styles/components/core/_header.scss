@@ -8,6 +8,11 @@
   justify-content: space-between;
   background-color: $neutral-70;
 
+  &.solid {
+    background-color: $neutral-100;
+    color: $neutral-10;
+  }
+
   @include large {
     padding: 25px 55px;
   }
