@@ -5,7 +5,7 @@
 }
 
 @mixin secondary90BackgroundContainer() {
-    border: 1px solid $neutral-60 !important;
     background-color: $secondary-90 !important;
+    border: 1px solid $neutral-60 !important;
     border-radius: 4px !important;
 }
