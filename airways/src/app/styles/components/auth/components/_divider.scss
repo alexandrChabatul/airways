@@ -1,0 +1,17 @@
+.divider-container {
+  @include flexCenterContainer();
+  margin: 10px 0;
+}
+
+.divider-line {
+  display: inline-block;
+  flex-grow: 1;
+  height: 1px;
+  background-color: $secondary-50;
+  border: none;
+}
+
+.divider-text {
+  @include label-s();
+  margin: 0 10px;
+}

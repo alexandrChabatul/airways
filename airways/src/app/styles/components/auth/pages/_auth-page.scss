@@ -1,0 +1,11 @@
+.authCardContainer {
+    @include flexCenterContainer();
+    height: 100vh;
+}
+
+.authCard {
+    padding: 20px;
+    width: 500px;
+    background-color: #ffffff;
+    border-radius: 5px;
+}

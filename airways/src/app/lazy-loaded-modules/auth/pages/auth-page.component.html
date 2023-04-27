@@ -1,16 +1,14 @@
-<mat-tab-group 
-  mat-align-tabs="center" 
-  animationDuration="0ms" 
-  dynamicHeight 
-  class="card">
+<div class="authCardContainer">
+  <mat-tab-group mat-align-tabs="center" animationDuration="0ms" dynamicHeight class="authCard">
     <mat-tab label="Log in">
       <div class="mat-elevation-z4">
-        <airways-login></airways-login>
+        <airways-login-page></airways-login-page>
       </div>
     </mat-tab>
     <mat-tab label="Sign Up">
       <div class="mat-elevation-z4">
-        <airways-signup></airways-signup>
+        <airways-signup-page></airways-signup-page>
       </div>
     </mat-tab>
-</mat-tab-group>
+  </mat-tab-group>
+</div>

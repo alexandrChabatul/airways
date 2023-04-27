@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import passwordValidator from './validators/password.validator';
 import { Router } from '@angular/router';
+import passwordValidator from '../../validators/password.validator';
 
 @Component({
-  selector: 'airways-login',
-  templateUrl: './login.component.html',
+  selector: 'airways-login-page',
+  templateUrl: './login-page.component.html',
 })
-export class LoginComponent {
+export class LoginPageComponent {
   loginForm: FormGroup = new FormGroup({});
 
   hide = true;
@@ -32,8 +32,6 @@ export class LoginComponent {
       this.sanitizer.bypassSecurityTrustResourceUrl(`../../../../assets/icons/${iconName}.svg`),
     );
   }
-
-  onGoogleSignIn() {}
 
   createLoginForm() {
     this.loginForm = this.formBuilder.group({

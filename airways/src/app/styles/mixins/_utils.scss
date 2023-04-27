@@ -1,0 +1,11 @@
+@mixin flexCenterContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin secondary90BackgroundContainer() {
+    border: 1px solid $neutral-60 !important;
+    background-color: $secondary-90 !important;
+    border-radius: 4px !important;
+}

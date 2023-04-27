@@ -1,20 +1,6 @@
-<div class="authButtonsContainer">
-    <button mat-raised-button color="accent" (click)="onGoogleSignIn()">
-        <mat-icon svgIcon="google"></mat-icon>
-        Continue with Google
-    </button>
+<airways-social-network-signup></airways-social-network-signup>
 
-    <button mat-raised-button color="accent" (click)="onGoogleSignIn()">
-        <mat-icon svgIcon="facebook"></mat-icon>
-        Continue with Facebook
-    </button>
-</div>
-
-<div class="divider-container">
-    <hr class="divider-line">
-    <span class="divider-text">Divider Text</span>
-    <hr class="divider-line">
-</div>
+<airways-divider></airways-divider>
 
 <form [formGroup]="loginForm">
     <mat-form-field appearance="fill">
@@ -54,6 +40,8 @@
       </mat-error>
     </ng-container>
   </form>
+
+  <div class="forgot-password">Forgot password?</div>
 
   <button mat-raised-button color="primary" class="login-button" 
     (click)="login()"

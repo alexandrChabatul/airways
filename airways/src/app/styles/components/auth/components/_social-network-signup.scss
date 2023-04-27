@@ -1,0 +1,12 @@
+.authButtonsContainer {
+    @include flexCenterContainer();
+    flex-direction: column;
+    padding: 10px 0;
+}
+
+.socialNetworkAuthButton {
+    @include secondary90BackgroundContainer();
+    @include font-btn(); 
+    margin: 10px 0;
+    width: 99%;
+}

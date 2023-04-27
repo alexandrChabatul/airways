@@ -5,5 +5,5 @@ import { Component } from '@angular/core';
   templateUrl: './social-network-signup.component.html',
 })
 export class SocialNetworkSignupComponent {
-
+  onGoogleSignIn() {}
 }

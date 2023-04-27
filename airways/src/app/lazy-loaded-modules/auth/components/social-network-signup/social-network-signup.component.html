@@ -1,1 +1,17 @@
-<p>social-network-signup works!</p>
+<div class="authButtonsContainer">
+    <button 
+        (click)="onGoogleSignIn()"
+        class="socialNetworkAuthButton"
+        mat-button >
+        <mat-icon svgIcon="google"></mat-icon>
+        Continue with Google
+    </button>
+
+    <button 
+        (click)="onGoogleSignIn()" 
+        class="socialNetworkAuthButton"
+        mat-button >
+        <mat-icon svgIcon="facebook"></mat-icon>
+        Continue with Facebook
+    </button>
+</div>
