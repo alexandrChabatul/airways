@@ -1,23 +1,13 @@
-.home-wrapper {
+@import './home-page.scss';
+@import './date-picker.scss';
+@import './passengers-selector.scss';
+@import './airways-autocomplete.scss';
 
-  margin-top: 200px;
+.mat-form {
+  width: 100%;
 
-  &::after {
-    content: '';
-    background-image: url('../../../../assets/images/Background.png');
-    background-repeat: no-repeat;
-    background-size: contain;
-    opacity: 0.2;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    z-index: -1;
+
+  &__input {
+    width: 100%;
   }
-}
-
-.search-form {
-  background: rgba(255, 255, 255, 0.85);
-  border-radius: 8px;
 }

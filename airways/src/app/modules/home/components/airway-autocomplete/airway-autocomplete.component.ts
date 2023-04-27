@@ -18,6 +18,8 @@ export class AirwayAutocompleteComponent implements OnInit {
 
   @Input() controlName!: string;
 
+  @Input() placeholderText!: string;
+
   constructor(
     private autocompleteService: AutocompleteService,
     private parentForm: FormGroupDirective,

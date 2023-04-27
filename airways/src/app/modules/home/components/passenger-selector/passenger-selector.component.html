@@ -1,16 +1,29 @@
-<mat-form-field appearance="fill" style="position: relative;">
+<mat-form-field appearance="fill" style="position: relative" class="mat-form passengers-form">
   <mat-label>Passengers</mat-label>
   <mat-select value="passengers">
-    <mat-option value="passengers" style="display: none;">{{selectedValue}}</mat-option>
-    <mat-option *ngFor="let option of selectOptions">
+    <mat-option value="passengers" style="display: none">{{ selectedValue }}</mat-option>
+    <mat-option *ngFor="let option of selectOptions" class="passengers-form__option">
       <div class="person-years">
-        <p>{{ option.passenger }}</p>
-        <p>{{ option.years }}</p>
+        <p class="passengers-form__type">{{ option.passenger }}</p>
+        <p class="passengers-form__years">{{ option.years }}</p>
       </div>
-      <div class="count-selector">
-        <mat-icon (click)="removePassenger($event, option)" [ngClass]="{'active': option.isRemoveAvailable}">remove</mat-icon>
-        <p>{{ option.count }}</p>
-        <mat-icon (click)="addPassenger($event, option)" [ngClass]="{'active': option.isAddAvailable}">add</mat-icon>
+      <div class="passengers-form__count-selector">
+        <div (click)="removePassenger($event, option)"
+        [ngClass]="{ active: option.isRemoveAvailable }"
+        class="passengers-form__button">
+        <mat-icon>remove</mat-icon
+        >
+        </div>
+
+        <p class="passengers-form__count" [ngClass]="{ active: option.count > 0 }">
+          {{ option.count }}
+        </p>
+        <div
+          (click)="addPassenger($event, option)"
+          [ngClass]="{ active: option.isAddAvailable }"
+          class="passengers-form__button"
+          ><mat-icon>add</mat-icon>
+        </div>
       </div>
     </mat-option>
   </mat-select>

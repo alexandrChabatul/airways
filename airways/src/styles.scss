@@ -49,6 +49,20 @@ li {
   list-style: none;
 }
 
+.mdc-text-field--filled {
+  background-color: $neutral-90;
+  border: 0.5px solid $neutral-60;
+  border-radius: 4px !important;
+}
+
+.mdc-text-field--invalid {
+  border: 0.5px solid var(--mdc-theme-error, #b3261e);
+}
+
+.mdc-line-ripple::before {
+  display: none;
+}
+
 
 // MEDIA FOR MAT-SELECT
 

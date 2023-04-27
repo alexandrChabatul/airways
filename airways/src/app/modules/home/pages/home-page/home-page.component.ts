@@ -37,9 +37,7 @@ export class HomePageComponent implements OnInit {
   }
 
   onSearchFormSubmit(): void {
-    console.log(this.searchForm.value);
     console.log(this.searchForm);
-    console.log(this.searchForm.valid);
     if (this.searchForm.valid) {
       console.log('valid');
     } else {

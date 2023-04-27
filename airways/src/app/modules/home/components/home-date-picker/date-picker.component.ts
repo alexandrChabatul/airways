@@ -15,8 +15,8 @@ import { DEFAULT_DATE_FORMAT } from 'src/app/core/constants/formats.constants';
 import { MaterialDateFormatInterface } from 'src/app/core/models/material-date-format.model';
 
 @Component({
-  selector: 'airways-home-date-picker',
-  templateUrl: './home-date-picker.component.html',
+  selector: 'airways-date-picker',
+  templateUrl: './date-picker.component.html',
   providers: [
     {
       provide: DateAdapter,
@@ -28,7 +28,7 @@ import { MaterialDateFormatInterface } from 'src/app/core/models/material-date-f
   ],
   viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }],
 })
-export class HomeDatePickerComponent implements OnInit, OnChanges {
+export class DatePickerComponent implements OnInit, OnChanges {
   start = new FormControl<string>('');
 
   end = new FormControl<string>('');
