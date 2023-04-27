@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
+import { MatBadgeModule } from '@angular/material/badge';
 import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
@@ -38,6 +39,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatIconModule,
     MatDividerModule,
     MatSelectModule,
+    MatBadgeModule,
   ],
 })
 export class MaterialDesignModule {}

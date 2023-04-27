@@ -13,7 +13,6 @@ import { CoreModule } from './core/core.module';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeModule } from './modules/home/home.module';
 import { MaterialDesignModule } from './material-design/material-design.module';
-import { formatsReducer } from './core/store/reducers/formats.reducers';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,7 +22,7 @@ import { formatsReducer } from './core/store/reducers/formats.reducers';
     BrowserAnimationsModule,
     MaterialDesignModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({ formats: formatsReducer }, {}),
+    StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot(),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
