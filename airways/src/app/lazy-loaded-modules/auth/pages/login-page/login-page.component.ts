@@ -1,16 +1,31 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormGroupDirective,
+  NgForm,
+  Validators,
+} from '@angular/forms';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import passwordValidator from '../../validators/password.validator';
+import { ErrorStateMatcher } from '@angular/material/core';
 
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 @Component({
   selector: 'airways-login-page',
   templateUrl: './login-page.component.html',
 })
 export class LoginPageComponent {
   loginForm: FormGroup = new FormGroup({});
+
+  matcher = new MyErrorStateMatcher();
 
   hide = true;
 
@@ -44,7 +59,7 @@ export class LoginPageComponent {
       password: [
         '',
         {
-          validators: [Validators.required, passwordValidator],
+          validators: [Validators.required],
         },
       ],
     });
@@ -58,14 +73,6 @@ export class LoginPageComponent {
     return this.loginForm.controls['password'];
   }
 
-  getErrorMessage() {
-    if (this.email.hasError('required')) {
-      return 'You must enter a value';
-    }
-
-    return this.email.hasError('email') ? 'The login email is invalid' : '';
-  }
-
   login() {
     if (this.email.valid) {
       // this.loginService.login(this.email.value ?? '');
@@ -75,5 +82,9 @@ export class LoginPageComponent {
 
   togglePasswordVisibility() {
     this.hide = !this.hide;
+  }
+
+  onForgotPassword() {
+    alert('Then remember it ?!');
   }
 }

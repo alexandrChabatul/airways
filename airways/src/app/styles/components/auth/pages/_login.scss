@@ -1,0 +1,35 @@
+.loginFormContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.loginFormContainer .mdc-line-ripple {
+  display: none;
+}
+
+.loginFormContainer .mat-mdc-text-field-wrapper {
+  @include secondary90BackgroundContainer();
+}
+
+.loginFormContainer .mat-mdc-form-field-subscript-wrapper {
+  @include label-s();
+}
+
+.forgot-password-container {
+  display: flex;
+  justify-content: end;
+}
+
+.forgot-password {
+  @include label-m();
+  text-align: right;
+  color: $primary;
+  cursor: pointer;
+}
+
+.login-button {
+  // @include secondary90BackgroundContainer();
+  @include font-btn(); 
+  margin: 10px 0;
+  width: 100%;
+}
