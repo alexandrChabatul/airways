@@ -1,10 +1,12 @@
 .home-wrapper {
 
-  position: relative;
+  margin-top: 200px;
 
   &::after {
     content: '';
-    background-image: url('../../../assets/images/Background.png');
+    background-image: url('../../../../assets/images/Background.png');
+    background-repeat: no-repeat;
+    background-size: contain;
     opacity: 0.2;
     top: 0;
     left: 0;

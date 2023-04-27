@@ -1,5 +1,4 @@
 @use '../src/app/material-design/_airwaysTheme.scss';
-@import './app/styles/index.scss';
 
 @import './app/styles/mixins';
 @import './app/styles/constants';
@@ -19,6 +18,8 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  position: relative;
+  background-color: $neutral-80;
 }
 
 airways-root {

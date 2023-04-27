@@ -1,0 +1,17 @@
+<mat-form-field appearance="fill" style="position: relative;">
+  <mat-label>Passengers</mat-label>
+  <mat-select value="passengers">
+    <mat-option value="passengers" style="display: none;">{{selectedValue}}</mat-option>
+    <mat-option *ngFor="let option of selectOptions">
+      <div class="person-years">
+        <p>{{ option.passenger }}</p>
+        <p>{{ option.years }}</p>
+      </div>
+      <div class="count-selector">
+        <mat-icon (click)="removePassenger($event, option)" [ngClass]="{'active': option.isRemoveAvailable}">remove</mat-icon>
+        <p>{{ option.count }}</p>
+        <mat-icon (click)="addPassenger($event, option)" [ngClass]="{'active': option.isAddAvailable}">add</mat-icon>
+      </div>
+    </mat-option>
+  </mat-select>
+</mat-form-field>

@@ -1,62 +1,49 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AutocompleteResponseInterface } from 'src/app/core/models/autocomplete-response.interface';
-import { CustomDateValidator } from 'src/app/core/validators/custom-date.validator';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { selectDateFormatInUppercase } from 'src/app/core/store/selectors/formats.selectors';
 
 @Component({
   selector: 'airways-home-page',
   templateUrl: './home-page.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePageComponent implements OnInit {
-  tripType = 'round-trip';
+  dateFormat$!: Observable<string>;
 
-  from: AutocompleteResponseInterface | undefined = undefined;
+  searchForm!: FormGroup;
 
-  destination: AutocompleteResponseInterface | undefined = undefined;
-
-  @Input() selected!: string;
-
-  roundTripDateForm!: FormGroup;
-
-  oneWayTripDateForm!: FormGroup;
-
-  minDate = new Date();
-
-  constructor(private fb: FormBuilder, private customDateValidator: CustomDateValidator) {}
+  constructor(private store: Store, private fb: FormBuilder) {}
 
   ngOnInit(): void {
+    this.dateFormat$ = this.store.select(selectDateFormatInUppercase);
     this.initializeForms();
   }
 
-  initializeForms() {
-    this.roundTripDateForm = this.fb.group({
-      start: ['', [Validators.required]],
-      end: ['', [Validators.required]],
-    });
-    this.oneWayTripDateForm = this.fb.group({
-      date: [
-        '',
-        [
-          Validators.required,
-          this.customDateValidator.actualDateValidation.bind(this.customDateValidator),
-        ],
-      ],
+  initializeForms(): void {
+    this.searchForm = this.fb.group({
+      tripType: ['round-trip', [Validators.required]],
     });
   }
 
   swapFields() {
-    if (this.from && this.destination) {
-      const from = this.from;
-      this.from = this.destination;
-      this.destination = from;
+    const from = this.searchForm.controls['from'].value;
+    const destination = this.searchForm.controls['destination'].value;
+    if (from && destination) {
+      this.searchForm.controls['destination'].setValue(from);
+      this.searchForm.controls['from'].setValue(destination);
     }
   }
 
-  changeFromAirport(airport: AutocompleteResponseInterface | undefined) {
-    this.from = airport;
-  }
-
-  changeDestinationAirport(airport: AutocompleteResponseInterface | undefined) {
-    this.destination = airport;
+  onSearchFormSubmit(): void {
+    console.log(this.searchForm.value);
+    console.log(this.searchForm);
+    console.log(this.searchForm.valid);
+    if (this.searchForm.valid) {
+      console.log('valid');
+    } else {
+      this.searchForm.setErrors({ formSubmit: true });
+    }
   }
 }

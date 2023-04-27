@@ -2,13 +2,19 @@
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>{{ label }}</mat-label>
     <input
+      airwaysAutoSelectValue
+      [dropdownList]="filteredOptions$ | async"
+      [formControl]="fieldControl"
       placeholder="Choose your destination"
       type="text"
       matInput
-      [formControl]="fieldControl"
       [matAutocomplete]="auto"
     />
-    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectAirport($event.option.value)">
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      [displayWith]="displayFn"
+      autoActiveFirstOption="true"
+    >
       <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">
         {{ option.city_name || option.country_name }} ({{ option.code }})
         <br />
