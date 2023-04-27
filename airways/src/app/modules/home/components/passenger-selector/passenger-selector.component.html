@@ -3,26 +3,30 @@
   <mat-select value="passengers">
     <mat-option value="passengers" style="display: none">{{ selectedValue }}</mat-option>
     <mat-option *ngFor="let option of selectOptions" class="passengers-form__option">
-      <div class="person-years">
-        <p class="passengers-form__type">{{ option.passenger }}</p>
-        <p class="passengers-form__years">{{ option.years }}</p>
-      </div>
-      <div class="passengers-form__count-selector">
-        <div (click)="removePassenger($event, option)"
-        [ngClass]="{ active: option.isRemoveAvailable }"
-        class="passengers-form__button">
-        <mat-icon>remove</mat-icon
-        >
+      <div class="passengers-form__option-wrapper">
+        <div>
+          <p class="passengers-form__type">{{ option.passenger }}</p>
+          <p class="passengers-form__years">{{ option.years }}</p>
         </div>
+        <div class="passengers-form__count-selector">
+          <div
+            (click)="removePassenger($event, option)"
+            [ngClass]="{ 'passengers-form__button_active': option.isRemoveAvailable }"
+            class="passengers-form__button"
+          >
+            <mat-icon>remove</mat-icon>
+          </div>
 
-        <p class="passengers-form__count" [ngClass]="{ active: option.count > 0 }">
-          {{ option.count }}
-        </p>
-        <div
-          (click)="addPassenger($event, option)"
-          [ngClass]="{ active: option.isAddAvailable }"
-          class="passengers-form__button"
-          ><mat-icon>add</mat-icon>
+          <p class="passengers-form__count" [ngClass]="{ 'passengers-form__count_active': option.count > 0 }">
+            {{ option.count }}
+          </p>
+          <div
+            (click)="addPassenger($event, option)"
+            [ngClass]="{ 'passengers-form__button_active': option.isAddAvailable }"
+            class="passengers-form__button"
+          >
+            <mat-icon>add</mat-icon>
+          </div>
         </div>
       </div>
     </mat-option>

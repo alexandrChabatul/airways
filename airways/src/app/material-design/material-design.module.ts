@@ -17,6 +17,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [],
@@ -40,6 +41,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatDividerModule,
     MatSelectModule,
     MatBadgeModule,
+    MatMenuModule,
   ],
 })
 export class MaterialDesignModule {}

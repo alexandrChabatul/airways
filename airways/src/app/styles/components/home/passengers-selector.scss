@@ -1,25 +1,55 @@
 .passengers-form {
+  &__option {
+    width: 100%;
+    pointer-events: none;
+  }
 
-
-  .mdc-list-item__primary-text {
+  &__option-wrapper {
+    box-sizing: border-box;
+    width: 190px;
     display: flex;
-    justify-content: space-between !important;
+    justify-content: space-between;
+
+    @include small {
+      width: 230px;
+    }
+  }
+
+  &__type {
+    color: $primary;
+    font-size: $fs-m;
+  }
+
+  &__years {
+    color: $neutral-30;
+    font-size: $fs-s;
   }
 
   &__count-selector {
+    justify-self: flex-end;
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 10px;
   }
 
   &__button {
-    width: 24px;
+    pointer-events: all;
+    cursor: pointer;
+    width: 18px;
+    height: 16px;
     display: flex;
-    align-items: center;
-  }
+    overflow: hidden;
 
-}
-.mat-mdc-option .mat-icon,
-.mat-mdc-option .mat-pseudo-checkbox-full {
-  margin-left: 0px !important;
+    .mat-icon {
+      font-size: $fs-m;
+    }
+
+    &_active {
+      color: $primary;
+
+      .mat-icon {
+        font-weight: bold;
+      }
+    }
+  }
 }

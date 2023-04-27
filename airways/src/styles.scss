@@ -30,6 +30,27 @@ airways-root {
 
 main {
   flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 1128px;
+  margin-top: 90px;
+
+  @include large {
+    padding: 0px 35px;
+  }
+
+  @include medium {
+    padding: 0px 30px;
+  }
+
+  @include small {
+    padding: 0px 10px;
+  }
+
 }
 
 p {

@@ -63,8 +63,9 @@ export class PassengerSelectorComponent implements OnInit {
   updateButtonsAvailable() {
     this.selectOptions[0].isRemoveAvailable =
       this.selectOptions[0].count > 1 && this.checkInfantToAdult();
+    this.selectOptions[1].isRemoveAvailable = this.selectOptions[1].count > 0;
+    this.selectOptions[2].isRemoveAvailable = this.selectOptions[2].count > 0;
     this.selectOptions[2].isAddAvailable = this.checkInfantToAdult();
-    console.log(this.selectOptions);
   }
 
   updateSelectedValue(): void {
