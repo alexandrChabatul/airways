@@ -14,5 +14,47 @@
     <hr class="divider-line">
     <span class="divider-text">Divider Text</span>
     <hr class="divider-line">
-  </div>
-  
+</div>
+
+<form [formGroup]="loginForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Please enter a login email</mat-label>
+      <input
+        formControlName="email"
+        name="email"
+        type="email"
+        matInput 
+        placeholder="john@example.com" 
+        required>
+      <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your password</mat-label>
+      <input 
+        [type]="hide ? 'password' : 'text'" 
+        formControlName="password"
+        name="password"
+        type="password"
+        matInput 
+        required>
+      <button mat-icon-button matSuffix (click)="togglePasswordVisibility()" [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <ng-container *ngIf="password.touched && password.errors">
+      <mat-error class="error-container">
+        <div *ngIf="password.errors['minLength']">{{password.errors['minLength']}}</div>
+        <div *ngIf="password.errors['uppercase']">{{password.errors['uppercase']}}</div>
+        <div *ngIf="password.errors['lowercase']">{{password.errors['lowercase']}}</div>
+        <div *ngIf="password.errors['digit']">{{password.errors['digit']}}</div>
+        <div *ngIf="password.errors['specialChar']">{{password.errors['specialChar']}}</div>
+      </mat-error>
+    </ng-container>
+  </form>
+
+  <button mat-raised-button color="primary" class="login-button" 
+    (click)="login()"
+    [disabled]="email.invalid || password.invalid">Login</button>
