@@ -7,10 +7,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { MaterialDesignModule } from '../material-design/material-design.module';
 import { StoreModule } from '@ngrx/store';
 import { formatsReducer } from './store/reducers/formats.reducers';
-import { TextColorDirective } from './directives/text-color.directive';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, TextColorDirective],
+  declarations: [HeaderComponent, FooterComponent],
   imports: [
     CommonModule,
     RouterModule,

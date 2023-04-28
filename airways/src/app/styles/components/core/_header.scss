@@ -7,10 +7,47 @@
   padding: 25px 155px;
   justify-content: space-between;
   background-color: $neutral-70;
+  color: $neutral-100;
 
   &.solid {
     background-color: $neutral-100;
     color: $neutral-10;
+
+    .header__forms {
+      .formats {
+        &__date,
+        &__currency {
+          .mat-mdc-select-value-text,
+          .mat-mdc-select-arrow {
+            color: $neutral-10;
+          }
+        }
+      }
+
+      .user {
+        &__sign-in {
+          &.mdc-button {
+            color: $neutral-10;
+          }
+        }
+      }
+    }
+  }
+
+  &.registered {
+    color: $primary;
+
+    .header__forms {
+      .user {
+        &__sign-in {
+          &.mdc-button {
+            color: $primary;
+            background-color: transparent;
+            border: none;
+          }
+        }
+      }
+    }
   }
 
   @include large {
@@ -69,8 +106,8 @@
 
   &__book-flights {
     margin-right: 30px;
-    @include body-l;
     color: $neutral-100;
+    @include body-l;
 
     @include small {
       @include body-m;
@@ -259,14 +296,14 @@
       align-items: center;
       flex-grow: 1;
 
-      &__sign-in,
-      &__info {
+      &__sign-in {
         &.mdc-button {
           height: 40px;
           padding: 10px 15px;
           background-color: $neutral-90;
           border: 0.5px solid $neutral-60;
           border-radius: 4px;
+          color: $neutral-100;
 
           @include small {
             height: 32px;
@@ -283,7 +320,6 @@
           align-items: center;
           gap: 8px;
           @include font-btn;
-          color: $neutral-100;
 
           @include small {
             font-size: 12px;
@@ -299,17 +335,6 @@
         }
       }
 
-      &__info {
-        &.mdc-button {
-          background-color: transparent;
-          border: none;
-        }
-
-        .mdc-button__label {
-          color: $primary;
-        }
-      }
-
       &__basket,
       &__settings {
         &.mat-mdc-icon-button.mat-mdc-button-base {
@@ -319,30 +344,24 @@
             padding: 0;
           }
         }
-      }
 
-      &__basket {
+        .settings__icon,
         .basket__icon {
+          font-size: 24px;
+
+          &.mat-icon {
+            width: auto;
+            height: auto;
+          }
+
           @include small {
-            width: 16px;
-            height: 16px;
+            font-size: 16px;
           }
         }
       }
 
       &__settings {
         display: none;
-
-        .settings__icon {
-          &.mat-icon {
-            width: auto;
-            height: auto;
-          }
-
-          &.material-icons {
-            font-size: 16px;
-          }
-        }
 
         @include mobile {
           display: block;
