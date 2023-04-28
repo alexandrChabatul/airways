@@ -3,20 +3,24 @@
     height: 100vh;
 }
 
-.authCard {
+.authCardContainer .authCard {
     padding: 20px;
     width: 500px;
     background-color: #ffffff;
     border-radius: 5px;
 }
 
-.mat-mdc-tab-labels {
+.authCardContainer .authCard .mat-mdc-tab-labels {
     border: 0.5px solid $neutral-60;
     border-radius: 6px;
 }
 
 /* Set the color of the active mat-tab */
-.mdc-tab--active {
+.authCardContainer .authCard .mdc-tab--active {
     @include secondary90BackgroundContainer();
     border-bottom: 0 !important;
+}
+
+.authCardContainer .mat-mdc-tab .mdc-tab__text-label, .mat-mdc-tab-link .mdc-tab__text-label {
+    color: $neutral-10;
 }
