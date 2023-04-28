@@ -12,7 +12,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { CoreModule } from './core/core.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialDesignModule } from './material-design/material-design.module';
-import { AuthModule } from './lazy-loaded-modules/auth/auth.module';
 import { HomeModule } from './modules/home/home.module';
 
 @NgModule({
@@ -32,5 +31,6 @@ import { HomeModule } from './modules/home/home.module';
     HomeModule,
   ],
   providers: [],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
