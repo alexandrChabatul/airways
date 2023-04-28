@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { selectDateFormatInUppercase } from 'src/app/core/store/selectors/formats.selectors';
@@ -14,11 +15,16 @@ export class HomePageComponent implements OnInit {
 
   searchForm!: FormGroup;
 
-  constructor(private store: Store, private fb: FormBuilder) {}
+  constructor(
+    private store: Store,
+    private fb: FormBuilder,
+    private activateRoute: ActivatedRoute,
+  ) {}
 
   ngOnInit(): void {
     this.dateFormat$ = this.store.select(selectDateFormatInUppercase);
     this.initializeForms();
+    console.log(this.activateRoute.snapshot.queryParams['params']);
   }
 
   initializeForms(): void {

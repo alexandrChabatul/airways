@@ -13,6 +13,7 @@ import { CoreModule } from './core/core.module';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeModule } from './modules/home/home.module';
 import { MaterialDesignModule } from './material-design/material-design.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,6 +30,7 @@ import { MaterialDesignModule } from './material-design/material-design.module';
     HttpClientModule,
     CoreModule,
     HomeModule,
+    AuthModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
