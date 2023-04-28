@@ -20,7 +20,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './login-page.component.html',
 })
 export class LoginPageComponent implements OnInit {
-  loginForm: FormGroup = new FormGroup({});
+  loginForm!: FormGroup;
 
   matcher = new MyErrorStateMatcher();
 

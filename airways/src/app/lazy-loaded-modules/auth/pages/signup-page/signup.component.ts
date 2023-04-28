@@ -1,29 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  FormGroupDirective,
-  NgForm,
-  Validators,
-} from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
-
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'airways-signup-page',
   templateUrl: './signup-page.component.html',
 })
 export class SignupPageComponent implements OnInit {
-  signupForm: FormGroup = new FormGroup({});
-
-  matcher = new MyErrorStateMatcher();
+  signupForm!: FormGroup;
 
   hide = true;
 
