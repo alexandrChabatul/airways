@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SvgIconService } from 'src/app/core/services/svg-icon.service';
 
 @Component({
   selector: 'airways-signup-page',
@@ -10,7 +11,9 @@ export class SignupPageComponent implements OnInit {
 
   hide = true;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private svgIconService: SvgIconService) {
+    this.svgIconService.addSvgIcon('info');
+  }
 
   ngOnInit(): void {
     this.createSignupForm();
@@ -46,9 +49,5 @@ export class SignupPageComponent implements OnInit {
       // this.loginService.login(this.email.value ?? '');
       // this.router.navigate(['']);
     }
-  }
-
-  togglePasswordVisibility() {
-    this.hide = !this.hide;
   }
 }
