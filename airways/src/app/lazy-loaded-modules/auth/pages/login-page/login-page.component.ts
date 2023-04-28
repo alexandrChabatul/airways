@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -7,9 +7,6 @@ import {
   NgForm,
   Validators,
 } from '@angular/forms';
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
-import { Router } from '@angular/router';
 import { ErrorStateMatcher } from '@angular/material/core';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -22,30 +19,17 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   selector: 'airways-login-page',
   templateUrl: './login-page.component.html',
 })
-export class LoginPageComponent {
+export class LoginPageComponent implements OnInit {
   loginForm: FormGroup = new FormGroup({});
 
   matcher = new MyErrorStateMatcher();
 
   hide = true;
 
-  constructor(
-    private iconRegistry: MatIconRegistry,
-    private sanitizer: DomSanitizer,
-    private formBuilder: FormBuilder,
-    private router: Router,
-  ) {
-    this.addSvgIcon('google');
-    this.addSvgIcon('facebook');
+  constructor(private formBuilder: FormBuilder) {}
 
+  ngOnInit(): void {
     this.createLoginForm();
-  }
-
-  addSvgIcon(iconName: string) {
-    this.iconRegistry.addSvgIcon(
-      iconName,
-      this.sanitizer.bypassSecurityTrustResourceUrl(`../../../../assets/icons/${iconName}.svg`),
-    );
   }
 
   createLoginForm() {
@@ -73,7 +57,7 @@ export class LoginPageComponent {
     return this.loginForm.controls['password'];
   }
 
-  login() {
+  onLogin() {
     if (this.email.valid) {
       // this.loginService.login(this.email.value ?? '');
       // this.router.navigate(['']);
