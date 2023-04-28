@@ -21,18 +21,10 @@ export class SignupPageComponent implements OnInit {
 
   createSignupForm() {
     this.signupForm = this.formBuilder.group({
-      email: [
-        '',
-        {
-          validators: [Validators.required, Validators.email],
-        },
-      ],
-      password: [
-        '',
-        {
-          validators: [Validators.required],
-        },
-      ],
+      email: ['', { validators: [Validators.required, Validators.email] }],
+      password: ['', { validators: [Validators.required, Validators.minLength(8)] }],
+      firstName: ['', { validators: [Validators.required] }],
+      lastName: ['', { validators: [Validators.required] }],
     });
   }
 
@@ -42,6 +34,14 @@ export class SignupPageComponent implements OnInit {
 
   get password() {
     return this.signupForm.controls['password'];
+  }
+
+  get firstName() {
+    return this.signupForm.controls['firstName'];
+  }
+
+  get lastName() {
+    return this.signupForm.controls['lastName'];
   }
 
   onSignup() {

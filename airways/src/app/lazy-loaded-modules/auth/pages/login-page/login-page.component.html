@@ -33,9 +33,8 @@
       [attr.aria-pressed]="hide">
       <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
     </button>
-    
-    <mat-error class="error-container" *ngIf="password.touched && password.errors">
-      Enter your password
+    <mat-error *ngIf="password.touched && !password.hasError('minLength')">
+      Password should have minimum 8 characters
     </mat-error>
   </mat-form-field>
 </form>
