@@ -8,6 +8,11 @@ export const selectDateFormat = createSelector(
   (formatsState: FormatsStateInterface) => formatsState.dateFormat,
 );
 
+export const selectDateFormatInUppercase = createSelector(
+  selectFormatsFeature,
+  (formatsState: FormatsStateInterface) => formatsState.dateFormat.toUpperCase(),
+);
+
 export const selectCurrencyFormat = createSelector(
   selectFormatsFeature,
   (formatsState: FormatsStateInterface) => formatsState.currencyFormat,

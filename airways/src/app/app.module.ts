@@ -13,6 +13,7 @@ import { CoreModule } from './core/core.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialDesignModule } from './material-design/material-design.module';
 import { AuthModule } from './lazy-loaded-modules/auth/auth.module';
+import { HomeModule } from './modules/home/home.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,9 +29,8 @@ import { AuthModule } from './lazy-loaded-modules/auth/auth.module';
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     HttpClientModule,
     CoreModule,
-    AuthModule,
+    HomeModule,
   ],
   providers: [],
-  bootstrap: [AppComponent],
 })
 export class AppModule {}
