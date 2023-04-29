@@ -11,6 +11,8 @@ export class SignupPageComponent implements OnInit {
 
   hide = true;
 
+  maxDate: Date = new Date();
+
   constructor(private formBuilder: FormBuilder, private svgIconService: SvgIconService) {
     this.svgIconService.addSvgIcon('info');
   }
@@ -25,6 +27,8 @@ export class SignupPageComponent implements OnInit {
       password: ['', { validators: [Validators.required, Validators.minLength(8)] }],
       firstName: ['', { validators: [Validators.required] }],
       lastName: ['', { validators: [Validators.required] }],
+      dateOfBirth: ['', { validators: [Validators.required] }],
+      gender: ['', { validators: [Validators.required] }],
     });
   }
 
@@ -42,6 +46,19 @@ export class SignupPageComponent implements OnInit {
 
   get lastName() {
     return this.signupForm.controls['lastName'];
+  }
+
+  get dateOfBirth() {
+    return this.signupForm.controls['dateOfBirth'];
+  }
+
+  get gender() {
+    return this.signupForm.controls['gender'];
+  }
+
+  test() {
+    console.log(this.gender);
+    
   }
 
   onSignup() {

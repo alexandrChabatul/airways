@@ -36,3 +36,11 @@
   span.privacy-policy, span.terms-of-use {
     color: $primary;
   }
+
+  .signupFormContainer .mat-button-toggle-group .mat-button-toggle {
+    width: 50%;
+  }
+
+  .signupFormContainer .mat-button-toggle-group .mat-button-toggle-checked.mat-button-toggle-appearance-standard {
+    color: $primary;
+  }
