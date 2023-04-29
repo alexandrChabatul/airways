@@ -11,9 +11,10 @@
     padding: 20px 155px;
     gap: 70px;
     font-weight: 500;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
 
     @include large {
-      padding: 25px 55px;
+      padding: 20px 55px;
     }
 
     @include medium {
@@ -23,7 +24,11 @@
     @include small {
       padding: 10px;
       gap: 0;
-      justify-content: space-around;
+      align-items: center;
+    }
+
+    @include mobile {
+      padding: 5px;
     }
 
     &__params {
@@ -32,7 +37,7 @@
 
       @include mobile {
         flex-direction: column;
-        gap: 10px;
+        gap: 3px;
       }
     }
 
@@ -43,8 +48,12 @@
       gap: 16px;
       @include title-xs;
 
-      @include small {
+      @include medium {
         font-size: 14px;
+      }
+
+      @include small {
+        font-size: 12px;
       }
 
       @include mobile {
@@ -60,9 +69,13 @@
       color: $neutral-30;
       gap: 8px;
 
-      @include small {
+      @include medium {
         @include label-s;
         line-height: normal;
+      }
+
+      @include small {
+        font-size: 10px;
       }
     }
 
@@ -77,8 +90,14 @@
       @include font-btn;
       font-weight: 500;
 
-      @include small {
+      @include medium {
         font-size: 14px;
+        line-height: normal;
+        padding: 5px;
+      }
+
+      @include small {
+        font-size: 12px;
       }
     }
 

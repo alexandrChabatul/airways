@@ -6,6 +6,9 @@ import { SummaryPageComponent } from './pages/summary-page/summary-page.componen
 import { BookingRoutingModule } from './booking-routing.module';
 import { EditFlightComponent } from './components/edit-flight/edit-flight.component';
 import { MaterialDesignModule } from '../../material-design/material-design.module';
+import { FlightInfoComponent } from './components/flight-info/flight-info.component';
+import { FlightTimeComponent } from './components/flight-time/flight-time.component';
+import { WayComponent } from './components/way/way.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +16,9 @@ import { MaterialDesignModule } from '../../material-design/material-design.modu
     PassengersPageComponent,
     SummaryPageComponent,
     EditFlightComponent,
+    FlightInfoComponent,
+    FlightTimeComponent,
+    WayComponent,
   ],
   imports: [CommonModule, BookingRoutingModule, MaterialDesignModule],
 })

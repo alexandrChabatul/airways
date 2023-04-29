@@ -4,33 +4,31 @@
   width: 100%;
   padding: 35px 200px;
   border-top: 1px solid $secondary-40;
+  @include body-m;
 
   @include large {
-    padding: 35px 100px;
+    padding: 25px 100px;
   }
 
   @include medium {
-    padding: 35px 50px;
+    padding: 20px 50px;
   }
 
   @include small {
-    padding: 20px;
+    padding: 15px 20px;
+    @include body-s;
   }
 
   @include mobile {
-    padding: 10px;
+    padding: 5px 10px;
+    font-size: 10px;
   }
 
   &__info {
     display: flex;
     width: 100%;
     justify-content: space-between;
-    @include body-m;
     color: $primary;
-
-    @include small {
-      @include body-s;
-    }
 
     @include mobile {
       flex-direction: column;
@@ -70,11 +68,6 @@
     display: flex;
     justify-content: center;
     gap: 15px;
-    @include body-m;
-
-    @include small {
-      @include body-s;
-    }
 
     @include mobile {
       justify-content: flex-start;

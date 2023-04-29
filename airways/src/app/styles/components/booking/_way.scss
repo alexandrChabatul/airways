@@ -1,0 +1,14 @@
+airways-way {
+  width: 100%;
+}
+
+.way__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  .title__icon-flight {
+    transform: rotate(90deg);
+  }
+}
