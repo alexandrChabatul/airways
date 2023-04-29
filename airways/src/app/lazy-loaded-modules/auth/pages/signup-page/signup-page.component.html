@@ -89,6 +89,27 @@
       <mat-button-toggle value="Male">Male</mat-button-toggle>
       <mat-button-toggle value="Female">Female</mat-button-toggle>
     </mat-button-toggle-group>
+
+    <div class="country-tel-container">
+      <mat-form-field>
+        <mat-label>Country code</mat-label>
+        <input type="text"
+              placeholder="Pick one"
+              matInput
+              formControlName="country"
+              [matAutocomplete]="auto">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Mobile phone number</mat-label>
+        <input matInput formControlName="tel" type="tel" required>
+      </mat-form-field>
+    </div>
     
   </form>
 

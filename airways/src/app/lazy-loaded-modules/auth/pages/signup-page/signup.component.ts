@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Observable, map, startWith } from 'rxjs';
 import { SvgIconService } from 'src/app/core/services/svg-icon.service';
 
 @Component({
@@ -13,12 +14,28 @@ export class SignupPageComponent implements OnInit {
 
   maxDate: Date = new Date();
 
+  options: string[] = ['One', 'Two', 'Three'];
+
+  filteredOptions!: Observable<string[]>;
+
   constructor(private formBuilder: FormBuilder, private svgIconService: SvgIconService) {
     this.svgIconService.addSvgIcon('info');
   }
 
   ngOnInit(): void {
     this.createSignupForm();
+
+    this.filteredOptions = this.country.valueChanges.pipe(
+      startWith(''),
+      map((value) => this._filter(value || '')),
+    );
+  }
+
+  onSignup() {
+    if (this.email.valid) {
+      // this.loginService.login(this.email.value ?? '');
+      // this.router.navigate(['']);
+    }
   }
 
   createSignupForm() {
@@ -29,6 +46,8 @@ export class SignupPageComponent implements OnInit {
       lastName: ['', { validators: [Validators.required] }],
       dateOfBirth: ['', { validators: [Validators.required] }],
       gender: ['', { validators: [Validators.required] }],
+      country: [''],
+      tel: ['', { validators: [Validators.required] }],
     });
   }
 
@@ -56,10 +75,17 @@ export class SignupPageComponent implements OnInit {
     return this.signupForm.controls['gender'];
   }
 
-  onSignup() {
-    if (this.email.valid) {
-      // this.loginService.login(this.email.value ?? '');
-      // this.router.navigate(['']);
-    }
+  get country() {
+    return this.signupForm.controls['country'];
+  }
+
+  get tel() {
+    return this.signupForm.controls['tel'];
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.options.filter((option) => option.toLowerCase().includes(filterValue));
   }
 }
