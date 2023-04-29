@@ -1,14 +1,14 @@
 import { Directive, Input, ElementRef, Renderer2, HostListener } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { AutocompleteResponseInterface } from 'src/app/core/models/autocomplete-response.interface';
+import { AirportResponseInterface } from 'src/app/core/models/airport-response.interface';
 
 @Directive({
   selector: '[airwaysAutoSelectValue]',
 })
 export class AutoSelectValueDirective {
-  topValue!: AutocompleteResponseInterface | undefined;
+  topValue!: AirportResponseInterface | undefined;
 
-  @Input() dropdownList!: AutocompleteResponseInterface[] | null;
+  @Input() dropdownList!: AirportResponseInterface[] | null;
 
   @Input() formControl!: FormControl;
 

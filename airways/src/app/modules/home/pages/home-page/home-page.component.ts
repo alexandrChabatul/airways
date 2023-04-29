@@ -1,30 +1,47 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { filter, Observable, Subscription } from 'rxjs';
+import { updateOrderAction } from 'src/app/core/store/actions/order.actions';
 import { selectDateFormatInUppercase } from 'src/app/core/store/selectors/formats.selectors';
+import { Event as NavigationEvent } from '@angular/router';
+import { PassengersInterface } from '../../models/passenger-types.models';
+import { selectPassengers } from 'src/app/core/store/selectors/order.selectors';
+import { AppStateInterface } from 'src/app/core/store/store.models';
 
 @Component({
   selector: 'airways-home-page',
   templateUrl: './home-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomePageComponent implements OnInit {
+export class HomePageComponent implements OnInit, OnDestroy {
   dateFormat$!: Observable<string>;
 
   searchForm!: FormGroup;
 
+  routerSubscription!: Subscription;
+
+  passengers$!: Observable<PassengersInterface>;
+
   constructor(
-    private store: Store,
+    private store: Store<AppStateInterface>,
     private fb: FormBuilder,
     private activateRoute: ActivatedRoute,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
     this.dateFormat$ = this.store.select(selectDateFormatInUppercase);
+    this.store.dispatch(updateOrderAction({ params: this.activateRoute.snapshot.queryParams }));
     this.initializeForms();
-    console.log(this.activateRoute.snapshot.queryParams['params']);
+    this.initializeListeners();
+    this.passengers$ = this.store.select(selectPassengers);
+    console.log('init');
+  }
+
+  ngOnDestroy(): void {
+    this.routerSubscription.unsubscribe();
   }
 
   initializeForms(): void {
@@ -33,12 +50,27 @@ export class HomePageComponent implements OnInit {
     });
   }
 
+  initializeListeners() {
+    this.routerSubscription = this.router.events
+      .pipe(filter((event: NavigationEvent) => event instanceof NavigationStart))
+      .subscribe((event) => {
+        if (event instanceof NavigationStart && event.restoredState) {
+          const paramsString = event.url.split('?')[1];
+          if (!paramsString) return;
+          const searchParams = Object.fromEntries(
+            paramsString.split('&').map((param) => param.split('=')),
+          );
+          this.store.dispatch(updateOrderAction({ params: searchParams }));
+        }
+      });
+  }
+
   swapFields() {
-    const from = this.searchForm.controls['from'].value;
+    const from = this.searchForm.controls['origin'].value;
     const destination = this.searchForm.controls['destination'].value;
     if (from && destination) {
       this.searchForm.controls['destination'].setValue(from);
-      this.searchForm.controls['from'].setValue(destination);
+      this.searchForm.controls['origin'].setValue(destination);
     }
   }
 

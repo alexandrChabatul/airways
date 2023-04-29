@@ -10,6 +10,10 @@ import { PassengerSelectorComponent } from './components/passenger-selector/pass
 import { ErrorStateMatcher } from '@angular/material/core';
 import { DirtyErrorStateMatcher } from 'src/app/core/matchers/dirty-error-state.matcher';
 import { AutoSelectValueDirective } from './directives/auto-select-value.directive';
+import { StoreModule } from '@ngrx/store';
+import { reducer } from 'src/app/core/store/reducers/order.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { UpdateOrderEffect } from 'src/app/core/store/effects/updateOrder.effects';
 
 @NgModule({
   declarations: [
@@ -19,7 +23,15 @@ import { AutoSelectValueDirective } from './directives/auto-select-value.directi
     DatePickerComponent,
     PassengerSelectorComponent,
   ],
-  imports: [CommonModule, MaterialDesignModule, FormsModule, ReactiveFormsModule, CoreModule],
+  imports: [
+    CommonModule,
+    MaterialDesignModule,
+    FormsModule,
+    ReactiveFormsModule,
+    CoreModule,
+    StoreModule.forFeature('order', reducer),
+    EffectsModule.forFeature(UpdateOrderEffect),
+  ],
   providers: [
     {
       provide: ErrorStateMatcher,

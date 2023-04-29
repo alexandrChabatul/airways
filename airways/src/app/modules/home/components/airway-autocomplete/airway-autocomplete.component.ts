@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ControlContainer, FormControl, FormGroupDirective, Validators } from '@angular/forms';
 import { Observable, startWith, switchMap, of } from 'rxjs';
-import { AutocompleteResponseInterface } from 'src/app/core/models/autocomplete-response.interface';
+import { AirportResponseInterface } from 'src/app/core/models/airport-response.interface';
 import { AutocompleteService } from 'src/app/core/services/autocomplete.service';
 
 @Component({
@@ -10,9 +10,9 @@ import { AutocompleteService } from 'src/app/core/services/autocomplete.service'
   viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }],
 })
 export class AirwayAutocompleteComponent implements OnInit {
-  filteredOptions$!: Observable<AutocompleteResponseInterface[]>;
+  filteredOptions$!: Observable<AirportResponseInterface[]>;
 
-  fieldControl = new FormControl<string | AutocompleteResponseInterface>('');
+  fieldControl = new FormControl<string | AirportResponseInterface>('');
 
   @Input() label = '';
 
@@ -37,7 +37,7 @@ export class AirwayAutocompleteComponent implements OnInit {
     );
   }
 
-  displayFn(airport: AutocompleteResponseInterface): string {
+  displayFn(airport: AirportResponseInterface): string {
     return airport ? `${airport.name} ${airport.code}` : '';
   }
 }

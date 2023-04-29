@@ -1,5 +1,5 @@
 export const environment = {
-  paramDelimiter: '%',
+  paramDelimiter: '-',
   autoCompleteSearchApi:
     'https://autocomplete.travelpayouts.com/places2?locale=en&types[]=airport&term=',
   autocompleteApi:

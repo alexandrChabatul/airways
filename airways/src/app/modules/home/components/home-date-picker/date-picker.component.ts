@@ -29,9 +29,9 @@ import { MaterialDateFormatInterface } from 'src/app/core/models/material-date-f
   viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }],
 })
 export class DatePickerComponent implements OnInit, OnChanges {
-  start = new FormControl<string>('');
+  departure = new FormControl<string>('');
 
-  end = new FormControl<string>('');
+  arrival = new FormControl<string>('');
 
   minDate = new Date();
 
@@ -46,10 +46,10 @@ export class DatePickerComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnInit(): void {
-    this.parentForm.form.addControl('start', this.start);
-    this.parentForm.form.addControl('end', this.end);
-    this.start.setValidators([Validators.required]);
-    this.end.setValidators([Validators.required]);
+    this.parentForm.form.addControl('departure', this.departure);
+    this.parentForm.form.addControl('arrival', this.arrival);
+    this.departure.setValidators([Validators.required]);
+    this.arrival.setValidators([Validators.required]);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -65,18 +65,18 @@ export class DatePickerComponent implements OnInit, OnChanges {
 
   toggleValidation(): void {
     if (this.tripType === 'round-trip') {
-      this.end.setValidators([Validators.required]);
+      this.arrival.setValidators([Validators.required]);
     } else {
-      this.end.removeValidators([Validators.required]);
+      this.arrival.removeValidators([Validators.required]);
     }
-    this.end.setValue('');
-    this.start.setValue('');
+    this.arrival.setValue('');
+    this.departure.setValue('');
   }
 
   updateDateFormsFormat() {
-    const start = this.start.value;
-    const end = this.end.value;
-    this.start.setValue(start);
-    this.end.setValue(end);
+    const departure = this.departure.value;
+    const arrival = this.arrival.value;
+    this.departure.setValue(departure);
+    this.arrival.setValue(arrival);
   }
 }

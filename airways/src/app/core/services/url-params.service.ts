@@ -1,35 +1,64 @@
+import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PassengersInterface } from 'src/app/modules/home/models/passenger-types.models';
 import { environment } from 'src/environments/environment';
-import { UrlParamsInterface } from '../models/url-params.models';
-import { AutocompleteService } from './autocomplete.service';
+import { AirportResponseInterface } from '../models/airport-response.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UrlParamsService {
-  constructor(private autoCompleteService: AutocompleteService) {}
+  constructor(private location: Location, private route: ActivatedRoute, private router: Router) {}
 
-  decodeParams(paramsString: string): UrlParamsInterface {
-    //KKS%29032022%LLT%%123
-    const params = paramsString.split(environment.paramDelimiter);
-    const from = this.autoCompleteService.getAirportByCode(params[0]);
-    const start = this.getDate(params[1]);
-    const destination = this.autoCompleteService.getAirportByCode(params[2]);
-    return {
-      from,
-      start,
-      destination,
-      end: new Date(),
-      passengers: {
-        adults: 0,
-        child: 0,
-        infant: 0,
-      },
-    };
+  addParam(param: string, data: AirportResponseInterface | Date | PassengersInterface) {
+    let paramString = '';
+    switch (param) {
+      case 'origin': {
+        paramString = this.getAirportParamString(data as AirportResponseInterface);
+        break;
+      }
+      case 'destination': {
+        paramString = this.getAirportParamString(data as AirportResponseInterface);
+        break;
+      }
+      case 'departure': {
+        paramString = this.getDateParamString(data as Date);
+        break;
+      }
+      case 'arrival': {
+        paramString = this.getDateParamString(data as Date);
+        break;
+      }
+      case 'passengers': {
+        paramString = this.getPassengersParamString(data as PassengersInterface);
+        break;
+      }
+    }
+    const urlTree = this.router.createUrlTree([], {
+      queryParams: { [param]: paramString },
+      queryParamsHandling: 'merge',
+      preserveFragment: true,
+    });
+
+    this.router.navigateByUrl(urlTree);
   }
 
-  getDate(date: string): Date | null {
-    console.log(date);
-    return null;
+  getAirportParamString(data: AirportResponseInterface) {
+    return data.code;
+  }
+
+  getDateParamString(data: Date) {
+    return (
+      data.getMonth() +
+      environment.paramDelimiter +
+      data.getDate() +
+      environment.paramDelimiter +
+      data.getFullYear()
+    );
+  }
+
+  getPassengersParamString(data: PassengersInterface) {
+    return Object.values(data).join(environment.paramDelimiter);
   }
 }
