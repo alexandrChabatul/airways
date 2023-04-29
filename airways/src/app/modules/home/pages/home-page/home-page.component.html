@@ -1,1 +1,52 @@
-<p>home-page works!</p>
+<div class="home-wrapper">
+  <form class="search" [formGroup]="searchForm">
+    <mat-radio-group aria-label="Select an option" formControlName="tripType" color="primary">
+      <mat-radio-button value="round-trip" checked>Round trip</mat-radio-button>
+      <mat-radio-button value="one-way">One Way</mat-radio-button>
+    </mat-radio-group>
+
+    <div class="search__scheme">
+      <airways-airway-autocomplete
+        label="From"
+        [controlName]="'from'"
+        placeholderText="Choose your departure point"
+      ></airways-airway-autocomplete>
+      <airways-airway-autocomplete
+        label="Destination"
+        [controlName]="'destination'"
+        placeholderText="Choose your destination"
+      ></airways-airway-autocomplete>
+      <mat-error
+        *ngIf="
+          searchForm.controls['from'].touched && searchForm.controls['from'].hasError('required')
+        "
+        class="search__error"
+        >Enter your departure point</mat-error
+      >
+      <mat-error
+        *ngIf="
+          searchForm.controls['destination'].touched &&
+          searchForm.controls['destination'].hasError('required')
+        "
+        class="search__error"
+        >Enter your destination</mat-error
+      >
+      <span class="search__swap-button" (click)="swapFields()">
+        <mat-icon>sync_alt</mat-icon>
+      </span>
+    </div>
+
+    <div class="search__date-passengers">
+      <airways-date-picker
+        [dateFormat]="dateFormat$ | async"
+        [tripType]="searchForm.controls['tripType'].value"
+        class="search__date-picker"
+      ></airways-date-picker>
+
+      <airways-persons-selector></airways-persons-selector>
+    </div>
+    <button mat-raised-button color="primary" (click)="onSearchFormSubmit()" class="search__button">
+      Search
+    </button>
+  </form>
+</div>

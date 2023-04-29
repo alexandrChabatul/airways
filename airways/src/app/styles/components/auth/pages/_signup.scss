@@ -1,0 +1,46 @@
+.signupFormContainer {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .signupFormContainer .mdc-line-ripple {
+    display: none;
+  }
+  
+  .signupFormContainer .mat-mdc-text-field-wrapper {
+    @include secondary90BackgroundContainer();
+  }
+  
+  .signupFormContainer .mat-mdc-form-field-subscript-wrapper {
+    @include label-s();
+  }
+  
+  .forgot-password-container {
+    display: flex;
+    justify-content: end;
+  }
+  
+  .forgot-password {
+    @include label-m();
+    text-align: right;
+    color: $primary;
+    cursor: pointer;
+  }
+  
+  .signup-button {
+    @include font-btn(); 
+    margin: 10px 0;
+    width: 100%;
+  }
+
+  span.privacy-policy, span.terms-of-use {
+    color: $primary;
+  }
+
+  .signupFormContainer .mat-button-toggle-group .mat-button-toggle {
+    width: 50%;
+  }
+
+  .signupFormContainer .mat-button-toggle-group .mat-button-toggle-checked.mat-button-toggle-appearance-standard {
+    color: $primary;
+  }

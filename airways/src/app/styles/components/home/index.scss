@@ -1,0 +1,13 @@
+@import './home-page.scss';
+@import './date-picker.scss';
+@import './passengers-selector.scss';
+@import './airways-autocomplete.scss';
+
+.mat-form {
+  width: 100%;
+
+
+  &__input {
+    width: 100%;
+  }
+}

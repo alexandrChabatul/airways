@@ -24,6 +24,10 @@ const routes: Routes = [
     loadChildren: () =>
       import('./lazy-loaded-modules/account/account.module').then((m) => m.AccountModule),
   },
+  {
+    path: 'auth',
+    loadChildren: () => import('./lazy-loaded-modules/auth/auth.module').then((m) => m.AuthModule),
+  },
 ];
 
 @NgModule({
