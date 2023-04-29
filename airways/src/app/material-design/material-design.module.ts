@@ -13,11 +13,13 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [],
@@ -39,9 +41,12 @@ import { MatMenuModule } from '@angular/material/menu';
     MatSlideToggleModule,
     MatIconModule,
     MatDividerModule,
+    MatTabsModule,
     MatSelectModule,
     MatBadgeModule,
     MatMenuModule,
+    MatMenuModule,
+    MatButtonToggleModule,
   ],
 })
 export class MaterialDesignModule {}
