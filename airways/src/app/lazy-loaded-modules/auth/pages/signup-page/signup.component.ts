@@ -56,11 +56,6 @@ export class SignupPageComponent implements OnInit {
     return this.signupForm.controls['gender'];
   }
 
-  test() {
-    console.log(this.gender);
-    
-  }
-
   onSignup() {
     if (this.email.valid) {
       // this.loginService.login(this.email.value ?? '');
