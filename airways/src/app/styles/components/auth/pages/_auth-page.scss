@@ -1,6 +1,13 @@
 .authCardContainer {
-    @include flexCenterContainer();
-    height: 105%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9;
+    border-radius: 5px;
+    max-width: 90%;
+    max-height: 69%;
+    overflow-y: auto;
 }
 
 .authCardContainer .authCard {
@@ -23,4 +30,8 @@
 
 .authCardContainer .mat-mdc-tab .mdc-tab__text-label, .mat-mdc-tab-link .mdc-tab__text-label {
     color: $neutral-10;
+}
+
+.mat-elevation-z4 {
+    box-shadow: none;
 }
