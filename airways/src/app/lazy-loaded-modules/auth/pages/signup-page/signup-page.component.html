@@ -3,122 +3,100 @@
 <airways-divider>or sign up with your email</airways-divider>
 
 <form [formGroup]="signupForm" class="signupFormContainer">
-    <mat-form-field>
-      <mat-label>Email</mat-label>
-      <input 
-        formControlName="email"
-        name="email"
-        type="email"
-        matInput
-        placeholder="Ex. pat@example.com"
-        required>
-      <mat-error *ngIf="email.touched && email.hasError('email') && !email.hasError('required')">
-        Please enter a valid email address
-      </mat-error>
-      <mat-error *ngIf="email.hasError('required')">
-        Email is <strong>required</strong>
-      </mat-error>
-    </mat-form-field>
-  
-    <mat-form-field>
-      <mat-label>Password</mat-label>
-      <input 
-        formControlName="password"
-        name="password"
-        type="password"
-        matInput 
-        required>
-      <button mat-icon-button matSuffix>
-        <mat-icon svgIcon="info"></mat-icon>
-      </button>
-      <mat-error *ngIf="password.touched && !password.hasError('minLength')">
-        Password should have minimum 8 characters
-      </mat-error>
-    </mat-form-field>
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input formControlName="email" name="email" type="email" matInput placeholder="Ex. pat@example.com" required>
+    <mat-error *ngIf="email.touched && email.hasError('email') && !email.hasError('required')">
+      Please enter a valid email address
+    </mat-error>
+    <mat-error *ngIf="email.hasError('required')">
+      Email is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>First name</mat-label>
-      <input 
-        formControlName="firstName"
-        name="firstName"
-        type="text"
-        matInput
-        required>
-      <button mat-icon-button matSuffix>
-        <mat-icon svgIcon="info"></mat-icon>
-      </button>
-      <mat-error *ngIf="firstName.hasError('required')">
-        First name is <strong>required</strong>
-      </mat-error>
-    </mat-form-field>
+  <mat-form-field>
+    <mat-label>Password</mat-label>
+    <input formControlName="password" name="password" type="password" matInput required>
+    <button mat-icon-button matSuffix>
+      <mat-icon svgIcon="info"></mat-icon>
+    </button>
+    <mat-error *ngIf="password.touched && !password.hasError('minLength')">
+      Password should have minimum 8 characters
+    </mat-error>
+  </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Last name</mat-label>
-      <input 
-        formControlName="lastName"
-        name="lastName"
-        type="text"
-        matInput
-        required>
-      <button mat-icon-button matSuffix>
-        <mat-icon svgIcon="info"></mat-icon>
-      </button>
-      <mat-error *ngIf="lastName.hasError('required')">
-        Last name is <strong>required</strong>
-      </mat-error>
-    </mat-form-field>
+  <mat-form-field>
+    <mat-label>First name</mat-label>
+    <input formControlName="firstName" name="firstName" type="text" matInput required>
+    <button mat-icon-button matSuffix>
+      <mat-icon svgIcon="info"></mat-icon>
+    </button>
+    <mat-error *ngIf="firstName.hasError('required')">
+      First name is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
 
+  <mat-form-field>
+    <mat-label>Last name</mat-label>
+    <input formControlName="lastName" name="lastName" type="text" matInput required>
+    <button mat-icon-button matSuffix>
+      <mat-icon svgIcon="info"></mat-icon>
+    </button>
+    <mat-error *ngIf="lastName.hasError('required')">
+      Last name is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Date of birth</mat-label>
+    <input [matDatepicker]="picker" [max]="maxDate" formControlName="dateOfBirth" matInput required>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error *ngIf="dateOfBirth.hasError('required')">
+      Date of birth is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-button-toggle-group formControlName="gender" name="gender">
+    <mat-button-toggle value="Male">Male</mat-button-toggle>
+    <mat-button-toggle value="Female">Female</mat-button-toggle>
+  </mat-button-toggle-group>
+
+  <div class="country-tel-container">
     <mat-form-field>
-      <mat-label>Date of birth</mat-label>
-      <input 
-        [matDatepicker]="picker"
-        [max]="maxDate"
-        formControlName="dateOfBirth"
-        matInput 
-        required>
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-      <mat-error *ngIf="dateOfBirth.hasError('required')">
-        Date of birth is <strong>required</strong>
-      </mat-error>
+      <mat-label>Country code</mat-label>
+      <input type="text" placeholder="Pick one" matInput formControlName="country" [matAutocomplete]="auto">
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option *ngFor="let code of filteredCountryCodes | async" [value]="code">
+          {{ code }}
+        </mat-option>
+      </mat-autocomplete>
     </mat-form-field>
 
-    <mat-button-toggle-group 
-      formControlName="gender"
-      name="gender">
-      <mat-button-toggle value="Male">Male</mat-button-toggle>
-      <mat-button-toggle value="Female">Female</mat-button-toggle>
-    </mat-button-toggle-group>
+    <mat-form-field>
+      <mat-label>Mobile phone number</mat-label>
+      <input matInput formControlName="tel" type="tel" required>
+    </mat-form-field>
+  </div>
 
-    <div class="country-tel-container">
-      <mat-form-field>
-        <mat-label>Country code</mat-label>
-        <input type="text"
-              placeholder="Pick one"
-              matInput
-              formControlName="country"
-              [matAutocomplete]="auto">
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-            {{option}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
+  <mat-form-field>
+    <mat-label>Citizenship</mat-label>
+    <input type="text" matInput formControlName="citizenship" [matAutocomplete]="auto2">
+    <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
+      <mat-option *ngFor="let country of filteredCountries | async" [value]="country">
+        {{country}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Mobile phone number</mat-label>
-        <input matInput formControlName="tel" type="tel" required>
-      </mat-form-field>
-    </div>
-    
-  </form>
+</form>
 
-  <section class="terms-section">
-    <mat-checkbox color="primary">
-      I agree to Airway's <span class="privacy-policy">Privacy Policy</span> and <span class="terms-of-use">Terms of Use</span>
-    </mat-checkbox>
-  </section>
-  
-  <button mat-raised-button color="primary" class="signup-button" 
-    (click)="onSignup()"
-    [disabled]="email.invalid || password.invalid">Sign up</button>
+<section class="terms-section">
+  <mat-checkbox color="primary">
+    I agree to Airway's <span class="privacy-policy">Privacy Policy</span> and <span class="terms-of-use">Terms of
+      Use</span>
+  </mat-checkbox>
+</section>
+
+<button mat-raised-button color="primary" class="signup-button" (click)="onSignup()"
+  [disabled]="email.invalid || password.invalid">Sign up</button>

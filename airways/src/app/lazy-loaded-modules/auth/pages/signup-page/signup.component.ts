@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
 import { SvgIconService } from 'src/app/core/services/svg-icon.service';
+import { COUNTRY_CODES } from '../../constants/country-codes.constants';
 
 @Component({
   selector: 'airways-signup-page',
@@ -14,9 +15,13 @@ export class SignupPageComponent implements OnInit {
 
   maxDate: Date = new Date();
 
-  options: string[] = ['One', 'Two', 'Three'];
+  codes!: string[];
 
-  filteredOptions!: Observable<string[]>;
+  countries!: string[];
+
+  filteredCountryCodes!: Observable<string[]>;
+
+  filteredCountries!: Observable<string[]>;
 
   constructor(private formBuilder: FormBuilder, private svgIconService: SvgIconService) {
     this.svgIconService.addSvgIcon('info');
@@ -25,10 +30,37 @@ export class SignupPageComponent implements OnInit {
   ngOnInit(): void {
     this.createSignupForm();
 
-    this.filteredOptions = this.country.valueChanges.pipe(
-      startWith(''),
-      map((value) => this._filter(value || '')),
+    this.countries = COUNTRY_CODES.map((country) => country.name);
+
+    this.codes = COUNTRY_CODES.map(
+      (country) => (country.name = country.name + ' (' + country.dial_code + ')'),
     );
+
+    this.filteredCountryCodes = this.country.valueChanges.pipe(
+      startWith(''),
+      map((value) => this._filterCodes(value || '')),
+    );
+
+    this.filteredCountries = this.citizenship.valueChanges.pipe(
+      startWith(''),
+      map((value) => this._filterCountries(value || '')),
+    );
+  }
+
+  private _filterCodes(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.codes
+      .filter((country) => country.toLowerCase().includes(filterValue))
+      .map((country) => country);
+  }
+
+  private _filterCountries(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.countries
+      .filter((country) => country.toLowerCase().includes(filterValue))
+      .map((country) => country);
   }
 
   onSignup() {
@@ -48,6 +80,7 @@ export class SignupPageComponent implements OnInit {
       gender: ['', { validators: [Validators.required] }],
       country: [''],
       tel: ['', { validators: [Validators.required] }],
+      citizenship: [''],
     });
   }
 
@@ -83,9 +116,7 @@ export class SignupPageComponent implements OnInit {
     return this.signupForm.controls['tel'];
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.options.filter((option) => option.toLowerCase().includes(filterValue));
+  get citizenship() {
+    return this.signupForm.controls['citizenship'];
   }
 }
