@@ -1,10 +1,17 @@
 import { createSelector } from '@ngrx/store';
-import { PassengersInterface } from 'src/app/modules/home/models/passenger-types.models';
 import { AppStateInterface, OrderStateInterface } from '../store.models';
 
 export const orderFeatureSelector = (state: AppStateInterface): OrderStateInterface => state.order;
 
 export const selectPassengers = createSelector(
   orderFeatureSelector,
-  (orderState: OrderStateInterface): PassengersInterface => orderState.passengers,
+  (orderState: OrderStateInterface) => orderState.passengers,
+);
+export const selectArrivalDate = createSelector(
+  orderFeatureSelector,
+  (orderState: OrderStateInterface) => orderState.arrival,
+);
+export const selectDepartureDate = createSelector(
+  orderFeatureSelector,
+  (orderState: OrderStateInterface) => orderState.departure,
 );

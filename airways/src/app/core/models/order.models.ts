@@ -4,7 +4,7 @@ import { AirportResponseInterface } from './airport-response.interface';
 export interface OrderInterface {
   origin: AirportResponseInterface | null;
   destination: AirportResponseInterface | null;
-  arrival: Date | null;
-  departure: Date | null;
+  arrival: string | null;
+  departure: string | null;
   passengers: PassengersInterface;
 }

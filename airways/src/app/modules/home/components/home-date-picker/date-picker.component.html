@@ -7,8 +7,15 @@
         formControlName="departure"
         placeholder="Start date"
         class="mat-form__input"
+        (dateChange)="onDepartureDateChange()"
       />
-      <input matEndDate formControlName="arrival" placeholder="End date" class="mat-form__input" />
+      <input
+        matEndDate
+        formControlName="arrival"
+        placeholder="End date"
+        class="mat-form__input"
+        (dateChange)="onArrivalDateChange()"
+      />
     </mat-date-range-input>
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-date-range-picker #picker></mat-date-range-picker>
@@ -29,6 +36,7 @@
       [min]="minDate"
       class="mat-form__input"
       placeholder="Choose a date"
+      (dateChange)="onDepartureDateChange()"
     />
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>

@@ -7,7 +7,11 @@ import { updateOrderAction } from 'src/app/core/store/actions/order.actions';
 import { selectDateFormatInUppercase } from 'src/app/core/store/selectors/formats.selectors';
 import { Event as NavigationEvent } from '@angular/router';
 import { PassengersInterface } from '../../models/passenger-types.models';
-import { selectPassengers } from 'src/app/core/store/selectors/order.selectors';
+import {
+  selectArrivalDate,
+  selectDepartureDate,
+  selectPassengers,
+} from 'src/app/core/store/selectors/order.selectors';
 import { AppStateInterface } from 'src/app/core/store/store.models';
 
 @Component({
@@ -24,6 +28,10 @@ export class HomePageComponent implements OnInit, OnDestroy {
 
   passengers$!: Observable<PassengersInterface>;
 
+  arrivalDate$!: Observable<string | null>;
+
+  departureDate$!: Observable<string | null>;
+
   constructor(
     private store: Store<AppStateInterface>,
     private fb: FormBuilder,
@@ -37,6 +45,8 @@ export class HomePageComponent implements OnInit, OnDestroy {
     this.initializeForms();
     this.initializeListeners();
     this.passengers$ = this.store.select(selectPassengers);
+    this.departureDate$ = this.store.select(selectDepartureDate);
+    this.arrivalDate$ = this.store.select(selectArrivalDate);
     console.log('init');
   }
 

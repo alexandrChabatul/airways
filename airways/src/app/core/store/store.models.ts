@@ -21,8 +21,8 @@ export interface FormatsStateInterface {
 export interface OrderStateInterface {
   origin: AirportResponseInterface | null;
   destination: AirportResponseInterface | null;
-  departure: Date | null;
-  arrival: Date | null;
+  departure: string | null;
+  arrival: string | null;
   passengers: PassengersInterface;
   isLoading: boolean;
 }

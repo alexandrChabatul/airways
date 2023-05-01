@@ -20,12 +20,12 @@ export const updateOrderAirportAction = createAction(
 );
 
 export const updateOrderDateAction = createAction(
-  OrderActionTypes.UPDATE_ORDER_AIRPORT,
-  props<{ param: 'arrival' | 'departure'; data: Date }>(),
+  OrderActionTypes.UPDATE_ORDER_DATE,
+  props<{ param: 'arrival' | 'departure'; data: string }>(),
 );
 
 export const updateOrderPassengersAction = createAction(
-  OrderActionTypes.UPDATE_ORDER_AIRPORT,
+  OrderActionTypes.UPDATE_ORDER_PASSENGERS,
   props<{ param: 'passengers'; data: PassengersInterface }>(),
 );
 

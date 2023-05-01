@@ -1,6 +1,6 @@
-import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import moment from 'moment';
 import { PassengersInterface } from 'src/app/modules/home/models/passenger-types.models';
 import { environment } from 'src/environments/environment';
 import { AirportResponseInterface } from '../models/airport-response.interface';
@@ -9,10 +9,10 @@ import { AirportResponseInterface } from '../models/airport-response.interface';
   providedIn: 'root',
 })
 export class UrlParamsService {
-  constructor(private location: Location, private route: ActivatedRoute, private router: Router) {}
+  constructor(private router: Router) {}
 
-  addParam(param: string, data: AirportResponseInterface | Date | PassengersInterface) {
-    let paramString = '';
+  addParam(param: string, data: AirportResponseInterface | string | PassengersInterface) {
+    let paramString: string | null = '';
     switch (param) {
       case 'origin': {
         paramString = this.getAirportParamString(data as AirportResponseInterface);
@@ -23,11 +23,11 @@ export class UrlParamsService {
         break;
       }
       case 'departure': {
-        paramString = this.getDateParamString(data as Date);
+        paramString = this.getDateParamString(String(data));
         break;
       }
       case 'arrival': {
-        paramString = this.getDateParamString(data as Date);
+        paramString = this.getDateParamString(String(data));
         break;
       }
       case 'passengers': {
@@ -36,7 +36,7 @@ export class UrlParamsService {
       }
     }
     const urlTree = this.router.createUrlTree([], {
-      queryParams: { [param]: paramString },
+      queryParams: { [param]: paramString, youCanRemoveMultiple: null },
       queryParamsHandling: 'merge',
       preserveFragment: true,
     });
@@ -48,14 +48,9 @@ export class UrlParamsService {
     return data.code;
   }
 
-  getDateParamString(data: Date) {
-    return (
-      data.getMonth() +
-      environment.paramDelimiter +
-      data.getDate() +
-      environment.paramDelimiter +
-      data.getFullYear()
-    );
+  getDateParamString(data: string) {
+    if (!data) return null;
+    return moment(data).format('MM-DD-YYYY');
   }
 
   getPassengersParamString(data: PassengersInterface) {

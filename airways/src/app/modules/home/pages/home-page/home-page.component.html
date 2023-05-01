@@ -41,6 +41,8 @@
         [dateFormat]="dateFormat$ | async"
         [tripType]="searchForm.controls['tripType'].value"
         class="search__date-picker"
+        [departureDate]="departureDate$ | async"
+        [arrivalDate]="arrivalDate$ | async"
       ></airways-date-picker>
 
       <airways-persons-selector [passengers]="(passengers$ | async)!"></airways-persons-selector>

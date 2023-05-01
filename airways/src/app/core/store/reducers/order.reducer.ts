@@ -38,7 +38,7 @@ const orderReducer = createReducer(
       origin: action.order.origin,
       destination: action.order.destination,
       departure: action.order.arrival,
-      arrival: action.order.departure,
+      arrival: action.order.arrival,
       passengers: action.order.passengers,
       isLoading: false,
     }),

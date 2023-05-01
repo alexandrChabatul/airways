@@ -39,9 +39,9 @@ export class OrderService {
   }
 
   //FORMAT MM-DD-YYYY
-  getDate(date: string): Date | null {
+  getDate(date: string): string | null {
     const parsedDate = Date.parse(date);
-    return parsedDate ? new Date(parsedDate) : null;
+    return parsedDate ? new Date(parsedDate).toISOString() : null;
   }
 
   getPassengersObj(passengers: string): PassengersInterface {
