@@ -15,3 +15,11 @@ export const selectDepartureDate = createSelector(
   orderFeatureSelector,
   (orderState: OrderStateInterface) => orderState.departure,
 );
+export const selectOriginAirport = createSelector(
+  orderFeatureSelector,
+  (orderState: OrderStateInterface) => orderState.origin,
+);
+export const selectDestinationAirport = createSelector(
+  orderFeatureSelector,
+  (orderState: OrderStateInterface) => orderState.destination,
+);

@@ -22,6 +22,7 @@ export class UpdateOrderEffect {
       switchMap(({ params }) => {
         return this.orderService.getOrderInformation(params).pipe(
           map((order: OrderInterface) => {
+            console.log(order);
             return updateOrderSuccessAction({ order });
           }),
           catchError((errorResponse: HttpErrorResponse) => {

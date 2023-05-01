@@ -79,12 +79,14 @@ export class DatePickerComponent implements OnInit, OnChanges {
     } else {
       this.arrival.removeValidators([Validators.required]);
     }
-    this.store.dispatch(
-      updateOrderDateAction({
-        param: 'arrival',
-        data: '',
-      }),
-    );
+    if (this.tripType === 'one-way') {
+      this.store.dispatch(
+        updateOrderDateAction({
+          param: 'arrival',
+          data: '',
+        }),
+      );
+    }
   }
 
   updateDateFormsFormat() {
@@ -99,7 +101,7 @@ export class DatePickerComponent implements OnInit, OnChanges {
     this.store.dispatch(
       updateOrderDateAction({
         param: 'departure',
-        data: this.departure.value?.toISOString() || '',
+        data: this.departure.value?.toISOString(),
       }),
     );
   }
@@ -109,7 +111,7 @@ export class DatePickerComponent implements OnInit, OnChanges {
     this.store.dispatch(
       updateOrderDateAction({
         param: 'arrival',
-        data: this.arrival.value?.toISOString() || '',
+        data: this.arrival.value?.toISOString(),
       }),
     );
   }

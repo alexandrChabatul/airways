@@ -10,9 +10,12 @@ import { PassengersInterface } from '../../models/passenger-types.models';
 import {
   selectArrivalDate,
   selectDepartureDate,
+  selectDestinationAirport,
+  selectOriginAirport,
   selectPassengers,
 } from 'src/app/core/store/selectors/order.selectors';
 import { AppStateInterface } from 'src/app/core/store/store.models';
+import { AirportResponseInterface } from 'src/app/core/models/airport-response.interface';
 
 @Component({
   selector: 'airways-home-page',
@@ -32,6 +35,10 @@ export class HomePageComponent implements OnInit, OnDestroy {
 
   departureDate$!: Observable<string | null>;
 
+  originAirport$!: Observable<AirportResponseInterface | null>;
+
+  destinationAirport$!: Observable<AirportResponseInterface | null>;
+
   constructor(
     private store: Store<AppStateInterface>,
     private fb: FormBuilder,
@@ -47,6 +54,8 @@ export class HomePageComponent implements OnInit, OnDestroy {
     this.passengers$ = this.store.select(selectPassengers);
     this.departureDate$ = this.store.select(selectDepartureDate);
     this.arrivalDate$ = this.store.select(selectArrivalDate);
+    this.originAirport$ = this.store.select(selectOriginAirport);
+    this.destinationAirport$ = this.store.select(selectDestinationAirport);
     console.log('init');
   }
 

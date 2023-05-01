@@ -11,15 +11,15 @@ import { AirportResponseInterface } from '../models/airport-response.interface';
 export class UrlParamsService {
   constructor(private router: Router) {}
 
-  addParam(param: string, data: AirportResponseInterface | string | PassengersInterface) {
+  addParam(param: string, data: AirportResponseInterface | string | PassengersInterface | null) {
     let paramString: string | null = '';
     switch (param) {
       case 'origin': {
-        paramString = this.getAirportParamString(data as AirportResponseInterface);
+        paramString = this.getAirportParamString(data as AirportResponseInterface | null);
         break;
       }
       case 'destination': {
-        paramString = this.getAirportParamString(data as AirportResponseInterface);
+        paramString = this.getAirportParamString(data as AirportResponseInterface | null);
         break;
       }
       case 'departure': {
@@ -44,8 +44,8 @@ export class UrlParamsService {
     this.router.navigateByUrl(urlTree);
   }
 
-  getAirportParamString(data: AirportResponseInterface) {
-    return data.code;
+  getAirportParamString(data: AirportResponseInterface | null) {
+    return data?.code ? data.code : null;
   }
 
   getDateParamString(data: string) {

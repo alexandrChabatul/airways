@@ -9,11 +9,13 @@
       <airways-airway-autocomplete
         label="From"
         [controlName]="'origin'"
+        [airport]="originAirport$ | async"
         placeholderText="Choose your origin"
       ></airways-airway-autocomplete>
       <airways-airway-autocomplete
         label="Destination"
         [controlName]="'destination'"
+        [airport]="destinationAirport$ | async"
         placeholderText="Choose your destination"
       ></airways-airway-autocomplete>
       <mat-error

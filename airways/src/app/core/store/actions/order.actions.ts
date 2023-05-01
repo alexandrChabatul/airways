@@ -16,7 +16,7 @@ export const updateOrderSuccessAction = createAction(
 
 export const updateOrderAirportAction = createAction(
   OrderActionTypes.UPDATE_ORDER_AIRPORT,
-  props<{ param: 'origin' | 'destination'; data: AirportResponseInterface }>(),
+  props<{ param: 'origin' | 'destination'; data: AirportResponseInterface | null }>(),
 );
 
 export const updateOrderDateAction = createAction(
