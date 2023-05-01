@@ -45,8 +45,6 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     MatSelectModule,
     MatBadgeModule,
     MatMenuModule,
-<<<<<<<<< Temporary merge branch 1
-=========
     MatButtonToggleModule,
   ],
 })
