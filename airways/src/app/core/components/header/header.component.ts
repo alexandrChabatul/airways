@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit {
 
   public stepNumber = 1;
 
-  public isUserLoggedIn = true; //TODO: get value from store
+  public isUserLoggedIn = false; //TODO: get value from store
 
   public userName = 'Harry Potter'; //TODO: get value from store
 
@@ -99,7 +99,7 @@ export class HeaderComponent implements OnInit {
   }
 
   public navigateToLogin(): void {
-    // this.router.navigateByUrl('/login'); //TODO: change urls
+    this.router.navigateByUrl('/auth');
   }
 
   public navigateToUserPage(): void {
