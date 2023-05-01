@@ -75,6 +75,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
   }
 
   onSearchFormSubmit(): void {
+    this.searchForm.markAllAsTouched();
     console.log(this.searchForm);
     if (this.searchForm.valid) {
       console.log('valid');

@@ -1,11 +1,13 @@
-import { Component, OnInit, OnChanges, Input, Inject, SimpleChanges } from '@angular/core';
 import {
-  ControlContainer,
-  FormBuilder,
-  FormControl,
-  FormGroupDirective,
-  Validators,
-} from '@angular/forms';
+  Component,
+  OnInit,
+  OnChanges,
+  Input,
+  Inject,
+  SimpleChanges,
+  ChangeDetectionStrategy,
+} from '@angular/core';
+import { ControlContainer, FormControl, FormGroupDirective, Validators } from '@angular/forms';
 import {
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
   MomentDateAdapter,
@@ -27,29 +29,30 @@ import { MaterialDateFormatInterface } from 'src/app/core/models/material-date-f
     { provide: MAT_DATE_FORMATS, useValue: DEFAULT_DATE_FORMAT },
   ],
   viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DatePickerComponent implements OnInit, OnChanges {
-  departure = new FormControl<string>('');
+  departure = new FormControl<string>('', [Validators.required]);
 
-  arrival = new FormControl<string>('');
+  arrival = new FormControl<string>('', [Validators.required]);
 
   minDate = new Date();
+
+  @Input() startDate!: Date | null;
+
+  @Input() endDate!: Date | null;
 
   @Input() dateFormat: string | null = DEFAULT_DATE_FORMAT.display.dateInput;
 
   @Input() tripType!: string;
 
   constructor(
-    private fb: FormBuilder,
     @Inject(MAT_DATE_FORMATS) private dateFormats: MaterialDateFormatInterface,
     private parentForm: FormGroupDirective,
   ) {}
 
   ngOnInit(): void {
-    this.parentForm.form.addControl('departure', this.departure);
-    this.parentForm.form.addControl('arrival', this.arrival);
-    this.departure.setValidators([Validators.required]);
-    this.arrival.setValidators([Validators.required]);
+    this.initializeForm();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -61,6 +64,11 @@ export class DatePickerComponent implements OnInit, OnChanges {
     if (changes['tripType']) {
       this.toggleValidation();
     }
+  }
+
+  initializeForm() {
+    this.parentForm.form.addControl('departure', this.departure);
+    this.parentForm.form.addControl('arrival', this.arrival);
   }
 
   toggleValidation(): void {

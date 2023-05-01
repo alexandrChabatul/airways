@@ -2,12 +2,19 @@
   <mat-form-field appearance="fill" class="mat-form date-picker" floatLabel="always">
     <mat-label>Date</mat-label>
     <mat-date-range-input [rangePicker]="picker" [min]="minDate">
-      <input matStartDate formControlName="departure" placeholder="Start date" class="mat-form__input"/>
+      <input
+        matStartDate
+        formControlName="departure"
+        placeholder="Start date"
+        class="mat-form__input"
+      />
       <input matEndDate formControlName="arrival" placeholder="End date" class="mat-form__input" />
     </mat-date-range-input>
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-date-range-picker #picker></mat-date-range-picker>
-    <mat-error *ngIf="departure.hasError('required') || arrival.hasError('required')">Choose a date range</mat-error>
+    <mat-error *ngIf="departure.hasError('required') || arrival.hasError('required')"
+      >Choose a date range</mat-error
+    >
     <mat-error *ngIf="departure.hasError('matDatepickerMin')">Invalid start date</mat-error>
   </mat-form-field>
 </ng-template>

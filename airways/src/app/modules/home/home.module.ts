@@ -7,8 +7,6 @@ import { AirwayAutocompleteComponent } from './components/airway-autocomplete/ai
 import { CoreModule } from 'src/app/core/core.module';
 import { DatePickerComponent } from './components/home-date-picker/date-picker.component';
 import { PassengerSelectorComponent } from './components/passenger-selector/passenger-selector.component';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { DirtyErrorStateMatcher } from 'src/app/core/matchers/dirty-error-state.matcher';
 import { AutoSelectValueDirective } from './directives/auto-select-value.directive';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from 'src/app/core/store/reducers/order.reducer';
@@ -31,12 +29,6 @@ import { UpdateOrderEffect } from 'src/app/core/store/effects/updateOrder.effect
     CoreModule,
     StoreModule.forFeature('order', reducer),
     EffectsModule.forFeature(UpdateOrderEffect),
-  ],
-  providers: [
-    {
-      provide: ErrorStateMatcher,
-      useClass: DirtyErrorStateMatcher,
-    },
   ],
 })
 export class HomeModule {}
