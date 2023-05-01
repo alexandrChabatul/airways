@@ -4,6 +4,7 @@ import moment from 'moment';
 import { PassengersInterface } from 'src/app/modules/home/models/passenger-types.models';
 import { environment } from 'src/environments/environment';
 import { AirportResponseInterface } from '../models/airport-response.interface';
+import { OrderInterface } from '../models/order.models';
 
 @Injectable({
   providedIn: 'root',
@@ -48,12 +49,22 @@ export class UrlParamsService {
     return data?.code ? data.code : null;
   }
 
-  getDateParamString(data: string) {
+  getDateParamString(data: string | null) {
     if (!data) return null;
     return moment(data).format('MM-DD-YYYY');
   }
 
   getPassengersParamString(data: PassengersInterface) {
     return Object.values(data).join(environment.paramDelimiter);
+  }
+
+  getQueryParamObj(order: OrderInterface) {
+    return {
+      origin: this.getAirportParamString(order.origin),
+      destination: this.getAirportParamString(order.destination),
+      departure: this.getDateParamString(order.departure),
+      arrival: this.getDateParamString(order.arrival),
+      passengers: this.getPassengersParamString(order.passengers),
+    };
   }
 }

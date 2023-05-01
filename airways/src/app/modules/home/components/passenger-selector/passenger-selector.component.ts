@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { ControlContainer, FormControl, FormGroupDirective } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { updateOrderPassengersAction } from 'src/app/core/store/actions/order.actions';
@@ -29,8 +36,11 @@ export class PassengerSelectorComponent implements OnInit, OnChanges {
     this.parentForm.form.addControl('passengers', this.passengersControl);
   }
 
-  ngOnChanges(): void {
+  ngOnChanges(changes: SimpleChanges): void {
     this.updateButtonsAvailable();
+    if (this.passengersControl) {
+      this.passengersControl.setValue(changes['passengers'].currentValue);
+    }
   }
 
   addPassenger(event: Event, optionName: PassengersOptionNamesType): void {

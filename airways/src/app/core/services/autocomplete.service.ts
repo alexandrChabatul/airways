@@ -11,7 +11,6 @@ export class AutocompleteService {
   constructor(private http: HttpClient) {}
 
   getOptions(query: string): Observable<AirportResponseInterface[]> {
-    console.log('get');
     return this.http.get<AirportResponseInterface[]>(environment.autocompleteApi + query).pipe(
       catchError(() => {
         return of([]);

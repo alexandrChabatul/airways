@@ -9,7 +9,7 @@ import { AppStateInterface } from 'src/app/core/store/store.models';
   selector: '[airwaysAutoSelectValue]',
 })
 export class AutoSelectValueDirective {
-  topValue!: AirportResponseInterface | undefined;
+  topValue: AirportResponseInterface | undefined;
 
   @Input() dropdownList!: AirportResponseInterface[] | null;
 

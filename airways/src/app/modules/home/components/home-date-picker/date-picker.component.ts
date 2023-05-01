@@ -78,7 +78,9 @@ export class DatePickerComponent implements OnInit, OnChanges {
       this.arrival.setValidators([Validators.required]);
     } else {
       this.arrival.removeValidators([Validators.required]);
+      this.arrival.setErrors(null);
     }
+    console.log(this.arrival);
     if (this.tripType === 'one-way') {
       this.store.dispatch(
         updateOrderDateAction({

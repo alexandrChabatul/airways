@@ -7,11 +7,17 @@
 
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; background-color: #D9D9D9; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background-color: #d9d9d9;
+}
 * {
   box-sizing: border-box;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
 html,
@@ -21,7 +27,7 @@ body {
 
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
   position: relative;
   background-color: $neutral-80;
 }
@@ -34,27 +40,6 @@ airways-root {
 
 main {
   flex-grow: 1;
-  display: flex;
-  justify-content: center;
-}
-
-.container {
-  width: 100%;
-  max-width: 1128px;
-  margin-top: 90px;
-
-  @include large {
-    padding: 0px 35px;
-  }
-
-  @include medium {
-    padding: 0px 30px;
-  }
-
-  @include small {
-    padding: 0px 10px;
-  }
-
 }
 
 p {
@@ -87,7 +72,6 @@ li {
 .mdc-line-ripple::before {
   display: none;
 }
-
 
 // MEDIA FOR MAT-SELECT
 

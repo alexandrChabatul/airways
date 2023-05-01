@@ -1,5 +1,5 @@
 <div class="home-wrapper">
-  <form class="search" [formGroup]="searchForm">
+  <form class="search" [formGroup]="searchForm" (submit)="onSearchFormSubmit()">
     <mat-radio-group aria-label="Select an option" formControlName="tripType" color="primary">
       <mat-radio-button value="round-trip" checked>Round trip</mat-radio-button>
       <mat-radio-button value="one-way">One Way</mat-radio-button>
@@ -49,7 +49,7 @@
 
       <airways-persons-selector [passengers]="(passengers$ | async)!"></airways-persons-selector>
     </div>
-    <button mat-raised-button color="primary" (click)="onSearchFormSubmit()" class="search__button">
+    <button mat-raised-button color="primary" class="search__button" type="submit">
       Search
     </button>
   </form>

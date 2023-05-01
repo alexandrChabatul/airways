@@ -14,8 +14,9 @@ import {
   selectOriginAirport,
   selectPassengers,
 } from 'src/app/core/store/selectors/order.selectors';
-import { AppStateInterface } from 'src/app/core/store/store.models';
 import { AirportResponseInterface } from 'src/app/core/models/airport-response.interface';
+import { OrderInterface } from 'src/app/core/models/order.models';
+import { UrlParamsService } from 'src/app/core/services/url-params.service';
 
 @Component({
   selector: 'airways-home-page',
@@ -29,6 +30,8 @@ export class HomePageComponent implements OnInit, OnDestroy {
 
   routerSubscription!: Subscription;
 
+  order$!: Observable<OrderInterface>;
+
   passengers$!: Observable<PassengersInterface>;
 
   arrivalDate$!: Observable<string | null>;
@@ -40,27 +43,31 @@ export class HomePageComponent implements OnInit, OnDestroy {
   destinationAirport$!: Observable<AirportResponseInterface | null>;
 
   constructor(
-    private store: Store<AppStateInterface>,
+    private store: Store,
     private fb: FormBuilder,
     private activateRoute: ActivatedRoute,
     private router: Router,
+    private urlParamsService: UrlParamsService,
   ) {}
 
   ngOnInit(): void {
-    this.dateFormat$ = this.store.select(selectDateFormatInUppercase);
-    this.store.dispatch(updateOrderAction({ params: this.activateRoute.snapshot.queryParams }));
     this.initializeForms();
     this.initializeListeners();
+    this.initializeValues();
+    this.store.dispatch(updateOrderAction({ params: this.activateRoute.snapshot.queryParams }));
+  }
+
+  ngOnDestroy(): void {
+    this.routerSubscription.unsubscribe();
+  }
+
+  initializeValues() {
+    this.dateFormat$ = this.store.select(selectDateFormatInUppercase);
     this.passengers$ = this.store.select(selectPassengers);
     this.departureDate$ = this.store.select(selectDepartureDate);
     this.arrivalDate$ = this.store.select(selectArrivalDate);
     this.originAirport$ = this.store.select(selectOriginAirport);
     this.destinationAirport$ = this.store.select(selectDestinationAirport);
-    console.log('init');
-  }
-
-  ngOnDestroy(): void {
-    this.routerSubscription.unsubscribe();
   }
 
   initializeForms(): void {
@@ -94,12 +101,16 @@ export class HomePageComponent implements OnInit, OnDestroy {
   }
 
   onSearchFormSubmit(): void {
-    this.searchForm.markAllAsTouched();
-    console.log(this.searchForm);
-    if (this.searchForm.valid) {
-      console.log('valid');
-    } else {
-      this.searchForm.setErrors({ formSubmit: true });
+    if (!this.searchForm.valid) {
+      this.searchForm.markAllAsTouched();
+      return;
     }
+    const params = this.urlParamsService.getQueryParamObj(this.searchForm.value);
+    const urlTree = this.router.createUrlTree(['booking'], {
+      queryParams: params,
+      queryParamsHandling: 'merge',
+      preserveFragment: true,
+    });
+    this.router.navigateByUrl(urlTree);
   }
 }
