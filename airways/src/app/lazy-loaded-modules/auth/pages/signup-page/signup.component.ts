@@ -63,10 +63,9 @@ export class SignupPageComponent implements OnInit {
       .map((country) => country);
   }
 
-  onSignup() {
-    if (this.email.valid) {
-      // this.loginService.login(this.email.value ?? '');
-      // this.router.navigate(['']);
+  onSignUp() {
+    if (!this.signupForm.valid) {
+      return;
     }
   }
 

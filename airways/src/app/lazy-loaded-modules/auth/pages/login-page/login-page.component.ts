@@ -20,6 +20,9 @@ export class LoginPageComponent implements OnInit {
   }
 
   onLogIn() {
+    if (!this.loginForm.valid) {
+      return;
+    }
     const credentials = {
       email: this.email.value,
       password: this.password.value,

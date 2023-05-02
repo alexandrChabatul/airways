@@ -2,7 +2,7 @@
 
 <airways-divider>or sign up with your email</airways-divider>
 
-<form [formGroup]="signupForm" class="signupFormContainer">
+<form [formGroup]="signupForm" class="signupFormContainer" (ngSubmit)="onSignUp()">
   <mat-form-field>
     <mat-label>Email</mat-label>
     <input formControlName="email" name="email" type="email" matInput placeholder="Ex. pat@example.com" required>
@@ -89,14 +89,13 @@
     </mat-autocomplete>
   </mat-form-field>
 
+  <section class="terms-section">
+    <mat-checkbox color="primary">
+      I agree to Airway's <span class="privacy-policy">Privacy Policy</span> and <span class="terms-of-use">Terms of
+        Use</span>
+    </mat-checkbox>
+  </section>
+  
+  <button mat-raised-button color="primary" class="signup-button"
+    type="submit">Sign up</button>
 </form>
-
-<section class="terms-section">
-  <mat-checkbox color="primary">
-    I agree to Airway's <span class="privacy-policy">Privacy Policy</span> and <span class="terms-of-use">Terms of
-      Use</span>
-  </mat-checkbox>
-</section>
-
-<button mat-raised-button color="primary" class="signup-button" (click)="onSignup()"
-  [disabled]="email.invalid || password.invalid">Sign up</button>
