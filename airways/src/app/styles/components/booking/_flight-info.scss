@@ -5,6 +5,9 @@ airways-flight-info {
 .flight {
   &__container {
     display: flex;
+    background-color: $neutral-100;
+    border-radius: 5px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
 
     @include small {
       flex-direction: column;
@@ -132,10 +135,6 @@ airways-flight-info {
       gap: 15px;
     }
 
-    // @include mobile {
-    //   font-size: 8px;
-    // }
-
     .price-seats__container {
       display: flex;
       flex-direction: column;
@@ -211,10 +210,6 @@ airways-flight-info {
       @include small {
         padding: 5px 10px;
       }
-
-      // @include mobile {
-      //   font-size: 10px;
-      // }
 
       &.mat-mdc-button {
         height: auto;

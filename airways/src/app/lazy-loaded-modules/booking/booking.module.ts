@@ -9,6 +9,8 @@ import { MaterialDesignModule } from '../../material-design/material-design.modu
 import { FlightInfoComponent } from './components/flight-info/flight-info.component';
 import { FlightTimeComponent } from './components/flight-time/flight-time.component';
 import { WayComponent } from './components/way/way.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { CarouselModule } from 'primeng/carousel';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { WayComponent } from './components/way/way.component';
     FlightInfoComponent,
     FlightTimeComponent,
     WayComponent,
+    CalendarComponent,
   ],
-  imports: [CommonModule, BookingRoutingModule, MaterialDesignModule],
+  imports: [CommonModule, BookingRoutingModule, MaterialDesignModule, CarouselModule],
 })
 export class BookingModule {}

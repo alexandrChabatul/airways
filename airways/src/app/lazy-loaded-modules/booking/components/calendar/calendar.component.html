@@ -1,0 +1,31 @@
+<div class="calendar">
+  <p-carousel
+  [value]="daysWithIndexes"
+  [numVisible]="5"
+  [numScroll]="1"
+  [circular]="false"
+  [responsiveOptions]="responsiveOptions"
+  [styleClass]="'calendar'"
+  [page]="2"
+  [showIndicators]="false">
+    <ng-template pTemplate="previousicon">
+      <div class="calendar__previous">
+        <mat-icon>chevron_left</mat-icon>
+      </div>
+    </ng-template>
+    <ng-template let-day pTemplate="item">
+      <div class="calendar__item item" [class.item-active]="day.isActive" (click)="toggleActive(day.index)">
+        <span class="item__date">{{day.date}}</span>
+        <span class="item__day">{{day.day}}</span>
+        <span class="item__price">{{day.price | currency: 'EUR'}}</span>
+        <!-- color directive for item__color -->
+        <div class="item__color"></div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="nexticon">
+      <div class="calendar__next">
+        <mat-icon>chevron_right</mat-icon>
+      </div>
+    </ng-template>
+  </p-carousel>
+</div>
