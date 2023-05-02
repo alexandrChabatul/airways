@@ -3,7 +3,7 @@ import { loginFailureAction, loginSuccessAction } from '../actions/auth.actions'
 import { AuthStateInterface } from '../store.models';
 
 const initialState: AuthStateInterface = {
-  token: null,
+  accessToken: null,
   user: null,
   loginError: null,
   isAuthenticated: false,
@@ -15,7 +15,7 @@ export const authReducer = createReducer(
     loginSuccessAction,
     (state, { loginSuccessResponse }): AuthStateInterface => ({
       ...state,
-      token: loginSuccessResponse.token,
+      accessToken: loginSuccessResponse.accessToken,
       user: loginSuccessResponse.user,
       isAuthenticated: true,
     }),
@@ -25,7 +25,7 @@ export const authReducer = createReducer(
     (state, { error }): AuthStateInterface => ({
       ...state,
       loginError: error,
-      token: null,
+      accessToken: null,
       user: null,
       isAuthenticated: false,
     }),

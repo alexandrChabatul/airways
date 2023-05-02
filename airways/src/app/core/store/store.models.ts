@@ -9,7 +9,7 @@ export interface AppStateInterface {
 }
 
 export interface AuthStateInterface {
-  token: string | null;
+  accessToken: string | null;
   user: User | null;
   loginError?: string | null;
   isAuthenticated: boolean;

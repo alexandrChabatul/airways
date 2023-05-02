@@ -5,12 +5,11 @@ export enum AuthActionTypes {
 }
 
 export interface AuthLoginResponse {
-  token: string;
+  accessToken: string;
   user: User;
 }
 
 export interface User {
   id: string;
   email: string;
-  password?: string;
 }
