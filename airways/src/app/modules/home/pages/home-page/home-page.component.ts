@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { filter, Observable, Subscription } from 'rxjs';
@@ -61,7 +61,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
 
   initializeForms(): void {
     this.searchForm = this.fb.group({
-      tripType: ['', [Validators.required]],
+      tripType: [''],
     });
   }
 
@@ -100,7 +100,6 @@ export class HomePageComponent implements OnInit, OnDestroy {
   }
 
   onSearchFormSubmit(): void {
-    console.log(this.searchForm.controls['tripType'].value);
     if (!this.searchForm.valid) {
       this.searchForm.markAllAsTouched();
       return;

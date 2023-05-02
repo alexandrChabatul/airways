@@ -99,12 +99,6 @@ export class DatePickerComponent implements OnInit, OnDestroy {
       this.arrival.removeValidators([Validators.required]);
       this.arrival.setErrors(null);
       this.arrival.setValue(null);
-      this.store.dispatch(
-        updateOrderDateAction({
-          param: 'arrival',
-          data: '',
-        }),
-      );
     }
   }
 
