@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
 import { SvgIconService } from 'src/app/core/services/svg-icon.service';
 import { COUNTRY_CODES } from '../../constants/country-codes.constants';
+import { Store } from '@ngrx/store';
+import * as AuthActions from '../../../../core/store/actions/auth.actions';
 
 @Component({
   selector: 'airways-signup-page',
@@ -23,7 +25,11 @@ export class SignupPageComponent implements OnInit {
 
   filteredCountries!: Observable<string[]>;
 
-  constructor(private formBuilder: FormBuilder, private svgIconService: SvgIconService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private svgIconService: SvgIconService,
+    private store: Store,
+  ) {
     this.svgIconService.addSvgIcon('info');
   }
 
@@ -67,6 +73,11 @@ export class SignupPageComponent implements OnInit {
     if (!this.signupForm.valid) {
       return;
     }
+    const credentials = {
+      email: this.email.value,
+      password: this.password.value,
+    };
+    this.store.dispatch(AuthActions.signupRequestAction({ credentials }));
   }
 
   createSignupForm() {
