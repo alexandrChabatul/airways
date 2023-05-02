@@ -58,18 +58,46 @@ airways-calendar {
       @include label-m;
       font-weight: 500;
       color: $secondary-0;
+
+      @include small {
+        font-size: 12px;
+      }
+
+      @include mobile {
+        font-size: 10px;
+      }
     }
 
     &__day {
       @include body-s;
       font-weight: 100;
       color: $neutral-30;
+
+      @include small {
+        font-size: 10px;
+      }
+
+      @include mobile {
+        font-size: 8px;
+      }
     }
 
     &__price {
       font-weight: 700;
       @include subtitle-m;
       color: $primary;
+
+      @include medium {
+        font-size: 16px;
+      }
+
+      @include small {
+        font-size: 14px;
+      }
+
+      @include mobile {
+        font-size: 12px;
+      }
     }
 
     &__color {
@@ -88,11 +116,31 @@ airways-calendar {
           @include subtitle-m;
           font-weight: 700;
           color: $primary;
+
+          @include medium {
+            font-size: 16px;
+          }
+
+          @include small {
+            font-size: 14px;
+          }
+
+          @include mobile {
+            font-size: 12px;
+          }
         }
 
         &__day {
           @include body-m;
           font-weight: 400;
+
+          @include small {
+            font-size: 12px;
+          }
+
+          @include mobile {
+            font-size: 10px;
+          }
         }
 
         &__price {

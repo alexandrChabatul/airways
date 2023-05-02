@@ -49,12 +49,6 @@ export class CalendarComponent implements OnInit {
       isActive: false,
     },
     {
-      date: '06 Mar',
-      day: 'Sunday',
-      price: 154,
-      isActive: false,
-    },
-    {
       date: '07 Mar',
       day: 'Monday',
       price: 144,
@@ -62,6 +56,12 @@ export class CalendarComponent implements OnInit {
     },
     {
       date: '08 Mar',
+      day: 'Tuesday',
+      price: 144,
+      isActive: false,
+    },
+    {
+      date: '09 Mar',
       day: 'Tuesday',
       price: 144,
       isActive: false,
@@ -76,7 +76,7 @@ export class CalendarComponent implements OnInit {
     this.daysWithIndexes = this.addItemsIndexes();
     this.responsiveOptions = [
       {
-        breakpoint: '991px',
+        breakpoint: '576px',
         numVisible: 3,
         numScroll: 1,
       },
