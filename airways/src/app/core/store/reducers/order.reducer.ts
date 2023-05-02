@@ -1,11 +1,14 @@
 import { Action, createReducer, on } from '@ngrx/store';
+import { TripType } from '../../models/order.models';
 import {
+  swapAirportsAction,
   updateOrderAction,
   updateOrderAirportAction,
   updateOrderDateAction,
   updateOrderFailureAction,
   updateOrderPassengersAction,
   updateOrderSuccessAction,
+  updateOrderTypeAction,
 } from '../actions/order.actions';
 import { OrderStateInterface } from '../store.models';
 
@@ -19,6 +22,7 @@ const initialState: OrderStateInterface = {
     child: 0,
     infant: 0,
   },
+  type: TripType.ROUND_TRIP,
   isLoading: false,
 };
 
@@ -40,6 +44,7 @@ const orderReducer = createReducer(
       departure: action.order.departure,
       arrival: action.order.arrival,
       passengers: action.order.passengers,
+      type: action.order.type,
       isLoading: false,
     }),
   ),
@@ -65,6 +70,21 @@ const orderReducer = createReducer(
     (state, action): OrderStateInterface => ({
       ...state,
       passengers: action.data,
+    }),
+  ),
+  on(
+    updateOrderTypeAction,
+    (state, action): OrderStateInterface => ({
+      ...state,
+      type: action.data,
+    }),
+  ),
+  on(
+    swapAirportsAction,
+    (state, action): OrderStateInterface => ({
+      ...state,
+      origin: action.destination,
+      destination: action.origin,
     }),
   ),
 );

@@ -1,14 +1,9 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ControlContainer, FormControl, FormGroupDirective } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { filter, Subscription } from 'rxjs';
 import { updateOrderPassengersAction } from 'src/app/core/store/actions/order.actions';
+import { selectPassengers } from 'src/app/core/store/selectors/order.selectors';
 import {
   PassengersInterface,
   PassengersOptionNamesType,
@@ -20,12 +15,13 @@ import { DEFAULT_PASSENGERS, PASSENGER_TYPES } from '../../constants/passenger.c
   selector: 'airways-persons-selector',
   templateUrl: './passenger-selector.component.html',
   viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PassengerSelectorComponent implements OnInit, OnChanges {
+export class PassengerSelectorComponent implements OnInit, OnDestroy {
   selectOptions: PassengerTypeInterface[] = PASSENGER_TYPES;
 
-  @Input() passengers: PassengersInterface = DEFAULT_PASSENGERS;
+  passengers: PassengersInterface = DEFAULT_PASSENGERS;
+
+  passengerSubscription!: Subscription;
 
   passengersControl!: FormControl;
 
@@ -34,13 +30,22 @@ export class PassengerSelectorComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.passengersControl = new FormControl<PassengersInterface>(this.passengers);
     this.parentForm.form.addControl('passengers', this.passengersControl);
+    this.initializeListeners();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.updateButtonsAvailable();
-    if (this.passengersControl) {
-      this.passengersControl.setValue(changes['passengers'].currentValue);
-    }
+  ngOnDestroy(): void {
+    this.passengerSubscription.unsubscribe();
+  }
+
+  initializeListeners() {
+    this.passengerSubscription = this.store
+      .select(selectPassengers)
+      .pipe(filter(Boolean))
+      .subscribe((passengers) => {
+        this.passengers = passengers;
+        this.passengersControl.setValue(passengers);
+        this.updateButtonsAvailable();
+      });
   }
 
   addPassenger(event: Event, optionName: PassengersOptionNamesType): void {

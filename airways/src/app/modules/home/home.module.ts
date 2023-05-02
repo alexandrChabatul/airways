@@ -11,7 +11,7 @@ import { AutoSelectValueDirective } from './directives/auto-select-value.directi
 import { StoreModule } from '@ngrx/store';
 import { reducer } from 'src/app/core/store/reducers/order.reducer';
 import { EffectsModule } from '@ngrx/effects';
-import { UpdateOrderEffect } from 'src/app/core/store/effects/updateOrder.effects';
+import { UpdateOrderEffect } from 'src/app/core/store/effects/update-order.effects';
 
 @NgModule({
   declarations: [

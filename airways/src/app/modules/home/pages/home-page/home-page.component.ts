@@ -3,19 +3,19 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { filter, Observable, Subscription } from 'rxjs';
-import { updateOrderAction } from 'src/app/core/store/actions/order.actions';
-import { selectDateFormatInUppercase } from 'src/app/core/store/selectors/formats.selectors';
-import { Event as NavigationEvent } from '@angular/router';
-import { PassengersInterface } from '../../models/passenger-types.models';
 import {
-  selectArrivalDate,
-  selectDepartureDate,
+  swapAirportsAction,
+  updateOrderAction,
+  updateOrderTypeAction,
+} from 'src/app/core/store/actions/order.actions';
+import { Event as NavigationEvent } from '@angular/router';
+import {
   selectDestinationAirport,
   selectOriginAirport,
-  selectPassengers,
+  selectTripType,
 } from 'src/app/core/store/selectors/order.selectors';
 import { AirportResponseInterface } from 'src/app/core/models/airport-response.interface';
-import { OrderInterface } from 'src/app/core/models/order.models';
+import { TripType } from 'src/app/core/models/order.models';
 import { UrlParamsService } from 'src/app/core/services/url-params.service';
 
 @Component({
@@ -24,19 +24,11 @@ import { UrlParamsService } from 'src/app/core/services/url-params.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePageComponent implements OnInit, OnDestroy {
-  dateFormat$!: Observable<string>;
-
   searchForm!: FormGroup;
 
   routerSubscription!: Subscription;
 
-  order$!: Observable<OrderInterface>;
-
-  passengers$!: Observable<PassengersInterface>;
-
-  arrivalDate$!: Observable<string | null>;
-
-  departureDate$!: Observable<string | null>;
+  type$!: Observable<TripType | null>;
 
   originAirport$!: Observable<AirportResponseInterface | null>;
 
@@ -62,17 +54,14 @@ export class HomePageComponent implements OnInit, OnDestroy {
   }
 
   initializeValues() {
-    this.dateFormat$ = this.store.select(selectDateFormatInUppercase);
-    this.passengers$ = this.store.select(selectPassengers);
-    this.departureDate$ = this.store.select(selectDepartureDate);
-    this.arrivalDate$ = this.store.select(selectArrivalDate);
+    this.type$ = this.store.select(selectTripType);
     this.originAirport$ = this.store.select(selectOriginAirport);
     this.destinationAirport$ = this.store.select(selectDestinationAirport);
   }
 
   initializeForms(): void {
     this.searchForm = this.fb.group({
-      tripType: ['round-trip', [Validators.required]],
+      tripType: ['', [Validators.required]],
     });
   }
 
@@ -92,15 +81,26 @@ export class HomePageComponent implements OnInit, OnDestroy {
   }
 
   swapFields() {
-    const from = this.searchForm.controls['origin'].value;
+    const origin = this.searchForm.controls['origin'].value;
     const destination = this.searchForm.controls['destination'].value;
-    if (from && destination) {
-      this.searchForm.controls['destination'].setValue(from);
-      this.searchForm.controls['origin'].setValue(destination);
+    if (origin && destination) {
+      this.store.dispatch(
+        swapAirportsAction({
+          origin,
+          destination,
+        }),
+      );
     }
   }
 
+  radioChange() {
+    this.store.dispatch(
+      updateOrderTypeAction({ param: 'type', data: this.searchForm.controls['tripType'].value }),
+    );
+  }
+
   onSearchFormSubmit(): void {
+    console.log(this.searchForm.controls['tripType'].value);
     if (!this.searchForm.valid) {
       this.searchForm.markAllAsTouched();
       return;

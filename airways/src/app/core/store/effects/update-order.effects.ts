@@ -6,12 +6,14 @@ import { OrderInterface } from '../../models/order.models';
 import { OrderService } from '../../services/order.service';
 import { UrlParamsService } from '../../services/url-params.service';
 import {
+  swapAirportsAction,
   updateOrderAction,
   updateOrderAirportAction,
   updateOrderDateAction,
   updateOrderFailureAction,
   updateOrderPassengersAction,
   updateOrderSuccessAction,
+  updateOrderTypeAction,
 } from '../actions/order.actions';
 
 @Injectable()
@@ -22,7 +24,6 @@ export class UpdateOrderEffect {
       switchMap(({ params }) => {
         return this.orderService.getOrderInformation(params).pipe(
           map((order: OrderInterface) => {
-            console.log(order);
             return updateOrderSuccessAction({ order });
           }),
           catchError((errorResponse: HttpErrorResponse) => {
@@ -37,9 +38,26 @@ export class UpdateOrderEffect {
   updateOrderOption$ = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(updateOrderAirportAction, updateOrderDateAction, updateOrderPassengersAction),
+        ofType(
+          updateOrderAirportAction,
+          updateOrderDateAction,
+          updateOrderPassengersAction,
+          updateOrderTypeAction,
+        ),
         tap(({ param, data }) => {
           this.urlParamsService.addParam(param, data);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
+
+  swapAirports$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(swapAirportsAction),
+        tap(({ origin, destination }) => {
+          this.urlParamsService.swapAirports(origin, destination);
         }),
       );
     },

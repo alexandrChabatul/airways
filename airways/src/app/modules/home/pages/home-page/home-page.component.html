@@ -1,21 +1,32 @@
 <div class="home-wrapper">
   <form class="search" [formGroup]="searchForm" (submit)="onSearchFormSubmit()">
-    <mat-radio-group aria-label="Select an option" formControlName="tripType" color="primary">
-      <mat-radio-button value="round-trip" checked>Round trip</mat-radio-button>
-      <mat-radio-button value="one-way">One Way</mat-radio-button>
+    <mat-radio-group
+      aria-label="Select an option"
+      formControlName="tripType"
+      color="primary"
+      (change)="radioChange()"
+    >
+      <mat-radio-button
+        value="round-trip"
+        [checked]="(type$ | async) === 'round-trip' || (type$ | async) === null"
+        >Round trip</mat-radio-button
+      >
+      <mat-radio-button value="one-way" [checked]="(type$ | async) === 'one-way'"
+        >One Way</mat-radio-button
+      >
     </mat-radio-group>
 
     <div class="search__scheme">
       <airways-airway-autocomplete
         label="From"
         [controlName]="'origin'"
-        [airport]="originAirport$ | async"
+        [airport$]="originAirport$"
         placeholderText="Choose your origin"
       ></airways-airway-autocomplete>
       <airways-airway-autocomplete
         label="Destination"
         [controlName]="'destination'"
-        [airport]="destinationAirport$ | async"
+        [airport$]="destinationAirport$"
         placeholderText="Choose your destination"
       ></airways-airway-autocomplete>
       <mat-error
@@ -40,15 +51,9 @@
     </div>
 
     <div class="search__date-passengers">
-      <airways-date-picker
-        [dateFormat]="dateFormat$ | async"
-        [tripType]="searchForm.controls['tripType'].value"
-        class="search__date-picker"
-        [departureDate]="departureDate$ | async"
-        [arrivalDate]="arrivalDate$ | async"
-      ></airways-date-picker>
+      <airways-date-picker class="search__date-picker"></airways-date-picker>
 
-      <airways-persons-selector [passengers]="(passengers$ | async)!"></airways-persons-selector>
+      <airways-persons-selector></airways-persons-selector>
     </div>
     <button mat-raised-button color="primary" class="search__button" type="submit">Search</button>
   </form>

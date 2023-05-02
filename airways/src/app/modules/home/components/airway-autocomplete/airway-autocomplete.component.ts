@@ -1,7 +1,15 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { ControlContainer, FormControl, FormGroupDirective, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable, startWith, switchMap, of, distinctUntilChanged, debounceTime } from 'rxjs';
+import {
+  Observable,
+  startWith,
+  switchMap,
+  of,
+  distinctUntilChanged,
+  debounceTime,
+  Subscription,
+} from 'rxjs';
 import { AirportResponseInterface } from 'src/app/core/models/airport-response.interface';
 import { AutocompleteService } from 'src/app/core/services/autocomplete.service';
 import { updateOrderAirportAction } from 'src/app/core/store/actions/order.actions';
@@ -12,7 +20,7 @@ import { AppStateInterface } from 'src/app/core/store/store.models';
   templateUrl: './airway-autocomplete.component.html',
   viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }],
 })
-export class AirwayAutocompleteComponent implements OnInit, OnChanges {
+export class AirwayAutocompleteComponent implements OnInit, OnDestroy {
   filteredOptions$!: Observable<AirportResponseInterface[]>;
 
   fieldControl = new FormControl<string | AirportResponseInterface>('');
@@ -23,7 +31,9 @@ export class AirwayAutocompleteComponent implements OnInit, OnChanges {
 
   @Input() placeholderText!: string;
 
-  @Input() airport!: AirportResponseInterface | null;
+  @Input() airport$!: Observable<AirportResponseInterface | null>;
+
+  airportSubscription!: Subscription;
 
   constructor(
     private autocompleteService: AutocompleteService,
@@ -32,6 +42,15 @@ export class AirwayAutocompleteComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnInit() {
+    this.initializeListeners();
+    this.initializeForm();
+  }
+
+  ngOnDestroy(): void {
+    this.airportSubscription.unsubscribe();
+  }
+
+  initializeListeners() {
     this.filteredOptions$ = this.fieldControl.valueChanges.pipe(
       startWith(''),
       distinctUntilChanged(),
@@ -41,14 +60,14 @@ export class AirwayAutocompleteComponent implements OnInit, OnChanges {
         return value ? this.autocompleteService.getOptions(value) : of([]);
       }),
     );
-    this.parentForm.form.addControl(this.controlName, this.fieldControl);
-    this.fieldControl.addValidators([Validators.required]);
+    this.airportSubscription = this.airport$.subscribe((data) =>
+      this.fieldControl.setValue(data, { emitEvent: false }),
+    );
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['airport']) {
-      this.fieldControl.setValue(this.airport, { emitEvent: false });
-    }
+  initializeForm() {
+    this.parentForm.form.addControl(this.controlName, this.fieldControl);
+    this.fieldControl.addValidators([Validators.required]);
   }
 
   displayFn(airport: AirportResponseInterface): string {

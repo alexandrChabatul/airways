@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, Inject, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ControlContainer, FormControl, FormGroupDirective, Validators } from '@angular/forms';
 import {
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
@@ -7,9 +7,17 @@ import {
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { Store } from '@ngrx/store';
 import moment, { Moment } from 'moment';
+import { filter } from 'rxjs';
 import { DEFAULT_DATE_FORMAT } from 'src/app/core/constants/formats.constants';
 import { MaterialDateFormatInterface } from 'src/app/core/models/material-date-format.model';
+import { TripType } from 'src/app/core/models/order.models';
 import { updateOrderDateAction } from 'src/app/core/store/actions/order.actions';
+import { selectDateFormatInUppercase } from 'src/app/core/store/selectors/formats.selectors';
+import {
+  selectArrivalDate,
+  selectDepartureDate,
+  selectTripType,
+} from 'src/app/core/store/selectors/order.selectors';
 import { AppStateInterface } from 'src/app/core/store/store.models';
 
 @Component({
@@ -26,20 +34,14 @@ import { AppStateInterface } from 'src/app/core/store/store.models';
   ],
   viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }],
 })
-export class DatePickerComponent implements OnInit, OnChanges {
+export class DatePickerComponent implements OnInit {
   departure = new FormControl<Moment | null>(null, [Validators.required]);
 
   arrival = new FormControl<Moment | null>(null, [Validators.required]);
 
   minDate = new Date();
 
-  @Input() departureDate!: string | null;
-
-  @Input() arrivalDate!: string | null;
-
-  @Input() dateFormat: string | null = DEFAULT_DATE_FORMAT.display.dateInput;
-
-  @Input() tripType!: string;
+  tripType: TripType = TripType.ROUND_TRIP;
 
   constructor(
     @Inject(MAT_DATE_FORMATS) private dateFormats: MaterialDateFormatInterface,
@@ -49,23 +51,33 @@ export class DatePickerComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.initializeForm();
+    this.initializeListeners();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['dateFormat'] && this.dateFormat) {
-      this.dateFormats.display.dateInput = this.dateFormat;
-      this.dateFormats.parse.dateInput = this.dateFormat;
-      this.updateDateFormsFormat();
-    }
-    if (changes['tripType']) {
-      this.toggleValidation();
-    }
-    if (changes['departureDate'] && this.departureDate) {
-      this.departure.setValue(moment(this.departureDate));
-    }
-    if (changes['arrivalDate'] && this.arrivalDate) {
-      this.arrival.setValue(moment(this.arrivalDate));
-    }
+  initializeListeners() {
+    this.store
+      .select(selectDepartureDate)
+      .pipe(filter(Boolean))
+      .subscribe((date) => this.departure.setValue(moment(date)));
+    this.store
+      .select(selectArrivalDate)
+      .pipe(filter(Boolean))
+      .subscribe((date) => this.arrival.setValue(moment(date)));
+    this.store
+      .select(selectDateFormatInUppercase)
+      .pipe(filter(Boolean))
+      .subscribe((format) => {
+        this.dateFormats.display.dateInput = format;
+        this.dateFormats.parse.dateInput = format;
+        this.updateDateFormsFormat();
+      });
+    this.store
+      .select(selectTripType)
+      .pipe(filter(Boolean))
+      .subscribe((type) => {
+        this.tripType = type;
+        this.toggleValidation(type);
+      });
   }
 
   initializeForm() {
@@ -73,21 +85,12 @@ export class DatePickerComponent implements OnInit, OnChanges {
     this.parentForm.form.addControl('arrival', this.arrival);
   }
 
-  toggleValidation(): void {
-    if (this.tripType === 'round-trip') {
+  toggleValidation(type: string): void {
+    if (type === 'round-trip') {
       this.arrival.setValidators([Validators.required]);
     } else {
       this.arrival.removeValidators([Validators.required]);
       this.arrival.setErrors(null);
-    }
-    console.log(this.arrival);
-    if (this.tripType === 'one-way') {
-      this.store.dispatch(
-        updateOrderDateAction({
-          param: 'arrival',
-          data: '',
-        }),
-      );
     }
   }
 

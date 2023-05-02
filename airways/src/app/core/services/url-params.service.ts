@@ -4,7 +4,7 @@ import moment from 'moment';
 import { PassengersInterface } from 'src/app/modules/home/models/passenger-types.models';
 import { environment } from 'src/environments/environment';
 import { AirportResponseInterface } from '../models/airport-response.interface';
-import { OrderInterface } from '../models/order.models';
+import { OrderInterface, TripType } from '../models/order.models';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,10 @@ import { OrderInterface } from '../models/order.models';
 export class UrlParamsService {
   constructor(private router: Router) {}
 
-  addParam(param: string, data: AirportResponseInterface | string | PassengersInterface | null) {
+  addParam(
+    param: string,
+    data: AirportResponseInterface | string | PassengersInterface | null | TripType,
+  ) {
     let paramString: string | null = '';
     switch (param) {
       case 'origin': {
@@ -35,9 +38,13 @@ export class UrlParamsService {
         paramString = this.getPassengersParamString(data as PassengersInterface);
         break;
       }
+      case 'type': {
+        paramString = data as TripType;
+        break;
+      }
     }
     const urlTree = this.router.createUrlTree([], {
-      queryParams: { [param]: paramString, youCanRemoveMultiple: null },
+      queryParams: { [param]: paramString },
       queryParamsHandling: 'merge',
       preserveFragment: true,
     });
@@ -66,5 +73,17 @@ export class UrlParamsService {
       arrival: this.getDateParamString(order.arrival),
       passengers: this.getPassengersParamString(order.passengers),
     };
+  }
+
+  swapAirports(origin: AirportResponseInterface, destination: AirportResponseInterface) {
+    const urlTree = this.router.createUrlTree([], {
+      queryParams: {
+        origin: this.getAirportParamString(destination),
+        destination: this.getAirportParamString(origin),
+      },
+      queryParamsHandling: 'merge',
+      preserveFragment: true,
+    });
+    this.router.navigateByUrl(urlTree);
   }
 }
