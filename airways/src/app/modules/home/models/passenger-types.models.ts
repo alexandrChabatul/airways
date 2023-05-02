@@ -1,8 +1,7 @@
 export interface PassengerTypeInterface {
-  optionName: 'adults' | 'child' | 'infant';
+  optionName: PassengersOptionNamesType;
   passenger: string;
   years: string;
-  count: number;
   isAddAvailable: boolean;
   isRemoveAvailable: boolean;
 }
@@ -12,3 +11,5 @@ export interface PassengersInterface {
   child: number;
   infant: number;
 }
+
+export type PassengersOptionNamesType = 'adults' | 'child' | 'infant';

@@ -1,4 +1,4 @@
-export interface AutocompleteResponseInterface {
+export interface AirportResponseInterface {
   id: string;
   type: string;
   code: string;

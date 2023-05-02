@@ -1,11 +1,10 @@
-import { PassengerTypeInterface } from '../models/passenger-types.models';
+import { PassengersInterface, PassengerTypeInterface } from '../models/passenger-types.models';
 
 export const PASSENGER_TYPES: PassengerTypeInterface[] = [
   {
     optionName: 'adults',
     passenger: 'Adults',
     years: '14+ years',
-    count: 1,
     isAddAvailable: true,
     isRemoveAvailable: false,
   },
@@ -13,7 +12,6 @@ export const PASSENGER_TYPES: PassengerTypeInterface[] = [
     optionName: 'child',
     passenger: 'Child',
     years: '2-14 years',
-    count: 0,
     isAddAvailable: true,
     isRemoveAvailable: false,
   },
@@ -21,8 +19,13 @@ export const PASSENGER_TYPES: PassengerTypeInterface[] = [
     optionName: 'infant',
     passenger: 'Infant',
     years: '0-2 years',
-    count: 0,
     isAddAvailable: true,
     isRemoveAvailable: false,
   },
 ];
+
+export const DEFAULT_PASSENGERS: PassengersInterface = {
+  adults: 1,
+  child: 0,
+  infant: 0,
+};

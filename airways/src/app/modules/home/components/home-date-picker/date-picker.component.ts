@@ -1,18 +1,24 @@
-import { Component, OnInit, OnChanges, Input, Inject, SimpleChanges } from '@angular/core';
-import {
-  ControlContainer,
-  FormBuilder,
-  FormControl,
-  FormGroupDirective,
-  Validators,
-} from '@angular/forms';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { ControlContainer, FormControl, FormGroupDirective, Validators } from '@angular/forms';
 import {
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
   MomentDateAdapter,
 } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { Store } from '@ngrx/store';
+import moment, { Moment } from 'moment';
+import { filter, Subscription } from 'rxjs';
 import { DEFAULT_DATE_FORMAT } from 'src/app/core/constants/formats.constants';
 import { MaterialDateFormatInterface } from 'src/app/core/models/material-date-format.model';
+import { TripType } from 'src/app/core/models/order.models';
+import { updateOrderDateAction } from 'src/app/core/store/actions/order.actions';
+import { selectDateFormatInUppercase } from 'src/app/core/store/selectors/formats.selectors';
+import {
+  selectArrivalDate,
+  selectDepartureDate,
+  selectTripType,
+} from 'src/app/core/store/selectors/order.selectors';
+import { AppStateInterface } from 'src/app/core/store/store.models';
 
 @Component({
   selector: 'airways-date-picker',
@@ -28,55 +34,104 @@ import { MaterialDateFormatInterface } from 'src/app/core/models/material-date-f
   ],
   viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }],
 })
-export class DatePickerComponent implements OnInit, OnChanges {
-  start = new FormControl<string>('');
+export class DatePickerComponent implements OnInit, OnDestroy {
+  departure = new FormControl<Moment | null>(null, [Validators.required]);
 
-  end = new FormControl<string>('');
+  arrival = new FormControl<Moment | null>(null, [Validators.required]);
 
   minDate = new Date();
 
-  @Input() dateFormat: string | null = DEFAULT_DATE_FORMAT.display.dateInput;
+  tripType: TripType = TripType.ROUND_TRIP;
 
-  @Input() tripType!: string;
+  subscriptions: Subscription[] = [];
 
   constructor(
-    private fb: FormBuilder,
     @Inject(MAT_DATE_FORMATS) private dateFormats: MaterialDateFormatInterface,
     private parentForm: FormGroupDirective,
+    private store: Store<AppStateInterface>,
   ) {}
 
   ngOnInit(): void {
-    this.parentForm.form.addControl('start', this.start);
-    this.parentForm.form.addControl('end', this.end);
-    this.start.setValidators([Validators.required]);
-    this.end.setValidators([Validators.required]);
+    this.initializeForm();
+    this.initializeListeners();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['dateFormat'] && this.dateFormat) {
-      this.dateFormats.display.dateInput = this.dateFormat;
-      this.dateFormats.parse.dateInput = this.dateFormat;
-      this.updateDateFormsFormat();
-    }
-    if (changes['tripType']) {
-      this.toggleValidation();
-    }
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 
-  toggleValidation(): void {
-    if (this.tripType === 'round-trip') {
-      this.end.setValidators([Validators.required]);
+  initializeListeners() {
+    const departureListener = this.store
+      .select(selectDepartureDate)
+      .pipe(filter(Boolean))
+      .subscribe((date) => this.departure.setValue(moment(date)));
+    const arrivalListener = this.store
+      .select(selectArrivalDate)
+      .pipe(filter(Boolean))
+      .subscribe((date) => this.arrival.setValue(moment(date)));
+    const formatListener = this.store
+      .select(selectDateFormatInUppercase)
+      .pipe(filter(Boolean))
+      .subscribe((format) => {
+        this.dateFormats.display.dateInput = format;
+        this.dateFormats.parse.dateInput = format;
+        this.updateDateFormsFormat();
+      });
+    const typeListener = this.store
+      .select(selectTripType)
+      .pipe(filter(Boolean))
+      .subscribe((type) => {
+        this.tripType = type;
+        this.toggleValidation(type);
+      });
+    this.subscriptions.push(departureListener, arrivalListener, formatListener, typeListener);
+  }
+
+  initializeForm() {
+    this.parentForm.form.addControl('departure', this.departure);
+    this.parentForm.form.addControl('arrival', this.arrival);
+  }
+
+  toggleValidation(type: string): void {
+    if (type === 'round-trip') {
+      this.arrival.setValidators([Validators.required]);
     } else {
-      this.end.removeValidators([Validators.required]);
+      this.arrival.removeValidators([Validators.required]);
+      this.arrival.setErrors(null);
+      this.arrival.setValue(null);
+      this.store.dispatch(
+        updateOrderDateAction({
+          param: 'arrival',
+          data: '',
+        }),
+      );
     }
-    this.end.setValue('');
-    this.start.setValue('');
   }
 
   updateDateFormsFormat() {
-    const start = this.start.value;
-    const end = this.end.value;
-    this.start.setValue(start);
-    this.end.setValue(end);
+    const departure = this.departure.value;
+    const arrival = this.arrival.value;
+    this.departure.setValue(departure);
+    this.arrival.setValue(arrival);
+  }
+
+  onDepartureDateChange() {
+    if (!this.departure.value) return;
+    this.store.dispatch(
+      updateOrderDateAction({
+        param: 'departure',
+        data: this.departure.value?.toISOString(),
+      }),
+    );
+  }
+
+  onArrivalDateChange() {
+    if (!this.arrival.value) return;
+    this.store.dispatch(
+      updateOrderDateAction({
+        param: 'arrival',
+        data: this.arrival.value?.toISOString(),
+      }),
+    );
   }
 }

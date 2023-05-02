@@ -1,18 +1,29 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { ControlContainer, FormControl, FormGroupDirective, Validators } from '@angular/forms';
-import { Observable, startWith, switchMap, of } from 'rxjs';
-import { AutocompleteResponseInterface } from 'src/app/core/models/autocomplete-response.interface';
+import { Store } from '@ngrx/store';
+import {
+  Observable,
+  startWith,
+  switchMap,
+  of,
+  distinctUntilChanged,
+  debounceTime,
+  Subscription,
+} from 'rxjs';
+import { AirportResponseInterface } from 'src/app/core/models/airport-response.interface';
 import { AutocompleteService } from 'src/app/core/services/autocomplete.service';
+import { updateOrderAirportAction } from 'src/app/core/store/actions/order.actions';
+import { AppStateInterface } from 'src/app/core/store/store.models';
 
 @Component({
   selector: 'airways-airway-autocomplete',
   templateUrl: './airway-autocomplete.component.html',
   viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }],
 })
-export class AirwayAutocompleteComponent implements OnInit {
-  filteredOptions$!: Observable<AutocompleteResponseInterface[]>;
+export class AirwayAutocompleteComponent implements OnInit, OnDestroy {
+  filteredOptions$!: Observable<AirportResponseInterface[]>;
 
-  fieldControl = new FormControl<string | AutocompleteResponseInterface>('');
+  fieldControl = new FormControl<string | AirportResponseInterface>('');
 
   @Input() label = '';
 
@@ -20,24 +31,55 @@ export class AirwayAutocompleteComponent implements OnInit {
 
   @Input() placeholderText!: string;
 
+  @Input() airport$!: Observable<AirportResponseInterface | null>;
+
+  airportSubscription!: Subscription;
+
   constructor(
     private autocompleteService: AutocompleteService,
     private parentForm: FormGroupDirective,
+    private store: Store<AppStateInterface>,
   ) {}
 
   ngOnInit() {
-    this.parentForm.form.addControl(this.controlName, this.fieldControl);
-    this.fieldControl.addValidators([Validators.required]);
+    this.initializeListeners();
+    this.initializeForm();
+  }
+
+  ngOnDestroy(): void {
+    this.airportSubscription.unsubscribe();
+  }
+
+  initializeListeners() {
     this.filteredOptions$ = this.fieldControl.valueChanges.pipe(
       startWith(''),
+      distinctUntilChanged(),
+      debounceTime(500),
       switchMap((value) => {
-        const query = typeof value === 'string' ? value : value?.name;
-        return query ? this.autocompleteService.getOptions(query) : of([]);
+        if (typeof value === 'object') return of([]);
+        return value ? this.autocompleteService.getOptions(value) : of([]);
       }),
+    );
+    this.airportSubscription = this.airport$.subscribe((data) =>
+      this.fieldControl.setValue(data, { emitEvent: false }),
     );
   }
 
-  displayFn(airport: AutocompleteResponseInterface): string {
+  initializeForm() {
+    this.parentForm.form.addControl(this.controlName, this.fieldControl);
+    this.fieldControl.addValidators([Validators.required]);
+  }
+
+  displayFn(airport: AirportResponseInterface): string {
     return airport ? `${airport.name} ${airport.code}` : '';
+  }
+
+  onAirportSelect(airport: AirportResponseInterface) {
+    this.store.dispatch(
+      updateOrderAirportAction({
+        param: this.controlName as 'origin' | 'destination',
+        data: airport,
+      }),
+    );
   }
 }

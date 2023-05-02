@@ -2,13 +2,27 @@
   <mat-form-field appearance="fill" class="mat-form date-picker" floatLabel="always">
     <mat-label>Date</mat-label>
     <mat-date-range-input [rangePicker]="picker" [min]="minDate">
-      <input matStartDate formControlName="start" placeholder="Start date" class="mat-form__input"/>
-      <input matEndDate formControlName="end" placeholder="End date" class="mat-form__input" />
+      <input
+        matStartDate
+        formControlName="departure"
+        placeholder="Start date"
+        class="mat-form__input"
+        (dateChange)="onDepartureDateChange()"
+      />
+      <input
+        matEndDate
+        formControlName="arrival"
+        placeholder="End date"
+        class="mat-form__input"
+        (dateChange)="onArrivalDateChange()"
+      />
     </mat-date-range-input>
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-date-range-picker #picker></mat-date-range-picker>
-    <mat-error *ngIf="start.hasError('required') || end.hasError('required')">Choose a date range</mat-error>
-    <mat-error *ngIf="start.hasError('matDatepickerMin')">Invalid start date</mat-error>
+    <mat-error *ngIf="departure.hasError('required') || arrival.hasError('required')"
+      >Choose a date range</mat-error
+    >
+    <mat-error *ngIf="departure.hasError('matDatepickerMin')">Invalid start date</mat-error>
   </mat-form-field>
 </ng-template>
 
@@ -18,14 +32,15 @@
     <input
       matInput
       [matDatepicker]="picker"
-      formControlName="start"
+      formControlName="departure"
       [min]="minDate"
       class="mat-form__input"
       placeholder="Choose a date"
+      (dateChange)="onDepartureDateChange()"
     />
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
-    <mat-error *ngIf="start.hasError('required')">Choose a date</mat-error>
-    <mat-error *ngIf="start.hasError('matDatepickerMin')">Invalid start date</mat-error>
+    <mat-error *ngIf="departure.hasError('required')">Choose a date</mat-error>
+    <mat-error *ngIf="departure.hasError('matDatepickerMin')">Invalid start date</mat-error>
   </mat-form-field>
 </ng-template>
