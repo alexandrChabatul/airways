@@ -25,7 +25,6 @@ export class LoginPageComponent implements OnInit {
       password: this.password.value,
     };
     this.store.dispatch(AuthActions.loginRequestAction({ credentials }));
-    console.log(credentials);
   }
 
   togglePasswordVisibility() {
