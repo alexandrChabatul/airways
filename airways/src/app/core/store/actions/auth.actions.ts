@@ -1,12 +1,17 @@
 import { createAction, props } from '@ngrx/store';
-import { AuthActionTypes } from '../action-types/auth.action-types';
+import { AuthActionTypes, AuthLoginResponse } from '../action-types/auth.action-types';
 
-export const loginAction = createAction(
-  AuthActionTypes.LOGIN,
-  props<{ login: string; password: string }>(),
+export const loginRequestAction = createAction(
+  AuthActionTypes.LOGIN_REQUEST,
+  props<{ credentials: { email: string; password: string } }>(),
 );
+
 export const loginSuccessAction = createAction(
   AuthActionTypes.LOGIN_SUCCESS,
-  props<{ username: string }>(),
+  props<{ loginSuccessResponse: AuthLoginResponse }>(),
 );
-export const loginFailureAction = createAction(AuthActionTypes.LOGIN_FAILURE);
+
+export const loginFailureAction = createAction(
+  AuthActionTypes.LOGIN_FAILURE,
+  props<{ error: string }>(),
+);

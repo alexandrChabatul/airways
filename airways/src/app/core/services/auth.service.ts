@@ -1,14 +1,29 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { Observable } from 'rxjs';
+
+import { User } from '../store/action-types/auth.action-types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClientModule) {}
+  // TODO: move url to environment
+  private BASE_URL = 'http://localhost:3000/';
 
-  login(login: string, password: string) {
-    return of('response from server' + login + password);
+  constructor(private http: HttpClient) {}
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  logIn(email: string, password: string): Observable<any> {
+    const url = `${this.BASE_URL}sign-in`;
+    return this.http.post<User>(url, { email, password });
+  }
+
+  signUp(email: string, password: string): Observable<User> {
+    const url = `${this.BASE_URL}sign-up`;
+    return this.http.post<User>(url, { email, password });
   }
 }

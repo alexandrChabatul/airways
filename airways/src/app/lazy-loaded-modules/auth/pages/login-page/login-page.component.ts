@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import * as AuthActions from '../../../../core/store/actions/auth.actions';
 
 @Component({
   selector: 'airways-login-page',
@@ -10,10 +13,27 @@ export class LoginPageComponent implements OnInit {
 
   hide = true;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private router: Router, private store: Store) {}
 
   ngOnInit(): void {
     this.createLoginForm();
+  }
+
+  onLogIn() {
+    const credentials = {
+      email: this.email.value,
+      password: this.password.value,
+    };
+    this.store.dispatch(AuthActions.loginRequestAction({ credentials }));
+    console.log(credentials);
+  }
+
+  togglePasswordVisibility() {
+    this.hide = !this.hide;
+  }
+
+  onForgotPassword() {
+    alert('Then remember it ?!');
   }
 
   createLoginForm() {
@@ -29,20 +49,5 @@ export class LoginPageComponent implements OnInit {
 
   get password() {
     return this.loginForm.controls['password'];
-  }
-
-  onLogin() {
-    if (this.email.valid) {
-      // this.loginService.login(this.email.value ?? '');
-      // this.router.navigate(['']);
-    }
-  }
-
-  togglePasswordVisibility() {
-    this.hide = !this.hide;
-  }
-
-  onForgotPassword() {
-    alert('Then remember it ?!');
   }
 }

@@ -1,13 +1,16 @@
 import { CurrencyFormatType, DateFormatType } from '../models/formats.models';
+import { User } from './action-types/auth.action-types';
 
 export interface AppStateInterface {
-  auth: AuthStateInterface;
+  authState: AuthStateInterface;
   formats: FormatsStateInterface;
 }
 
 export interface AuthStateInterface {
-  isLoggedIn: boolean;
-  username: string | null;
+  token: string | null;
+  user: User | null;
+  loginError?: string | null;
+  isAuthenticated: boolean;
 }
 
 export interface FormatsStateInterface {
