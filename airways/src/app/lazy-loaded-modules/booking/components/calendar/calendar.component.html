@@ -6,7 +6,7 @@
   [circular]="false"
   [responsiveOptions]="responsiveOptions"
   [styleClass]="'calendar'"
-  [page]="2"
+  [page]="getPageNumber()"
   [showIndicators]="false">
     <ng-template pTemplate="previousicon">
       <div class="calendar__previous">

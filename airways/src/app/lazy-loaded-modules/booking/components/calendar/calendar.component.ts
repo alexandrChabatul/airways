@@ -40,13 +40,13 @@ export class CalendarComponent implements OnInit {
       date: '05 Mar',
       day: 'Friday',
       price: 154,
-      isActive: true,
+      isActive: false,
     },
     {
       date: '06 Mar',
       day: 'Saturday',
       price: 154,
-      isActive: false,
+      isActive: true,
     },
     {
       date: '07 Mar',
@@ -73,7 +73,7 @@ export class CalendarComponent implements OnInit {
   responsiveOptions: ResponsiveOptionInterface[] = [];
 
   ngOnInit() {
-    this.daysWithIndexes = this.addItemsIndexes();
+    this.daysWithIndexes = this.getItemsIndexes();
     this.responsiveOptions = [
       {
         breakpoint: '576px',
@@ -81,6 +81,15 @@ export class CalendarComponent implements OnInit {
         numScroll: 1,
       },
     ];
+  }
+
+  private getItemsIndexes(): DaysWithIndexesInterface[] {
+    return this.days.map((elem, index) => {
+      return {
+        ...elem,
+        index,
+      };
+    });
   }
 
   public toggleActive(elemIndex: number): void {
@@ -93,12 +102,30 @@ export class CalendarComponent implements OnInit {
     });
   }
 
-  public addItemsIndexes(): DaysWithIndexesInterface[] {
-    return this.days.map((elem, index) => {
-      return {
-        ...elem,
-        index,
-      };
-    });
+  public getPageNumber(): number {
+    const breakpoint = 576;
+    const numPerPageLarge = 5;
+    const numPerPageMobile = 3;
+    const itemsPerPage = window.innerWidth >= breakpoint ? numPerPageLarge : numPerPageMobile;
+    const pageAmount = this.daysWithIndexes.length - itemsPerPage + 1; //1 for first page
+    const selectedItemInd = this.daysWithIndexes.findIndex((elem) => elem.isActive);
+    let pageIndex = 0;
+
+    if (selectedItemInd + 1 <= Math.ceil(itemsPerPage / 2)) {
+      return pageIndex;
+    } else if (selectedItemInd + 1 > this.daysWithIndexes.length - Math.ceil(itemsPerPage / 2)) {
+      return pageAmount - 1; //last page
+    } else {
+      for (let i = 1; i < this.daysWithIndexes.length; i++) {
+        pageIndex += 1;
+        const pageArray = this.daysWithIndexes.slice(i, i + itemsPerPage);
+        const pageMiddleElem = pageArray[Math.ceil(itemsPerPage / 2) - 1];
+        if (pageMiddleElem.index === this.daysWithIndexes[selectedItemInd].index) {
+          return pageIndex;
+        }
+      }
+
+      return pageIndex;
+    }
   }
 }

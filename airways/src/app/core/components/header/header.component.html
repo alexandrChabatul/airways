@@ -1,4 +1,4 @@
-<header class="header" [class.solid]="!isMainPage" [class.registered]="isUserLoggedIn">
+<header class="header" [ngClass]="{'solid': !isMainPage, 'registered': isUserLoggedIn}">
   <img src="../../../../assets/images/logo.png" alt="Logo" class="header__logo" routerLink="/">
   <div class="header__nav">
     <div class="header__steps">
