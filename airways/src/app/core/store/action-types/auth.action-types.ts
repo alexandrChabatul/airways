@@ -5,6 +5,7 @@ export enum AuthActionTypes {
 
   SIGNUP_REQUEST = '[Auth] Signup request',
   SIGNUP_SUCCESS = '[Auth] Signup success',
+  SIGNUP_FAILURE = '[Auth] Signup failure',
 }
 
 export interface AuthLoginResponse {

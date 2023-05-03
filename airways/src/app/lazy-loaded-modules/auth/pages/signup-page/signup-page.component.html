@@ -2,7 +2,7 @@
 
 <airways-divider>or sign up with your email</airways-divider>
 
-<form [formGroup]="signupForm" class="signupFormContainer" (ngSubmit)="onSignUp()">
+<form [formGroup]="signupForm" class="signupFormContainer" (ngSubmit)="onSignUp(); signupForm.markAllAsTouched()">
   <mat-form-field>
     <mat-label>Email</mat-label>
     <input formControlName="email" name="email" type="email" matInput placeholder="Ex. pat@example.com" required>
@@ -57,15 +57,16 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-button-toggle-group formControlName="gender" name="gender">
+  <mat-button-toggle-group formControlName="gender" name="gender" required>
     <mat-button-toggle value="Male">Male</mat-button-toggle>
     <mat-button-toggle value="Female">Female</mat-button-toggle>
   </mat-button-toggle-group>
+  <mat-error *ngIf="gender.hasError('required') && gender.touched">Gender required</mat-error>
 
   <div class="country-tel-container">
     <mat-form-field>
       <mat-label>Country code</mat-label>
-      <input type="text" placeholder="Pick one" matInput formControlName="country" [matAutocomplete]="auto">
+      <input type="text" placeholder="Pick one" matInput formControlName="country" name="country" [matAutocomplete]="auto">
       <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
         <mat-option *ngFor="let code of filteredCountryCodes | async" [value]="code">
           {{ code }}
@@ -75,13 +76,13 @@
 
     <mat-form-field>
       <mat-label>Mobile phone number</mat-label>
-      <input matInput formControlName="tel" type="tel" required>
+      <input matInput formControlName="tel" name="tel" type="tel" required>
     </mat-form-field>
   </div>
 
   <mat-form-field>
     <mat-label>Citizenship</mat-label>
-    <input type="text" matInput formControlName="citizenship" [matAutocomplete]="auto2">
+    <input type="text" name="citizenship" matInput formControlName="citizenship" [matAutocomplete]="auto2">
     <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
       <mat-option *ngFor="let country of filteredCountries | async" [value]="country">
         {{country}}
@@ -90,10 +91,11 @@
   </mat-form-field>
 
   <section class="terms-section">
-    <mat-checkbox color="primary">
+    <mat-checkbox color="primary" formControlName="terms" required>
       I agree to Airway's <span class="privacy-policy">Privacy Policy</span> and <span class="terms-of-use">Terms of
         Use</span>
     </mat-checkbox>
+    <mat-error *ngIf="terms.hasError('required') && terms.touched">Terms must be accepted</mat-error>
   </section>
   
   <button mat-raised-button color="primary" class="signup-button"

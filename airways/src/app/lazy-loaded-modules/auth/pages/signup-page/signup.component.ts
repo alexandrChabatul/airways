@@ -4,7 +4,7 @@ import { Observable, map, startWith } from 'rxjs';
 import { SvgIconService } from 'src/app/core/services/svg-icon.service';
 import { COUNTRY_CODES } from '../../constants/country-codes.constants';
 import { Store } from '@ngrx/store';
-import * as AuthActions from '../../../../core/store/actions/auth.actions';
+import { signupRequestAction } from 'src/app/core/store/actions/auth.actions';
 
 @Component({
   selector: 'airways-signup-page',
@@ -71,13 +71,14 @@ export class SignupPageComponent implements OnInit {
 
   onSignUp() {
     if (!this.signupForm.valid) {
+      this.signupForm.markAsTouched();
       return;
     }
     const credentials = {
       email: this.email.value,
       password: this.password.value,
     };
-    this.store.dispatch(AuthActions.signupRequestAction({ credentials }));
+    this.store.dispatch(signupRequestAction({ credentials }));
   }
 
   createSignupForm() {
@@ -91,6 +92,7 @@ export class SignupPageComponent implements OnInit {
       country: [''],
       tel: ['', { validators: [Validators.required] }],
       citizenship: [''],
+      terms: ['', [Validators.required]],
     });
   }
 
@@ -128,5 +130,9 @@ export class SignupPageComponent implements OnInit {
 
   get citizenship() {
     return this.signupForm.controls['citizenship'];
+  }
+
+  get terms() {
+    return this.signupForm.controls['terms'];
   }
 }

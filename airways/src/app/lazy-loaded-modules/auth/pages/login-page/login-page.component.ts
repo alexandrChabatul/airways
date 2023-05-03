@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import * as AuthActions from '../../../../core/store/actions/auth.actions';
+import { loginRequestAction } from 'src/app/core/store/actions/auth.actions';
 
 @Component({
   selector: 'airways-login-page',
@@ -27,7 +27,7 @@ export class LoginPageComponent implements OnInit {
       email: this.email.value,
       password: this.password.value,
     };
-    this.store.dispatch(AuthActions.loginRequestAction({ credentials }));
+    this.store.dispatch(loginRequestAction({ credentials }));
   }
 
   togglePasswordVisibility() {
