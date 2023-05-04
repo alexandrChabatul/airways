@@ -11,7 +11,7 @@ export interface AppStateInterface {
 export interface AuthStateInterface {
   accessToken: string | null;
   user: User | null;
-  loginError?: string | null;
+  errorMessage?: string | null;
   isAuthenticated: boolean;
 }
 

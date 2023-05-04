@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { loginRequestAction } from 'src/app/core/store/actions/auth.actions';
+import { selectErrorMessage } from 'src/app/core/store/selectors/auth.selectors';
 
 @Component({
   selector: 'airways-login-page',
@@ -11,12 +12,16 @@ import { loginRequestAction } from 'src/app/core/store/actions/auth.actions';
 export class LoginPageComponent implements OnInit {
   loginForm!: FormGroup;
 
+  errorMessage!: Observable<string | null | undefined>;
+
   hide = true;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private store: Store) {}
+  constructor(private formBuilder: FormBuilder, private store: Store) {}
 
   ngOnInit(): void {
     this.createLoginForm();
+
+    this.errorMessage = this.store.select(selectErrorMessage);
   }
 
   onLogIn() {

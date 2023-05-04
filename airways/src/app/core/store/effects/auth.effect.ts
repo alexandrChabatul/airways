@@ -20,7 +20,7 @@ export class AuthEffect {
       exhaustMap((action) => {
         return this.authService.logIn(action.credentials.email, action.credentials.password).pipe(
           map((loginSuccessResponse) => loginSuccessAction({ loginSuccessResponse })),
-          catchError((error) => of(loginFailureAction({ error }))),
+          catchError((loginFailureResponse) => of(loginFailureAction({ loginFailureResponse }))),
         );
       }),
     );

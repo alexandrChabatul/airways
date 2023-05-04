@@ -9,7 +9,7 @@ import { AuthStateInterface } from '../store.models';
 const initialState: AuthStateInterface = {
   accessToken: null,
   user: null,
-  loginError: null,
+  errorMessage: null,
   isAuthenticated: false,
 };
 
@@ -35,11 +35,11 @@ export const authReducer = createReducer(
   ),
   on(
     loginFailureAction,
-    (state, { error }): AuthStateInterface => ({
+    (state, { loginFailureResponse }): AuthStateInterface => ({
       ...state,
-      loginError: error,
       accessToken: null,
       user: null,
+      errorMessage: loginFailureResponse,
       isAuthenticated: false,
     }),
   ),
