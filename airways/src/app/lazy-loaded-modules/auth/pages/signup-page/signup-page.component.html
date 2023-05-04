@@ -34,7 +34,7 @@
     <mat-error *ngIf="firstName.hasError('required')">
       First name is <strong>required</strong>
     </mat-error>
-    <mat-error *ngIf="firstName.hasError('hasNumber')">First name cannot contain numbers</mat-error>
+    <mat-error *ngIf="firstName.hasError('isOnlyLetters')">First name cannot contain numbers</mat-error>
   </mat-form-field>
 
   <mat-form-field>
@@ -46,7 +46,7 @@
     <mat-error *ngIf="lastName.hasError('required')">
       Last name is <strong>required</strong>
     </mat-error>
-    <mat-error *ngIf="lastName.hasError('hasNumber')">Last name cannot contain numbers</mat-error>
+    <mat-error *ngIf="lastName.hasError('isOnlyLetters')">Last name can not contain numbers</mat-error>
   </mat-form-field>
 
   <mat-form-field>
@@ -80,6 +80,7 @@
     <mat-form-field>
       <mat-label>Mobile phone number</mat-label>
       <input matInput formControlName="tel" name="tel" type="tel" required>
+      <mat-error *ngIf="tel.hasError('isOnlyNumbers')">Must be only numbers</mat-error>
     </mat-form-field>
   </div>
 

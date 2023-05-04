@@ -118,20 +118,30 @@ export class SignupPageComponent implements OnInit {
     this.signupForm = this.formBuilder.group({
       email: ['', { validators: [Validators.required, Validators.email] }],
       password: ['', { validators: [Validators.required, Validators.minLength(8)] }],
-      firstName: ['', { validators: [Validators.required, this.noNumbersValidator] }],
-      lastName: ['', { validators: [Validators.required, this.noNumbersValidator] }],
+      firstName: ['', { validators: [Validators.required, this.onlyLettersValidator] }],
+      lastName: ['', { validators: [Validators.required, this.onlyLettersValidator] }],
       dateOfBirth: ['', { validators: [Validators.required] }],
       gender: ['', { validators: [Validators.required] }],
       country: [''],
-      tel: ['', { validators: [Validators.required] }],
+      tel: ['', { validators: [Validators.required, this.onlyNumbersValidator] }],
       citizenship: [''],
       terms: ['', [Validators.required]],
     });
   }
 
-  noNumbersValidator(control: AbstractControl): ValidationErrors | null {
-    const hasNumber = /\d/.test(control.value);
-    return hasNumber ? { hasNumber: true } : null;
+  onlyLettersValidator(control: AbstractControl): ValidationErrors | null {
+    const onlyLettersRegex = /^[A-Za-z]+$/;
+    const isOnlyLetters = onlyLettersRegex.test(control.value);
+    return isOnlyLetters ? null : { isOnlyLetters: true };
+  }
+
+  onlyNumbersValidator(control: AbstractControl) {
+    if (!control.value) {
+      return null;
+    }
+    const onlyNumbersRegex = /^[0-9]+$/;
+    const isOnlyNumbers = onlyNumbersRegex.test(control.value);
+    return isOnlyNumbers ? null : { isOnlyNumbers: true };
   }
 
   get email() {
