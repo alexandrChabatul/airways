@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
 import { SvgIconService } from 'src/app/core/services/svg-icon.service';
 import { COUNTRY_CODES } from '../../constants/country-codes.constants';
@@ -112,8 +118,8 @@ export class SignupPageComponent implements OnInit {
     this.signupForm = this.formBuilder.group({
       email: ['', { validators: [Validators.required, Validators.email] }],
       password: ['', { validators: [Validators.required, Validators.minLength(8)] }],
-      firstName: ['', { validators: [Validators.required] }],
-      lastName: ['', { validators: [Validators.required] }],
+      firstName: ['', { validators: [Validators.required, this.noNumbersValidator] }],
+      lastName: ['', { validators: [Validators.required, this.noNumbersValidator] }],
       dateOfBirth: ['', { validators: [Validators.required] }],
       gender: ['', { validators: [Validators.required] }],
       country: [''],
@@ -121,6 +127,11 @@ export class SignupPageComponent implements OnInit {
       citizenship: [''],
       terms: ['', [Validators.required]],
     });
+  }
+
+  noNumbersValidator(control: AbstractControl): ValidationErrors | null {
+    const hasNumber = /\d/.test(control.value);
+    return hasNumber ? { hasNumber: true } : null;
   }
 
   get email() {

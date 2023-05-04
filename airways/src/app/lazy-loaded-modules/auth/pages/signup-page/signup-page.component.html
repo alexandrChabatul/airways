@@ -34,6 +34,7 @@
     <mat-error *ngIf="firstName.hasError('required')">
       First name is <strong>required</strong>
     </mat-error>
+    <mat-error *ngIf="firstName.hasError('hasNumber')">First name cannot contain numbers</mat-error>
   </mat-form-field>
 
   <mat-form-field>
@@ -45,6 +46,7 @@
     <mat-error *ngIf="lastName.hasError('required')">
       Last name is <strong>required</strong>
     </mat-error>
+    <mat-error *ngIf="lastName.hasError('hasNumber')">Last name cannot contain numbers</mat-error>
   </mat-form-field>
 
   <mat-form-field>
