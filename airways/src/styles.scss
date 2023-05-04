@@ -35,6 +35,19 @@ airways-root {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  padding-top: 98px;
+
+  @include medium {
+    padding-top: 108px;
+  }
+
+  @include small {
+    padding-top: 78px;
+  }
+
+  @include mobile {
+    padding-top: 95px;
+  }
 }
 
 main {
@@ -56,6 +69,13 @@ ul {
 
 li {
   list-style: none;
+}
+
+button {
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
 }
 
 .mdc-text-field--filled {

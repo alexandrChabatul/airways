@@ -1,0 +1,29 @@
+<div class="edit__wrapper">
+  <div class="flight">
+    <div class="flight__params">
+      <div class="flight__directions">
+        <span class="flight__origin">{{ "Dublin" }}</span>
+        <div *ngIf="isRoundTrip" class="flight__round">
+          <img src="../../../../../assets/icons/return-arrows.svg" alt="arrows" class="flight__arrows">
+          <span class="flight__destination">{{ "Warsaw Modlin" }}</span>
+        </div>
+      </div>
+      <div class="flight__info">
+        <span class="flight__return">{{ isRoundTrip ? "Return" : "Depart" }}</span>
+        <div class="flight__divider"></div>
+        <div class="flight__date">
+          <span class="flight__departure">{{ "1Mar"}}</span>
+          <span> - </span>
+          <span class="flight__arrival">{{ "18Mar"}}</span>
+        </div>
+        <div class="flight__divider"></div>
+        <div class="flight__passengers">
+          <span class="flight__amount">{{ 3 }}</span>
+          <img src="../../../../../assets/icons/person.svg" alt="icon">
+        </div>
+      </div>
+    </div>
+    <button mat-button class="flight__edit" color="primary">Edit</button>
+  </div>
+  <!-- Add search form from main (with button) -->
+</div>
