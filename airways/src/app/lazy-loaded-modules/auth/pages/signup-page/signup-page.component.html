@@ -66,12 +66,13 @@
   <div class="country-tel-container">
     <mat-form-field>
       <mat-label>Country code</mat-label>
-      <input type="text" placeholder="Pick one" matInput formControlName="country" name="country" [matAutocomplete]="auto">
+      <input type="text" placeholder="Pick one" matInput formControlName="country" name="country" [matAutocomplete]="auto" required>
       <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
         <mat-option *ngFor="let code of filteredCountryCodes | async" [value]="code">
           {{ code }}
         </mat-option>
       </mat-autocomplete>
+      <mat-error *ngIf="country.hasError('required') && country.touched">Choose country code</mat-error>
     </mat-form-field>
 
     <mat-form-field>
