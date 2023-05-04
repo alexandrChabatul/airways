@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { MatIconRegistry } from '@angular/material/icon';
 import { Location } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { selectCurrencyFormat, selectDateFormat } from '../../store/selectors/formats.selectors';
@@ -37,18 +35,7 @@ export class HeaderComponent implements OnInit {
 
   public orderCount = 1; //TODO: get value from store
 
-  constructor(
-    iconRegistry: MatIconRegistry,
-    sanitizer: DomSanitizer,
-    private location: Location,
-    private store: Store,
-    private router: Router,
-  ) {
-    iconRegistry.addSvgIcon(
-      'basket',
-      sanitizer.bypassSecurityTrustResourceUrl('../../../../assets/icons/basket.svg'),
-    );
-  }
+  constructor(private location: Location, private store: Store, private router: Router) {}
 
   public ngOnInit(): void {
     this.location.onUrlChange((path) => {

@@ -1,0 +1,221 @@
+airways-flight-info {
+  width: 100%;
+}
+
+.flight {
+  &__container {
+    display: flex;
+    background-color: $neutral-100;
+    border-radius: 5px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+
+    @include small {
+      flex-direction: column;
+    }
+  }
+
+  &__schedule {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex-grow: 1;
+    padding: 25px 20px;
+    border-right: 2px dashed $secondary-40;
+    @include body-m;
+    color: $neutral-30;
+
+    @include medium {
+      gap: 10px;
+      padding: 15px;
+      @include body-s;
+    }
+
+    @include small {
+      width: 100%;
+      padding: 10px;
+      border-right: none;
+      border-bottom: 2px dashed $secondary-40;
+    }
+
+    @include mobile {
+      padding: 5px;
+      gap: 5px;
+      font-size: 10px;
+    }
+
+    .flight__number-span {
+      @include medium {
+        margin-left: 5px;
+      }
+    }
+
+    .line-breaker {
+      display: none;
+
+      @include large {
+        display: block;
+      }
+    }
+  }
+
+  &__duration {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    flex-grow: 1;
+    @include label-s;
+    color: $neutral-black;
+
+    @include medium {
+      font-size: 10px;
+    }
+
+    @include mobile {
+      font-size: 8px;
+    }
+
+    .plane {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      gap: 10px;
+
+      @include medium {
+        gap: 5px;
+      }
+
+      &__icon {
+        height: auto;
+        width: auto;
+        color: $secondary-0;
+
+        @include medium {
+          font-size: 20px;
+        }
+
+        @include small {
+          font-size: 18px;
+        }
+
+        @include mobile {
+          font-size: 16px;
+        }
+      }
+
+      &__divider {
+        flex-grow: 1;
+        height: 2px;
+        background-color: $secondary-40;
+      }
+    }
+  }
+
+  &__number {
+    color: $neutral-black;
+  }
+
+  &__price-seats {
+    display: flex;
+    align-items: center;
+    padding: 15px 30px;
+    gap: 30px;
+    text-align: right;
+    @include subtitle-s;
+    font-weight: 700;
+
+    @include medium {
+      padding: 5px 10px;
+      font-size: 10px;
+    }
+
+    @include small {
+      justify-content: flex-end;
+      gap: 15px;
+    }
+
+    .price-seats__container {
+      display: flex;
+      flex-direction: column;
+
+      @include small {
+        flex-direction: row;
+      }
+
+      .price {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        color: $neutral-30;
+
+        @include small {
+          flex-direction: row;
+          align-items: center;
+        }
+
+        &__title {
+          @include small {
+            display: none;
+          }
+        }
+
+        &__sum {
+          @include subtitle-l;
+          color: $primary;
+
+          @include medium {
+            @include subtitle-m;
+          }
+
+          @include small {
+            font-size: 16px;
+          }
+
+          @include mobile {
+            font-size: 14px;
+          }
+        }
+      }
+
+      .seats {
+        padding: 4px 8px;
+        border-radius: 2px;
+        color: $neutral-20;
+        background-color: $highlight-pink;
+
+        @include small {
+          margin: 0 15px;
+        }
+
+        .line-breaker {
+          @include small {
+            display: none;
+          }
+        }
+      }
+    }
+
+    .select {
+      padding: 8px 16px;
+      border: 1px solid $primary;
+      border-radius: 4px;
+      @include font-btn;
+      background: $highlight-blue;
+
+      @include medium {
+        font-size: 12px;
+      }
+
+      @include small {
+        padding: 5px 10px;
+      }
+
+      &.mat-mdc-button {
+        height: auto;
+        min-width: auto;
+        color: $neutral-100;
+      }
+    }
+  }
+}
