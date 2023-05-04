@@ -2,6 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import {
   loginFailureAction,
   loginSuccessAction,
+  signupFailureAction,
   signupSuccessAction,
 } from '../actions/auth.actions';
 import { AuthStateInterface } from '../store.models';
@@ -40,6 +41,16 @@ export const authReducer = createReducer(
       accessToken: null,
       user: null,
       errorMessage: loginFailureResponse,
+      isAuthenticated: false,
+    }),
+  ),
+  on(
+    signupFailureAction,
+    (state, { signupFailureResponse }): AuthStateInterface => ({
+      ...state,
+      accessToken: null,
+      user: null,
+      errorMessage: signupFailureResponse,
       isAuthenticated: false,
     }),
   ),

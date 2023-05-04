@@ -26,6 +26,18 @@ export class AuthEffect {
     );
   });
 
+  signupRequest$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(signupRequestAction),
+      exhaustMap((action) => {
+        return this.authService.signUp(action.credentials.email, action.credentials.password).pipe(
+          map((signupSuccessResponse) => signupSuccessAction({ signupSuccessResponse })),
+          catchError((signupFailureResponse) => of(signupFailureAction({ signupFailureResponse }))),
+        );
+      }),
+    );
+  });
+
   successRedirect$ = createEffect(
     () => {
       return this.actions$.pipe(
@@ -37,18 +49,6 @@ export class AuthEffect {
     },
     { dispatch: false },
   );
-
-  signupRequest$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(signupRequestAction),
-      exhaustMap((action) => {
-        return this.authService.signUp(action.credentials.email, action.credentials.password).pipe(
-          map((signupSuccessResponse) => signupSuccessAction({ signupSuccessResponse })),
-          catchError((error) => of(signupFailureAction({ error }))),
-        );
-      }),
-    );
-  });
 
   constructor(
     private actions$: Actions,

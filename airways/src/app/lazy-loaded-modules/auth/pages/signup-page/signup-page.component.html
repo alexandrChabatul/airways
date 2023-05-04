@@ -100,5 +100,7 @@
   </section>
   
   <button mat-raised-button color="primary" class="signup-button"
-    type="submit">Sign up</button>
+  type="submit">Sign up</button>
+  
+  <mat-error *ngIf="errorMessage | async">Email already exists</mat-error>
 </form>

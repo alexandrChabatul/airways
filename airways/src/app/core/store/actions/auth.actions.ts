@@ -28,5 +28,5 @@ export const signupSuccessAction = createAction(
 
 export const signupFailureAction = createAction(
   AuthActionTypes.SIGNUP_FAILURE,
-  props<{ error: string }>(),
+  props<{ signupFailureResponse: string }>(),
 );

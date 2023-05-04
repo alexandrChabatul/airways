@@ -38,12 +38,12 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-error *ngIf="errorMessage | async">wrong username or password</mat-error>
-
   <div class="forgot-password-container">
     <span (click)="onForgotPassword()" class="forgot-password">Forgot password?</span>
   </div>
   
   <button mat-raised-button color="primary" class="login-button" 
-    type="submit">Login</button>
+  type="submit">Login</button>
+  
+  <mat-error *ngIf="errorMessage | async">wrong username or password</mat-error>
 </form>

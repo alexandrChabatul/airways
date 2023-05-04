@@ -5,6 +5,7 @@ import { SvgIconService } from 'src/app/core/services/svg-icon.service';
 import { COUNTRY_CODES } from '../../constants/country-codes.constants';
 import { Store } from '@ngrx/store';
 import { signupRequestAction } from 'src/app/core/store/actions/auth.actions';
+import { selectErrorMessage } from 'src/app/core/store/selectors/auth.selectors';
 
 @Component({
   selector: 'airways-signup-page',
@@ -12,6 +13,8 @@ import { signupRequestAction } from 'src/app/core/store/actions/auth.actions';
 })
 export class SignupPageComponent implements OnInit {
   signupForm!: FormGroup;
+
+  errorMessage!: Observable<string | null | undefined>;
 
   hide = true;
 
@@ -35,6 +38,8 @@ export class SignupPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.createSignupForm();
+
+    this.errorMessage = this.store.select(selectErrorMessage);
 
     this.countries = COUNTRY_CODES.map((country) => country.name);
 
