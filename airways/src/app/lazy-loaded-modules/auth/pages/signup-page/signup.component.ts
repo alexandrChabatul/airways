@@ -74,9 +74,31 @@ export class SignupPageComponent implements OnInit {
       .map((country) => country);
   }
 
+  checkIfCountryMatches() {
+    const inputValue = this.country.value;
+    const isValueValid = this.codes.some(
+      (countryCode) => countryCode.toLowerCase() === inputValue.toLowerCase(),
+    );
+    if (!isValueValid) {
+      this.country.setValue('');
+    }
+  }
+
+  checkIfCitizenshipMatches() {
+    const inputValue = this.citizenship.value;
+    const isValueValid = this.countries.some(
+      (country) => country.toLowerCase() === inputValue.toLowerCase(),
+    );
+    if (!isValueValid) {
+      this.citizenship.setValue('');
+    }
+  }
+
   onSignUp() {
     if (!this.signupForm.valid) {
       this.signupForm.markAsTouched();
+      this.checkIfCountryMatches();
+      this.checkIfCitizenshipMatches();
       return;
     }
     const credentials = {
