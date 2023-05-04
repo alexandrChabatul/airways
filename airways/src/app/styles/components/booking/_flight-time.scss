@@ -1,0 +1,77 @@
+.flight__date.date {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: fit-content;
+  gap: 4px;
+
+  @include mobile {
+    gap: 2px;
+  }
+
+  .date {
+    &__day {
+      @include label-l;
+
+      @include medium {
+        @include label-s;
+      }
+
+      @include mobile {
+        font-size: 10px;
+      }
+    }
+
+    &__time-container {
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+
+    &__time {
+      @include subtitle-l;
+      font-weight: 700;
+      color: $neutral-black;
+
+      @include medium {
+        @include subtitle-m;
+      }
+
+      @include small {
+        font-size: 16px;
+      }
+
+      @include mobile {
+        font-size: 14px;
+      }
+    }
+
+    &__time-utc {
+      flex-grow: 1;
+      text-align: center;
+      @include body-xs;
+    }
+
+    &__airport {
+      @include label-s;
+
+      @include medium {
+        font-size: 10px;
+      }
+
+      @include mobile {
+        font-size: 8px;
+      }
+    }
+  }
+
+  &.arrival {
+    align-items: flex-end;
+
+    .date {
+      &__time-container {
+        flex-direction: row-reverse;
+      }
+    }
+  }
+}

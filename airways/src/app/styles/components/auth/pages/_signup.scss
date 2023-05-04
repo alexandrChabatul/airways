@@ -44,3 +44,9 @@
   .signupFormContainer .mat-button-toggle-group .mat-button-toggle-checked.mat-button-toggle-appearance-standard {
     color: $primary;
   }
+
+  .country-tel-container {
+    @include flexCenterContainer();
+    justify-content: space-between;
+    margin-top: 20px;
+  }

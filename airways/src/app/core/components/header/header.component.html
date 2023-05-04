@@ -1,4 +1,4 @@
-<header class="header">
+<header class="header" [ngClass]="{'solid': !isMainPage, 'registered': isUserLoggedIn}">
   <img src="../../../../assets/images/logo.png" alt="Logo" class="header__logo" routerLink="/">
   <div class="header__nav">
     <div class="header__steps">
@@ -42,16 +42,10 @@
         </mat-form-field>
       </div>
       <div class="user">
-        <button mat-button class="user__sign-in" *ngIf="!isUserLoggedIn; else userPage" (click)="navigateToLogin()">
-          <img src="../../../../assets/icons/sign-in.svg" alt="icon" class="user__icon">
-          Sign in
+        <button mat-button class="user__sign-in" (click)="navigateToLogin()">
+          <mat-icon class="user__icon">person_outline</mat-icon>
+          {{isUserLoggedIn ? userName : "Sign in"}}
         </button>
-        <ng-template #userPage>
-          <button mat-button class="user__info" (click)="navigateToUserPage()">
-            <img src="../../../../assets/icons/user.svg" alt="icon" class="user__icon">
-            {{userName}}
-          </button>
-        </ng-template>
         <button
         mat-icon-button
         aria-label="Icon button with a basket icon"
@@ -62,10 +56,7 @@
         matBadgeSize="small"
         matBadgeColor="warn"
         >
-          <img src="../../../../assets/icons/basket.svg" alt="cart not loginned" *ngIf="!isUserLoggedIn; else cartBlue" class="basket__icon">
-          <ng-template #cartBlue>
-            <img src="../../../../assets/icons/basket-blue.svg" alt="cart loginned" class="basket__icon">
-          </ng-template>
+          <mat-icon class="basket__icon">shopping_basket</mat-icon>
         </button>
         <button
         mat-icon-button
@@ -73,7 +64,7 @@
         class="user__settings"
         (click)="toggleFormats()"
         >
-          <mat-icon color="primary" class="settings__icon">settings</mat-icon>
+          <mat-icon class="settings__icon">settings</mat-icon>
         </button>
       </div>
     </div>

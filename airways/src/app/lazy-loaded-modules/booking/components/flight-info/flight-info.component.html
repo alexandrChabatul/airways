@@ -1,0 +1,27 @@
+<div class="flight__container">
+  <div class="flight__schedule">
+    <airways-flight-time></airways-flight-time>
+    <div class="flight__duration">
+      <span class="flight__hours">{{'2h 50m'}}</span>
+      <div class="plane">
+        <div class="plane__divider"></div>
+        <mat-icon class="plane__icon">flight_takeoff</mat-icon>
+        <div class="plane__divider"></div>
+      </div>
+      <span class="flight__stops">{{'Direct'}}</span>
+    </div>
+    <airways-flight-time [isArrival]="true"></airways-flight-time>
+    <span class="flight__number-span">Flight no. <br class="line-breaker"><span class="flight__number">{{'FR 1925'}}</span></span>
+  </div>
+  <div class="flight__price-seats">
+    <div class="price-seats__container">
+      <!-- directive for bg color -->
+      <div class="seats"> {{'100'}} seats<br class="line-breaker"> availible</div>
+      <div class="price">
+        <span class="price__title">Price</span>
+        <span class="price__sum">{{ '146.70' | currency: 'EUR'}}</span>
+      </div>
+    </div>
+    <button mat-button class="select">Select</button>
+  </div>
+</div>
