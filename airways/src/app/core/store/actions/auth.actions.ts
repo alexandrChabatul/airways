@@ -1,9 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import {
-  AuthActionTypes,
-  AuthLoginResponse,
-  AuthSignupResponse,
-} from '../action-types/auth.action-types';
+import { AuthActionTypes, AuthResponseData } from '../action-types/auth.action-types';
 
 export const loginRequestAction = createAction(
   AuthActionTypes.LOGIN_REQUEST,
@@ -12,7 +8,7 @@ export const loginRequestAction = createAction(
 
 export const loginSuccessAction = createAction(
   AuthActionTypes.LOGIN_SUCCESS,
-  props<{ loginSuccessResponse: AuthLoginResponse }>(),
+  props<{ loginSuccessResponse: AuthResponseData }>(),
 );
 
 export const loginFailureAction = createAction(
@@ -27,7 +23,7 @@ export const signupRequestAction = createAction(
 
 export const signupSuccessAction = createAction(
   AuthActionTypes.SIGNUP_SUCCESS,
-  props<{ signupSuccessResponse: AuthSignupResponse }>(),
+  props<{ signupSuccessResponse: AuthResponseData }>(),
 );
 
 export const signupFailureAction = createAction(

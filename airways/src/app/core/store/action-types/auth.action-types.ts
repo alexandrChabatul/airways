@@ -8,12 +8,12 @@ export enum AuthActionTypes {
   SIGNUP_FAILURE = '[Auth] Signup failure',
 }
 
-export interface AuthLoginResponse {
+export interface AuthResponseData {
   accessToken: string;
   user: User;
 }
 
-export interface AuthSignupResponse {
+export interface AuthResponseData {
   accessToken: string;
   user: User;
 }

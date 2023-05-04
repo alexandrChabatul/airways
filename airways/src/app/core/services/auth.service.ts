@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthLoginResponse, AuthSignupResponse } from '../store/action-types/auth.action-types';
+import { AuthResponseData } from '../store/action-types/auth.action-types';
 
 @Injectable({
   providedIn: 'root',
@@ -16,13 +16,13 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  logIn(email: string, password: string): Observable<AuthLoginResponse> {
+  logIn(email: string, password: string): Observable<AuthResponseData> {
     const url = `${this.BASE_URL}signin`;
-    return this.http.post<AuthLoginResponse>(url, { email, password });
+    return this.http.post<AuthResponseData>(url, { email, password });
   }
 
-  signUp(email: string, password: string): Observable<AuthSignupResponse> {
+  signUp(email: string, password: string): Observable<AuthResponseData> {
     const url = `${this.BASE_URL}signup`;
-    return this.http.post<AuthSignupResponse>(url, { email, password });
+    return this.http.post<AuthResponseData>(url, { email, password });
   }
 }

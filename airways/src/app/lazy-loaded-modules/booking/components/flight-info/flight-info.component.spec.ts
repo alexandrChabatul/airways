@@ -8,9 +8,8 @@ describe('FlightInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlightInfoComponent ]
-    })
-    .compileComponents();
+      declarations: [FlightInfoComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FlightInfoComponent);
     component = fixture.componentInstance;
