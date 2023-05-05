@@ -29,9 +29,9 @@ export class TicketsService {
     const params = this.route.snapshot.queryParams;
     const departure = moment(params['departure'], 'MM-DD-YYYY');
     const monthToAdd = departure.date() >= 15 ? 1 : -1; //if date is more than 15 then we'll request tickets for further month and vice versa
-    const additionalMonthDeparture = moment(
-      moment(params['departure'], 'MM-DD-YYYY').add(monthToAdd, 'months').toString(),
-      'MM-DD-YYYY',
+    const additionalMonthDeparture = moment(params['departure'], 'MM-DD-YYYY').add(
+      monthToAdd,
+      'months',
     );
 
     const currentMonthTickets$ = this.apiService.getTicketsMapDyDate(
@@ -51,7 +51,6 @@ export class TicketsService {
     return forkJoin([currentMonthTickets$, additionalMonthTickets$]).pipe(
       map((elem: TicketInterface[][]) => {
         const ticketsArray = elem.flat();
-        const departureQueryString = departure.format('MM-DD-YYYY').toString();
         const dateNow = moment.utc();
 
         const ticketsWithAdditionalFields: ExtendedTicketInterface[] = ticketsArray.map(
@@ -62,10 +61,12 @@ export class TicketsService {
 
             return {
               ...item,
-              isActive: departureQueryString === departureTicketString,
+              isActive: params['departure'] === departureTicketString,
               index,
               utcOffset: `UTC${timeZone >= 0 ? `+${timeZone}` : timeZone}`,
               isOutdated: dateNow > dateTicket ? true : false,
+              seats: this.getRandomSeats(),
+              maxSeats: 100,
             };
           },
         );
@@ -76,5 +77,11 @@ export class TicketsService {
         return of([]);
       }),
     );
+  }
+
+  private getRandomSeats(): number {
+    const maxSeats = 100;
+    const minSeats = 1;
+    return Math.floor(Math.random() * (maxSeats - minSeats + 1)) + minSeats;
   }
 }

@@ -20,4 +20,6 @@ export interface ExtendedTicketInterface extends TicketInterface {
   isActive: boolean;
   utcOffset: string;
   isOutdated: boolean;
+  seats: number;
+  maxSeats: number;
 }

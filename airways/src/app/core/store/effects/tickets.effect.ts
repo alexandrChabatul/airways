@@ -1,9 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
-import { catchError, map, of, switchMap, tap } from 'rxjs';
+import { catchError, map, of, switchMap } from 'rxjs';
 import { TicketsService } from '../../services/tickets.service';
-import { ticketsLoadAction, ticketsLoadFailureAction, ticketsLoadSuccessAction } from '../actions/tickets.actions';
+import {
+  ticketsLoadAction,
+  ticketsLoadFailureAction,
+  ticketsLoadSuccessAction,
+} from '../actions/tickets.actions';
 import { ExtendedTicketInterface } from '../../models/ticket.models';
 
 @Injectable()
@@ -25,8 +29,5 @@ export class TicketsEffect {
     );
   });
 
-  constructor(
-    private actions$: Actions,
-    private ticketsService: TicketsService,
-  ) {}
+  constructor(private actions$: Actions, private ticketsService: TicketsService) {}
 }
