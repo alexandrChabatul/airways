@@ -13,7 +13,7 @@ import {
 } from '../actions/auth.actions';
 
 @Injectable()
-export class AuthEffect {
+export class AuthEffects {
   loginRequest$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(loginRequestAction),

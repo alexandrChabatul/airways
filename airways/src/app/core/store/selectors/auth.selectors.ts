@@ -7,3 +7,8 @@ export const selectErrorMessage = createSelector(
   selectAuthFeature,
   (authState: AuthStateInterface) => authState.errorMessage,
 );
+
+export const selectUserName = createSelector(
+  selectAuthFeature,
+  (authState: AuthStateInterface) => authState.user?.email,
+);

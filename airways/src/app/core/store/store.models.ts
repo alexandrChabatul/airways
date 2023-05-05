@@ -1,5 +1,5 @@
 import { CurrencyFormatType, DateFormatType } from '../models/formats.models';
-import { User } from './action-types/auth.action-types';
+import { User } from '../models/action-types/auth.action-types';
 import { OrderInterface } from '../models/order.models';
 
 export interface AppStateInterface {
