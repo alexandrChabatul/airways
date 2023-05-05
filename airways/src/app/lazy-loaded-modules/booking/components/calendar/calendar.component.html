@@ -1,6 +1,6 @@
 <div class="calendar">
   <p-carousel
-  [value]="daysWithIndexes"
+  [value]="(days$ | async)!"
   [numVisible]="5"
   [numScroll]="1"
   [circular]="false"
@@ -14,10 +14,12 @@
       </div>
     </ng-template>
     <ng-template let-day pTemplate="item">
-      <div class="calendar__item item" [class.item-active]="day.isActive" (click)="toggleActive(day.index)">
-        <span class="item__date">{{day.date}}</span>
-        <span class="item__day">{{day.day}}</span>
+      <div class="calendar__item item" (click)="toggleActive(day)" [ngClass]="{'item-active': day.isActive, 'item-outdated': day.isOutdated}">
+        <span class="item__date">{{day.departure_at | date: 'dd MMM': day.utcOffset}}</span>
+        <span class="item__day">{{day.departure_at | date: 'EEEE'}}</span>
         <span class="item__price">{{day.price | currency: 'EUR'}}</span>
+        <!-- <img src="../../../../../assets/icons/no-flights.svg" alt="" class="item__no-flights"> -->
+        <mat-icon svgIcon="no_flights" class="item__no-flights"></mat-icon>
         <!-- color directive for item__color -->
         <div class="item__color"></div>
       </div>

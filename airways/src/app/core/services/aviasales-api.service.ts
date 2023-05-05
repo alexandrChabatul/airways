@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Moment } from 'moment';
-import { catchError, map, Observable, of, tap } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AirportResponseInterface } from '../models/airport-response.interface';
+import { TicketsResponseInterface } from '../models/tickets-response.model';
+import { TicketInterface } from '../models/ticket.models';
 
 // 'https://proxy-aviasales.onrender.com/api/aviasales/v3/prices_for_dates?origin=MOW&destination=DXB&currency=usd&departure_at=2023-05-10&return_at=2023-05-12&sorting=price&direct=true&limit=10&token=818742e1992a37574a3e690b0f58ef00',
 
@@ -11,39 +12,42 @@ import { AirportResponseInterface } from '../models/airport-response.interface';
   providedIn: 'root',
 })
 export class AviasalesApiService {
+  private link = '/aviasales/v3/grouped_prices';
+
   constructor(private http: HttpClient) {}
 
-  getTicketsMapDyDate(origin: string, destination: string, departure: Moment) {
-    console.log(departure.format('YYYY-MM'));
-    const url = `${environment.aviasalesProxy}/aviasales/v3/grouped_prices`;
-    this.http
-      .get(url, {
+  public getTicketsMapDyDate(
+    origin: string,
+    destination: string,
+    departure: Moment,
+    currency: string,
+  ): Observable<TicketInterface[]> {
+    const url = `${environment.aviasalesProxy}${this.link}`;
+    return this.http
+      .get<TicketsResponseInterface>(url, {
         params: {
           origin,
           destination,
           departure_at: departure.format('YYYY-MM'),
+          currency,
         },
       })
-      .pipe(tap(console.log))
-      .subscribe((data) => console.log(data));
-  }
+      .pipe(
+        map((response: TicketsResponseInterface) => {
+          if (!response.success) {
+            return [];
+          }
 
-  getOptions(query: string): Observable<AirportResponseInterface[]> {
-    return this.http.get<AirportResponseInterface[]>(environment.autocompleteApi + query).pipe(
-      catchError(() => {
-        return of([]);
-      }),
-    );
-  }
+          const arr = [];
+          for (const key in response.data) {
+            arr.push(response.data[key]);
+          }
 
-  getAirportByCode(code: string): Observable<AirportResponseInterface | null> {
-    if (!code) return of(null);
-    return this.http.get<AirportResponseInterface[]>(environment.autoCompleteSearchApi + code).pipe(
-      map((airports: AirportResponseInterface[]) => {
-        if (airports.length === 0) return null;
-        return airports[0];
-      }),
-      catchError(() => of(null)),
-    );
+          return arr;
+        }),
+        catchError(() => {
+          return of([]);
+        }),
+      );
   }
 }

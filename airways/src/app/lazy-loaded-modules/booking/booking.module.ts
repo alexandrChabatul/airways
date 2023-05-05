@@ -11,6 +11,10 @@ import { FlightTimeComponent } from './components/flight-time/flight-time.compon
 import { WayComponent } from './components/way/way.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { CarouselModule } from 'primeng/carousel';
+import { StoreModule } from '@ngrx/store';
+import { ticketsReducer } from '../../core/store/reducers/tickets.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { TicketsEffect } from '../../core/store/effects/tickets.effect';
 
 @NgModule({
   declarations: [
@@ -23,6 +27,13 @@ import { CarouselModule } from 'primeng/carousel';
     WayComponent,
     CalendarComponent,
   ],
-  imports: [CommonModule, BookingRoutingModule, MaterialDesignModule, CarouselModule],
+  imports: [
+    CommonModule,
+    BookingRoutingModule,
+    MaterialDesignModule,
+    CarouselModule,
+    StoreModule.forFeature('tickets', ticketsReducer),
+    EffectsModule.forFeature([TicketsEffect]),
+  ],
 })
 export class BookingModule {}

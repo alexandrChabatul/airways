@@ -1,10 +1,12 @@
 import { CurrencyFormatType, DateFormatType } from '../models/formats.models';
 import { OrderInterface } from '../models/order.models';
+import { ExtendedTicketInterface } from '../models/ticket.models';
 
 export interface AppStateInterface {
   auth: AuthStateInterface;
   formats: FormatsStateInterface;
   order: OrderStateInterface;
+  tickets: TicketsStateInterface;
 }
 
 export interface AuthStateInterface {
@@ -19,4 +21,8 @@ export interface FormatsStateInterface {
 
 export interface OrderStateInterface extends OrderInterface {
   isLoading: boolean;
+}
+
+export interface TicketsStateInterface {
+  data: ExtendedTicketInterface[];
 }
