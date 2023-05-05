@@ -2,7 +2,7 @@
 
 <airways-divider>or sign up with your email</airways-divider>
 
-<form [formGroup]="signupForm" class="signupFormContainer" (ngSubmit)="onSignUp(); signupForm.markAllAsTouched()">
+<form [formGroup]="signupForm" class="signupFormContainer" (ngSubmit)="onSignUp()">
   <mat-form-field>
     <mat-label>Email</mat-label>
     <input formControlName="email" name="email" type="email" matInput placeholder="Ex. pat@example.com" required>

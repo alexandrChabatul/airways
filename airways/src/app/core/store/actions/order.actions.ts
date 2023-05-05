@@ -3,7 +3,7 @@ import { createAction, props } from '@ngrx/store';
 import { PassengersInterface } from 'src/app/modules/home/models/passenger-types.models';
 import { AirportResponseInterface } from '../../models/airport-response.interface';
 import { OrderInterface, TripType } from '../../models/order.models';
-import { OrderActionTypes } from '../action-types/order.action-types';
+import { OrderActionTypes } from '../../models/action-types/order.action-types';
 
 export const updateOrderAction = createAction(
   OrderActionTypes.UPDATE_ORDER,

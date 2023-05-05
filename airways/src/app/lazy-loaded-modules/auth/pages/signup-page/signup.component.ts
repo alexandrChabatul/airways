@@ -101,6 +101,7 @@ export class SignupPageComponent implements OnInit {
   }
 
   onSignUp() {
+    this.signupForm.markAllAsTouched();
     if (!this.signupForm.valid) {
       this.signupForm.markAsTouched();
       this.checkIfCountryMatches();

@@ -9,7 +9,7 @@ import { StoreModule } from '@ngrx/store';
 import { formatsReducer } from './store/reducers/formats.reducers';
 import { authReducer } from './store/reducers/auth.reducer';
 import { EffectsModule } from '@ngrx/effects';
-import { AuthEffect } from './store/effects/auth.effect';
+import { AuthEffects } from './store/effects/auth.effects';
 
 @NgModule({
   declarations: [HeaderComponent, FooterComponent],
@@ -20,7 +20,7 @@ import { AuthEffect } from './store/effects/auth.effect';
     HttpClientModule,
     StoreModule.forFeature('formats', formatsReducer),
     StoreModule.forFeature('auth', authReducer),
-    EffectsModule.forFeature([AuthEffect]),
+    EffectsModule.forFeature([AuthEffects]),
   ],
   exports: [HeaderComponent, FooterComponent],
 })
