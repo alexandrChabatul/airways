@@ -1,10 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { ExtendedTicketInterface } from '../../../../core/models/ticket.models';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import {
+  selectActiveTicket,
+  selectActiveTicketBack,
+} from '../../../../core/store/selectors/tickets.selectors';
 
 @Component({
   selector: 'airways-flight-info',
   templateUrl: './flight-info.component.html',
-  styleUrls: ['./flight-info.component.scss']
+  styleUrls: ['./flight-info.component.scss'],
 })
-export class FlightInfoComponent {
+export class FlightInfoComponent implements OnInit {
+  @Input() isBack = false;
 
+  public selectedItem!: Observable<ExtendedTicketInterface | undefined>;
+
+  constructor(private store: Store) {}
+
+  ngOnInit(): void {
+    const selector = this.isBack ? selectActiveTicketBack : selectActiveTicket;
+    this.selectedItem = this.store.select(selector);
+    this.selectedItem.subscribe((val) => console.log(this.isBack, val));
+  }
+
+  public getDurationString(duration: number): string {
+    const hours = Math.floor(duration / 60);
+    const minutes = duration - hours * 60;
+
+    return `${hours}h ${minutes}m`;
+  }
 }

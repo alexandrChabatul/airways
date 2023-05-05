@@ -5,5 +5,24 @@ export const selectTicketsFeature = createFeatureSelector<TicketsStateInterface>
 
 export const selectTicketsData = createSelector(
   selectTicketsFeature,
-  (formatsState: TicketsStateInterface) => formatsState.data,
+  (ticketsState: TicketsStateInterface) => ticketsState.data,
+);
+
+export const selectTicketsBackData = createSelector(
+  selectTicketsFeature,
+  (ticketsState: TicketsStateInterface) => ticketsState.dataBack,
+);
+
+export const selectActiveTicket = createSelector(
+  selectTicketsFeature,
+  (ticketsState: TicketsStateInterface) => {
+    return ticketsState.data.find((el) => el.isActive);
+  },
+);
+
+export const selectActiveTicketBack = createSelector(
+  selectTicketsFeature,
+  (ticketsState: TicketsStateInterface) => {
+    return ticketsState.dataBack.find((el) => el.isActive);
+  },
 );

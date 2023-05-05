@@ -9,6 +9,8 @@ import { ticketsLoadAction } from '../../../../core/store/actions/tickets.action
   styleUrls: ['./flights-page.component.scss'],
 })
 export class FlightsPageComponent implements OnInit {
+  //select trip type isBack;
+
   constructor(private router: Router, private store: Store) {}
 
   public ngOnInit(): void {

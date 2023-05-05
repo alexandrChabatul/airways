@@ -17,8 +17,8 @@ export class TicketsEffect {
       ofType(ticketsLoadAction),
       switchMap(() => {
         return this.ticketsService.getTicketsArray().pipe(
-          map((response: ExtendedTicketInterface[]) => {
-            return ticketsLoadSuccessAction({ data: response });
+          map((response: ExtendedTicketInterface[][]) => {
+            return ticketsLoadSuccessAction({ data: response[0], dataBack: response[1] });
           }),
           catchError((errorResponse: HttpErrorResponse) => {
             console.warn(errorResponse);

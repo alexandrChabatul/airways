@@ -1,10 +1,8 @@
-<div class="way__container">
+<div class="way__container" *ngIf="selectedItem | async as item">
   <div class="title">
     <mat-icon class="title__icon title__icon-flight">flight</mat-icon>
-    <h1>{{'Dublin'}} to {{'Warsaw Modlin'}}</h1>
+    <h1>{{item.origin}} to {{item.destination}}</h1>
   </div>
-<!-- calendar carousel -->
-<!-- *ngFor flight of flights -->
-  <airways-calendar></airways-calendar>
-  <airways-flight-info></airways-flight-info>
+  <airways-calendar [isBack]="isBack"></airways-calendar>
+  <airways-flight-info [isBack]="isBack"></airways-flight-info>
 </div>

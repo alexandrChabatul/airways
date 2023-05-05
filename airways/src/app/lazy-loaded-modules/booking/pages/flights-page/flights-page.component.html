@@ -4,5 +4,10 @@
     <li class="ways__item">
       <airways-way></airways-way>
     </li>
+    <!-- select triptype async here -->
+    <li class="ways__item" *ngIf="true">
+      <!-- leave just as true, it will always be true if the component is created -->
+      <airways-way [isBack]="true"></airways-way>
+    </li>
   </ul>
 </div>

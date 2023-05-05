@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ResponsiveOptionInterface } from '../../models/calendar.model';
 import { Observable } from 'rxjs';
 import { ExtendedTicketInterface } from '../../../../core/models/ticket.models';
 import { Store } from '@ngrx/store';
-import { selectTicketsData } from '../../../../core/store/selectors/tickets.selectors';
+import {
+  selectTicketsBackData,
+  selectTicketsData,
+} from '../../../../core/store/selectors/tickets.selectors';
 import { ticketsChangeActive } from '../../../../core/store/actions/tickets.actions';
 import { SvgIconService } from '../../../../core/services/svg-icon.service';
 import { CurrencyFormatType } from '../../../../core/models/formats.models';
@@ -15,7 +18,9 @@ import { selectCurrencyFormat } from '../../../../core/store/selectors/formats.s
   styleUrls: ['./calendar.component.scss'],
 })
 export class CalendarComponent implements OnInit {
-  public days$!: Observable<ExtendedTicketInterface[]>;
+  @Input() isBack = false;
+
+  public days$!: Observable<ExtendedTicketInterface[]>; // take according to isBack value
 
   public currency$!: Observable<CurrencyFormatType>;
 
@@ -33,19 +38,20 @@ export class CalendarComponent implements OnInit {
     this.iconsService.addSvgIcon('no_flights');
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.currency$ = this.store.select(selectCurrencyFormat);
-    this.days$ = this.store.select(selectTicketsData);
+    this.days$ = this.isBack
+      ? this.store.select(selectTicketsBackData)
+      : this.store.select(selectTicketsData);
 
     this.days$.subscribe((val) => {
       this.daysArray = val;
-      console.log(val);
     });
   }
 
   public toggleActive(item: ExtendedTicketInterface): void {
     if (!item.isOutdated) {
-      this.store.dispatch(ticketsChangeActive({ index: item.index }));
+      this.store.dispatch(ticketsChangeActive({ index: item.index, isBack: this.isBack })); // get isBack from input
     }
   }
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { AviasalesApiService } from './aviasales-api.service';
 import moment from 'moment';
 import { Store } from '@ngrx/store';
@@ -25,25 +25,53 @@ export class TicketsService {
     });
   }
 
-  public getTicketsArray(): Observable<ExtendedTicketInterface[]> {
+  public getTicketsArray(): Observable<ExtendedTicketInterface[][]> {
     const params = this.route.snapshot.queryParams;
-    const departure = moment(params['departure'], 'MM-DD-YYYY');
-    const monthToAdd = departure.date() >= 15 ? 1 : -1; //if date is more than 15 then we'll request tickets for further month and vice versa
-    const additionalMonthDeparture = moment(params['departure'], 'MM-DD-YYYY').add(
-      monthToAdd,
-      'months',
-    );
+
+    if (params['type'] === 'round-trip') {
+      return forkJoin([
+        this.getRequestObservable(params, false),
+        this.getRequestObservable(params, true),
+      ]);
+    }
+
+    return forkJoin([this.getRequestObservable(params, false), of([])]);
+  }
+
+  private getRandomSeats(): number {
+    const maxSeats = 100;
+    const minSeats = 1;
+    return Math.floor(Math.random() * (maxSeats - minSeats + 1)) + minSeats;
+  }
+
+  private getRequestObservable(
+    params: Params,
+    isBack: boolean,
+  ): Observable<ExtendedTicketInterface[]> {
+    let origin = params['origin'];
+    let destination = params['destination'];
+    let date = moment(params['departure'], 'MM-DD-YYYY');
+
+    if (isBack) {
+      //если билет возвратный то меняем местами origin и destination
+      origin = params['destination'];
+      destination = params['origin'];
+      date = moment(params['arrival'], 'MM-DD-YYYY');
+    }
+
+    const monthToAdd = date.date() >= 15 ? 1 : -1; //if date is more than 15 then we'll request tickets for further month and vice versa
+    const additionalMonthDeparture = date.clone().add(monthToAdd, 'months');
 
     const currentMonthTickets$ = this.apiService.getTicketsMapDyDate(
-      params['origin'],
-      params['destination'],
-      moment(params['departure'], 'MM-DD-YYYY'),
+      origin,
+      destination,
+      date,
       this.currencyLowerCase,
     );
 
     const additionalMonthTickets$ = this.apiService.getTicketsMapDyDate(
-      params['origin'],
-      params['destination'],
+      origin,
+      destination,
       additionalMonthDeparture,
       this.currencyLowerCase,
     );
@@ -52,6 +80,7 @@ export class TicketsService {
       map((elem: TicketInterface[][]) => {
         const ticketsArray = elem.flat();
         const dateNow = moment.utc();
+        const dateString = date.format('MM-DD-YYYY').toString();
 
         const ticketsWithAdditionalFields: ExtendedTicketInterface[] = ticketsArray.map(
           (item, index) => {
@@ -61,7 +90,7 @@ export class TicketsService {
 
             return {
               ...item,
-              isActive: params['departure'] === departureTicketString,
+              isActive: dateString === departureTicketString,
               index,
               utcOffset: `UTC${timeZone >= 0 ? `+${timeZone}` : timeZone}`,
               isOutdated: dateNow > dateTicket ? true : false,
@@ -77,11 +106,5 @@ export class TicketsService {
         return of([]);
       }),
     );
-  }
-
-  private getRandomSeats(): number {
-    const maxSeats = 100;
-    const minSeats = 1;
-    return Math.floor(Math.random() * (maxSeats - minSeats + 1)) + minSeats;
   }
 }

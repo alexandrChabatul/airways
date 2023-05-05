@@ -9,6 +9,7 @@ import { ExtendedTicketInterface } from '../../models/ticket.models';
 
 const initialState: TicketsStateInterface = {
   data: [],
+  dataBack: [],
 };
 
 export const ticketsReducer = createReducer(
@@ -18,6 +19,7 @@ export const ticketsReducer = createReducer(
     (state, action): TicketsStateInterface => ({
       ...state,
       data: action.data,
+      dataBack: action.dataBack,
     }),
   ),
   on(
@@ -25,10 +27,12 @@ export const ticketsReducer = createReducer(
     (state): TicketsStateInterface => ({
       ...state,
       data: [],
+      dataBack: [],
     }),
   ),
   on(ticketsChangeActive, (state, action): TicketsStateInterface => {
-    const newData: ExtendedTicketInterface[] = state.data.map((el) => {
+    const arrayToMap = action.isBack ? state.dataBack : state.data;
+    const newData: ExtendedTicketInterface[] = arrayToMap.map((el) => {
       let isActive = false;
 
       if (el.index === action.index) {
@@ -41,9 +45,14 @@ export const ticketsReducer = createReducer(
       };
     });
 
-    return {
-      ...state,
-      data: newData,
-    };
+    return action.isBack
+      ? {
+          ...state,
+          dataBack: newData,
+        }
+      : {
+          ...state,
+          data: newData,
+        };
   }),
 );
