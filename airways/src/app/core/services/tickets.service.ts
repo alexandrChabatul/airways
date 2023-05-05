@@ -4,8 +4,9 @@ import { AviasalesApiService } from './aviasales-api.service';
 import moment from 'moment';
 import { Store } from '@ngrx/store';
 import { selectCurrencyFormat } from '../store/selectors/formats.selectors';
-import { forkJoin, of, catchError, map, Observable } from 'rxjs';
+import { forkJoin, of, catchError, map, Observable, switchMap, combineLatest } from 'rxjs';
 import { ExtendedTicketInterface, TicketInterface } from '../models/ticket.models';
+import { AutocompleteService } from './autocomplete.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,7 @@ export class TicketsService {
     private route: ActivatedRoute,
     private apiService: AviasalesApiService,
     private store: Store,
+    private autocompleteService: AutocompleteService,
   ) {
     this.currency$.subscribe((val) => {
       this.currencyLowerCase = val.toLocaleLowerCase();
@@ -77,30 +79,39 @@ export class TicketsService {
     );
 
     return forkJoin([currentMonthTickets$, additionalMonthTickets$]).pipe(
-      map((elem: TicketInterface[][]) => {
+      switchMap((elem: TicketInterface[][]) => {
         const ticketsArray = elem.flat();
         const dateNow = moment.utc();
         const dateString = date.format('MM-DD-YYYY').toString();
 
-        const ticketsWithAdditionalFields: ExtendedTicketInterface[] = ticketsArray.map(
+        const ticketsWithAdditionalFields: Observable<ExtendedTicketInterface>[] = ticketsArray.map(
           (item, index) => {
             const departureTicketString = moment(item.departure_at).format('MM-DD-YYYY').toString();
             const timeZone = moment.parseZone(item.departure_at).utcOffset() / 60;
             const dateTicket = moment.utc(item.departure_at);
 
-            return {
-              ...item,
-              isActive: dateString === departureTicketString,
-              index,
-              utcOffset: `UTC${timeZone >= 0 ? `+${timeZone}` : timeZone}`,
-              isOutdated: dateNow > dateTicket ? true : false,
-              seats: this.getRandomSeats(),
-              maxSeats: 100,
-            };
+            const originAutocomplete$ = this.autocompleteService.getAirportByCode(item.origin);
+            const destinationAutocomplete$ = this.autocompleteService.getAirportByCode(
+              item.destination,
+            );
+
+            return combineLatest([originAutocomplete$, destinationAutocomplete$]).pipe(
+              map(([originAutocomplete, destinationAutocomplete]) => ({
+                ...item,
+                isActive: dateString === departureTicketString,
+                index,
+                utcOffset: `UTC${timeZone >= 0 ? `+${timeZone}` : timeZone}`,
+                isOutdated: dateNow > dateTicket ? true : false,
+                seats: this.getRandomSeats(),
+                maxSeats: 100,
+                originAutocomplete,
+                destinationAutocomplete,
+              })),
+            );
           },
         );
 
-        return ticketsWithAdditionalFields;
+        return forkJoin(ticketsWithAdditionalFields);
       }),
       catchError(() => {
         return of([]);

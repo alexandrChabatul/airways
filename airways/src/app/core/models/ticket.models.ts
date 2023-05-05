@@ -1,3 +1,5 @@
+import { AirportResponseInterface } from './airport-response.interface';
+
 export interface TicketInterface {
   airline: string;
   departure_at: string;
@@ -22,4 +24,6 @@ export interface ExtendedTicketInterface extends TicketInterface {
   isOutdated: boolean;
   seats: number;
   maxSeats: number;
+  originAutocomplete: AirportResponseInterface | null;
+  destinationAutocomplete: AirportResponseInterface | null;
 }
