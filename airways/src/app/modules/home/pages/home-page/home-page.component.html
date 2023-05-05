@@ -8,10 +8,10 @@
     >
       <mat-radio-button
         value="round-trip"
-        [checked]="(type$ | async) === 'round-trip' || (type$ | async) === null"
+        [checked]="(type$ | async) === true || (type$ | async) === null"
         >Round trip</mat-radio-button
       >
-      <mat-radio-button value="one-way" [checked]="(type$ | async) === 'one-way'"
+      <mat-radio-button value="one-way" [checked]="(type$ | async) === false"
         >One Way</mat-radio-button
       >
     </mat-radio-group>
@@ -44,6 +44,14 @@
         "
         class="search__error"
         >Enter your destination</mat-error
+      >
+      <mat-error
+        *ngIf="
+          searchForm.controls['destination'].touched &&
+          searchForm.controls['destination'].hasError('theSameAirportError')
+        "
+        class="search__error"
+        >Origin and destination airports are equal.</mat-error
       >
       <span class="search__swap-button" (click)="swapFields()">
         <mat-icon>sync_alt</mat-icon>

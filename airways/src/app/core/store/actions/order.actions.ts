@@ -2,7 +2,7 @@ import { Params } from '@angular/router';
 import { createAction, props } from '@ngrx/store';
 import { PassengersInterface } from 'src/app/modules/home/models/passenger-types.models';
 import { AirportResponseInterface } from '../../models/airport-response.interface';
-import { OrderInterface, TripType } from '../../models/order.models';
+import { OrderInterface } from '../../models/order.models';
 import { OrderActionTypes } from '../action-types/order.action-types';
 
 export const updateOrderAction = createAction(
@@ -31,7 +31,7 @@ export const updateOrderPassengersAction = createAction(
 
 export const updateOrderTypeAction = createAction(
   OrderActionTypes.UPDATE_ORDER_TYPE,
-  props<{ param: 'type'; data: TripType }>(),
+  props<{ param: 'isRound'; data: boolean }>(),
 );
 
 export const swapAirportsAction = createAction(

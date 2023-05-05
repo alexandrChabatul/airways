@@ -10,13 +10,12 @@ import moment, { Moment } from 'moment';
 import { filter, Subscription } from 'rxjs';
 import { DEFAULT_DATE_FORMAT } from 'src/app/core/constants/formats.constants';
 import { MaterialDateFormatInterface } from 'src/app/core/models/material-date-format.model';
-import { TripType } from 'src/app/core/models/order.models';
 import { updateOrderDateAction } from 'src/app/core/store/actions/order.actions';
 import { selectDateFormatInUppercase } from 'src/app/core/store/selectors/formats.selectors';
 import {
   selectArrivalDate,
   selectDepartureDate,
-  selectTripType,
+  selectIsRoundTrip,
 } from 'src/app/core/store/selectors/order.selectors';
 import { AppStateInterface } from 'src/app/core/store/store.models';
 
@@ -41,7 +40,7 @@ export class DatePickerComponent implements OnInit, OnDestroy {
 
   minDate = new Date();
 
-  tripType: TripType = TripType.ROUND_TRIP;
+  isRound = true;
 
   subscriptions: Subscription[] = [];
 
@@ -78,10 +77,10 @@ export class DatePickerComponent implements OnInit, OnDestroy {
         this.updateDateFormsFormat();
       });
     const typeListener = this.store
-      .select(selectTripType)
+      .select(selectIsRoundTrip)
       .pipe(filter(Boolean))
       .subscribe((type) => {
-        this.tripType = type;
+        this.isRound = type;
         this.toggleValidation(type);
       });
     this.subscriptions.push(departureListener, arrivalListener, formatListener, typeListener);
@@ -92,8 +91,8 @@ export class DatePickerComponent implements OnInit, OnDestroy {
     this.parentForm.form.addControl('arrival', this.arrival);
   }
 
-  toggleValidation(type: string): void {
-    if (type === 'round-trip') {
+  toggleValidation(type: boolean): void {
+    if (type) {
       this.arrival.setValidators([Validators.required]);
     } else {
       this.arrival.removeValidators([Validators.required]);

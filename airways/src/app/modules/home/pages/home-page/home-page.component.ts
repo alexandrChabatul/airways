@@ -12,10 +12,9 @@ import { Event as NavigationEvent } from '@angular/router';
 import {
   selectDestinationAirport,
   selectOriginAirport,
-  selectTripType,
+  selectIsRoundTrip,
 } from 'src/app/core/store/selectors/order.selectors';
 import { AirportResponseInterface } from 'src/app/core/models/airport-response.interface';
-import { TripType } from 'src/app/core/models/order.models';
 import { UrlParamsService } from 'src/app/core/services/url-params.service';
 
 @Component({
@@ -28,7 +27,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
 
   routerSubscription!: Subscription;
 
-  type$!: Observable<TripType | null>;
+  type$!: Observable<boolean>;
 
   originAirport$!: Observable<AirportResponseInterface | null>;
 
@@ -54,15 +53,18 @@ export class HomePageComponent implements OnInit, OnDestroy {
   }
 
   initializeValues() {
-    this.type$ = this.store.select(selectTripType);
+    this.type$ = this.store.select(selectIsRoundTrip);
     this.originAirport$ = this.store.select(selectOriginAirport);
     this.destinationAirport$ = this.store.select(selectDestinationAirport);
   }
 
   initializeForms(): void {
-    this.searchForm = this.fb.group({
-      tripType: [''],
-    });
+    this.searchForm = this.fb.group(
+      {
+        tripType: [''],
+      },
+      { validator: this.compareValidator },
+    );
   }
 
   initializeListeners() {
@@ -95,8 +97,19 @@ export class HomePageComponent implements OnInit, OnDestroy {
 
   radioChange() {
     this.store.dispatch(
-      updateOrderTypeAction({ param: 'type', data: this.searchForm.controls['tripType'].value }),
+      updateOrderTypeAction({
+        param: 'isRound',
+        data: this.searchForm.controls['tripType'].value === 'round-trip',
+      }),
     );
+  }
+
+  compareValidator(group: FormGroup) {
+    if (!group.get('origin')?.value || !group.get('destination')?.value) return;
+    if (group.get('origin')?.value.name === group.get('destination')?.value.name) {
+      group.get('destination')?.setErrors({ theSameAirportError: true });
+      return;
+    }
   }
 
   onSearchFormSubmit(): void {
@@ -104,7 +117,11 @@ export class HomePageComponent implements OnInit, OnDestroy {
       this.searchForm.markAllAsTouched();
       return;
     }
-    const params = this.urlParamsService.getQueryParamObj(this.searchForm.value);
+    const isRoundFromValue = this.searchForm.controls['tripType'].value;
+    const params = this.urlParamsService.getQueryParamObj({
+      ...this.searchForm.value,
+      isRound: isRoundFromValue === '' ? true : isRoundFromValue === 'round-trip',
+    });
     const urlTree = this.router.createUrlTree(['booking'], {
       queryParams: params,
       queryParamsHandling: 'merge',

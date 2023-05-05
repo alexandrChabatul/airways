@@ -4,7 +4,7 @@ import moment from 'moment';
 import { PassengersInterface } from 'src/app/modules/home/models/passenger-types.models';
 import { environment } from 'src/environments/environment';
 import { AirportResponseInterface } from '../models/airport-response.interface';
-import { OrderInterface, TripType } from '../models/order.models';
+import { OrderInterface } from '../models/order.models';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +14,7 @@ export class UrlParamsService {
 
   addParam(
     param: string,
-    data: AirportResponseInterface | string | PassengersInterface | null | TripType,
+    data: AirportResponseInterface | string | PassengersInterface | null | boolean,
   ) {
     let paramString: string | null = '';
     switch (param) {
@@ -38,8 +38,8 @@ export class UrlParamsService {
         paramString = this.getPassengersParamString(data as PassengersInterface);
         break;
       }
-      case 'type': {
-        paramString = data as TripType;
+      case 'isRound': {
+        paramString = String(data);
         break;
       }
     }
@@ -50,6 +50,10 @@ export class UrlParamsService {
     });
 
     this.router.navigateByUrl(urlTree);
+  }
+
+  getIsRoundType(type: string | undefined): boolean {
+    return type ? Boolean(type) : true;
   }
 
   getAirportParamString(data: AirportResponseInterface | null) {
@@ -72,6 +76,7 @@ export class UrlParamsService {
       departure: this.getDateParamString(order.departure),
       arrival: this.getDateParamString(order.arrival),
       passengers: this.getPassengersParamString(order.passengers),
+      isRound: order.isRound,
     };
   }
 
