@@ -1,14 +1,18 @@
-<div class="authCardContainer">
-  <mat-tab-group mat-align-tabs="center" animationDuration="0ms" dynamicHeight class="authCard">
-    <mat-tab label="Log in">
-      <div class="mat-elevation-z4">
-        <airways-login-page></airways-login-page>
-      </div>
-    </mat-tab>
-    <mat-tab label="Sign Up">
-      <div class="mat-elevation-z4">
-        <airways-signup-page></airways-signup-page>
-      </div>
-    </mat-tab>
-  </mat-tab-group>
+<div class="mainContainer">
+  <mat-icon fontIcon="close" (click)="closeAuth()" class="auth-close-icon"></mat-icon>
+
+  <div class="authCardContainer">
+    <mat-tab-group mat-align-tabs="center" animationDuration="0ms" dynamicHeight class="authCard">
+      <mat-tab label="Log in">
+        <div class="mat-elevation-z4">
+          <airways-login-page></airways-login-page>
+        </div>
+      </mat-tab>
+      <mat-tab label="Sign Up">
+        <div class="mat-elevation-z4">
+          <airways-signup-page></airways-signup-page>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
 </div>

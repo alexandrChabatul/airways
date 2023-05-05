@@ -27,6 +27,7 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./lazy-loaded-modules/auth/auth.module').then((m) => m.AuthModule),
+    outlet: 'auth',
   },
 ];
 
