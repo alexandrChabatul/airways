@@ -45,8 +45,6 @@ export class SignupPageComponent implements OnInit {
   ngOnInit(): void {
     this.createSignupForm();
 
-    this.errorMessage = this.store.select(selectErrorMessage);
-
     this.countries = COUNTRY_CODES.map((country) => country.name);
 
     this.codes = COUNTRY_CODES.map(
@@ -113,6 +111,7 @@ export class SignupPageComponent implements OnInit {
       password: this.password.value,
     };
     this.store.dispatch(signupRequestAction({ credentials }));
+    this.errorMessage = this.store.select(selectErrorMessage);
   }
 
   createSignupForm() {

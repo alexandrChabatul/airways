@@ -11,6 +11,7 @@ import {
   signupSuccessAction,
   signupFailureAction,
 } from '../actions/auth.actions';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class AuthEffects {
@@ -20,7 +21,10 @@ export class AuthEffects {
       exhaustMap((action) => {
         return this.authService.logIn(action.credentials.email, action.credentials.password).pipe(
           map((loginSuccessResponse) => loginSuccessAction({ loginSuccessResponse })),
-          catchError((loginFailureResponse) => of(loginFailureAction({ loginFailureResponse }))),
+          catchError((errorResponse: HttpErrorResponse) => {
+            const errorMessage = errorResponse.error;
+            return of(loginFailureAction({ loginFailureResponse: errorMessage }));
+          }),
         );
       }),
     );
@@ -32,7 +36,10 @@ export class AuthEffects {
       exhaustMap((action) => {
         return this.authService.signUp(action.credentials.email, action.credentials.password).pipe(
           map((signupSuccessResponse) => signupSuccessAction({ signupSuccessResponse })),
-          catchError((signupFailureResponse) => of(signupFailureAction({ signupFailureResponse }))),
+          catchError((errorResponse: HttpErrorResponse) => {
+            const errorMessage = errorResponse.error;
+            return of(signupFailureAction({ signupFailureResponse: errorMessage }));
+          }),
         );
       }),
     );
