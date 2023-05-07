@@ -8,9 +8,8 @@ describe('WayComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WayComponent ]
-    })
-    .compileComponents();
+      declarations: [WayComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(WayComponent);
     component = fixture.componentInstance;

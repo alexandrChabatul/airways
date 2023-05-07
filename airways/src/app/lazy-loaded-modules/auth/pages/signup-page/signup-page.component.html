@@ -2,7 +2,7 @@
 
 <airways-divider>or sign up with your email</airways-divider>
 
-<form [formGroup]="signupForm" class="signupFormContainer">
+<form [formGroup]="signupForm" class="signupFormContainer" (ngSubmit)="onSignUp()">
   <mat-form-field>
     <mat-label>Email</mat-label>
     <input formControlName="email" name="email" type="email" matInput placeholder="Ex. pat@example.com" required>
@@ -34,6 +34,7 @@
     <mat-error *ngIf="firstName.hasError('required')">
       First name is <strong>required</strong>
     </mat-error>
+    <mat-error *ngIf="firstName.hasError('isOnlyLetters')">First name cannot contain numbers</mat-error>
   </mat-form-field>
 
   <mat-form-field>
@@ -45,6 +46,7 @@
     <mat-error *ngIf="lastName.hasError('required')">
       Last name is <strong>required</strong>
     </mat-error>
+    <mat-error *ngIf="lastName.hasError('isOnlyLetters')">Last name can not contain numbers</mat-error>
   </mat-form-field>
 
   <mat-form-field>
@@ -57,31 +59,34 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-button-toggle-group formControlName="gender" name="gender">
+  <mat-button-toggle-group formControlName="gender" name="gender" required>
     <mat-button-toggle value="Male">Male</mat-button-toggle>
     <mat-button-toggle value="Female">Female</mat-button-toggle>
   </mat-button-toggle-group>
+  <mat-error *ngIf="gender.hasError('required') && gender.touched">Gender required</mat-error>
 
   <div class="country-tel-container">
     <mat-form-field>
       <mat-label>Country code</mat-label>
-      <input type="text" placeholder="Pick one" matInput formControlName="country" [matAutocomplete]="auto">
+      <input type="text" placeholder="Pick one" matInput formControlName="country" name="country" [matAutocomplete]="auto" required>
       <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
         <mat-option *ngFor="let code of filteredCountryCodes | async" [value]="code">
           {{ code }}
         </mat-option>
       </mat-autocomplete>
+      <mat-error *ngIf="country.hasError('required') && country.touched">Choose country code</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Mobile phone number</mat-label>
-      <input matInput formControlName="tel" type="tel" required>
+      <input matInput formControlName="tel" name="tel" type="tel" required>
+      <mat-error *ngIf="tel.hasError('isOnlyNumbers')">Must be only numbers</mat-error>
     </mat-form-field>
   </div>
 
   <mat-form-field>
     <mat-label>Citizenship</mat-label>
-    <input type="text" matInput formControlName="citizenship" [matAutocomplete]="auto2">
+    <input type="text" name="citizenship" matInput formControlName="citizenship" [matAutocomplete]="auto2">
     <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
       <mat-option *ngFor="let country of filteredCountries | async" [value]="country">
         {{country}}
@@ -89,14 +94,16 @@
     </mat-autocomplete>
   </mat-form-field>
 
+  <section class="terms-section">
+    <mat-checkbox color="primary" formControlName="terms" required>
+      I agree to Airway's <span class="privacy-policy">Privacy Policy</span> and <span class="terms-of-use">Terms of
+        Use</span>
+    </mat-checkbox>
+    <mat-error *ngIf="terms.hasError('required') && terms.touched">Terms must be accepted</mat-error>
+  </section>
+  
+  <button mat-raised-button color="primary" class="signup-button"
+  type="submit">Sign up</button>
+  
+  <mat-error *ngIf="errorMessage | async">Email already exists</mat-error>
 </form>
-
-<section class="terms-section">
-  <mat-checkbox color="primary">
-    I agree to Airway's <span class="privacy-policy">Privacy Policy</span> and <span class="terms-of-use">Terms of
-      Use</span>
-  </mat-checkbox>
-</section>
-
-<button mat-raised-button color="primary" class="signup-button" (click)="onSignup()"
-  [disabled]="email.invalid || password.invalid">Sign up</button>

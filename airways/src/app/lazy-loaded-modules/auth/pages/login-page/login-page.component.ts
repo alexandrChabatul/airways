@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { loginRequestAction } from 'src/app/core/store/actions/auth.actions';
+import { selectErrorMessage } from 'src/app/core/store/selectors/auth.selectors';
 
 @Component({
   selector: 'airways-login-page',
@@ -8,12 +12,35 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginPageComponent implements OnInit {
   loginForm!: FormGroup;
 
+  errorMessage!: Observable<string | null | undefined>;
+
   hide = true;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private store: Store) {}
 
   ngOnInit(): void {
     this.createLoginForm();
+
+    this.errorMessage = this.store.select(selectErrorMessage);
+  }
+
+  onLogIn() {
+    if (!this.loginForm.valid) {
+      return;
+    }
+    const credentials = {
+      email: this.email.value,
+      password: this.password.value,
+    };
+    this.store.dispatch(loginRequestAction({ credentials }));
+  }
+
+  togglePasswordVisibility() {
+    this.hide = !this.hide;
+  }
+
+  onForgotPassword() {
+    alert('Then remember it ?!');
   }
 
   createLoginForm() {
@@ -29,20 +56,5 @@ export class LoginPageComponent implements OnInit {
 
   get password() {
     return this.loginForm.controls['password'];
-  }
-
-  onLogin() {
-    if (this.email.valid) {
-      // this.loginService.login(this.email.value ?? '');
-      // this.router.navigate(['']);
-    }
-  }
-
-  togglePasswordVisibility() {
-    this.hide = !this.hide;
-  }
-
-  onForgotPassword() {
-    alert('Then remember it ?!');
   }
 }
