@@ -1,13 +1,24 @@
-.authCardContainer {
-    position: fixed;
+.mainContainer {
+    z-index: 9;
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 9;
-    border-radius: 5px;
-    max-width: 90%;
+    max-width: 95%;
     max-height: 69%;
-    overflow-y: auto;
+}
+
+.authCardContainer {
+    width: 100%;
+    max-height: 69%;
+}
+
+.auth-close-icon {
+    position: fixed;
+    left: 100%;
+    top: -3%;
+    color: $neutral-10;
+    cursor: pointer;
 }
 
 .authCardContainer .authCard {

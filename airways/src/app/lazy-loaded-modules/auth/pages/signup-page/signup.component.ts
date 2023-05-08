@@ -113,6 +113,7 @@ export class SignupPageComponent implements OnInit {
       password: this.password.value,
     };
     this.store.dispatch(signupRequestAction({ credentials }));
+    this.errorMessage = this.store.select(selectErrorMessage);
   }
 
   createSignupForm() {
