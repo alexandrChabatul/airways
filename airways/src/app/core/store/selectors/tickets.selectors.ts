@@ -26,3 +26,8 @@ export const selectActiveTicketBack = createSelector(
     return ticketsState.dataBack.find((el) => el.isActive);
   },
 );
+
+export const selectTicketsLoading = createSelector(
+  selectTicketsFeature,
+  (ticketsState: TicketsStateInterface) => ticketsState.isLoading,
+);

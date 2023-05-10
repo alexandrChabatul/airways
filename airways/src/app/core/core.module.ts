@@ -8,9 +8,10 @@ import { MaterialDesignModule } from '../material-design/material-design.module'
 import { StoreModule } from '@ngrx/store';
 import { formatsReducer } from './store/reducers/formats.reducers';
 import { AviasalesApiInterceptor } from './interceptors/aviasales-api.interceptor';
+import { EditFlightComponent } from './components/edit-flight/edit-flight.component';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent],
+  declarations: [HeaderComponent, FooterComponent, EditFlightComponent],
   imports: [
     CommonModule,
     RouterModule,

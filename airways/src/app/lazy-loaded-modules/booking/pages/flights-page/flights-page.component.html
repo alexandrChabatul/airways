@@ -1,5 +1,4 @@
-<div class="ways">
-  <airways-edit-flight></airways-edit-flight>
+<div class="ways" *ngIf="(areTicketsLoading | async) === false; else loading">
   <ul class="ways__list">
     <li class="ways__item">
       <airways-way></airways-way>
@@ -11,3 +10,8 @@
     </li>
   </ul>
 </div>
+<ng-template #loading>
+  <div class="spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

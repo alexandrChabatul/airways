@@ -216,6 +216,11 @@ airways-flight-info {
         min-width: auto;
         color: $neutral-100;
       }
+
+      &:disabled {
+        border: none;
+        background: $neutral-60;
+      }
     }
   }
 }

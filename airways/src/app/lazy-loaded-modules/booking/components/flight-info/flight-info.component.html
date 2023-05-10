@@ -21,7 +21,7 @@
         <span class="price__sum">{{ item.price | currency: 'EUR'}}</span>
       </div>
     </div>
-    <button mat-button class="select">Select</button>
+    <button mat-button class="select" [disabled]="item.isOutdated">Select</button>
   </div>
 </div>
 <ng-template #no_flights>

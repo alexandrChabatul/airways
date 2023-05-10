@@ -26,4 +26,5 @@ export interface OrderStateInterface extends OrderInterface {
 export interface TicketsStateInterface {
   data: ExtendedTicketInterface[];
   dataBack: ExtendedTicketInterface[];
+  isLoading: boolean;
 }
