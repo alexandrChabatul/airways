@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { FormatsActionTypes } from '../../models/action-types/formats.action-types';
+import { FormatsActionTypes } from '../action-types/formats.action-types';
 import { CurrencyFormatType, DateFormatType } from '../../models/formats.models';
 
 export const changeCurrencyFormat = createAction(

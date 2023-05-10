@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { AuthActionTypes, AuthResponseData } from '../../models/action-types/auth.action-types';
+import { AuthActionTypes } from '../action-types/auth.action-types';
+import { AuthResponseData } from '../../models/auth-response.interface';
 
 export const loginRequestAction = createAction(
   AuthActionTypes.LOGIN_REQUEST,
