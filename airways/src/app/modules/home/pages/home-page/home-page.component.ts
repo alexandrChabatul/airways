@@ -112,12 +112,6 @@ export class HomePageComponent implements OnInit, OnDestroy {
     }
   }
 
-  radioChange() {
-    this.store.dispatch(
-      updateOrderTypeAction({ param: 'type', data: this.searchForm.controls['tripType'].value }),
-    );
-  }
-
   onSearchFormSubmit(): void {
     if (!this.searchForm.valid) {
       this.searchForm.markAllAsTouched();
