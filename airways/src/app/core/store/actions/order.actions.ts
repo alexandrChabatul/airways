@@ -1,7 +1,7 @@
 import { Params } from '@angular/router';
 import { createAction, props } from '@ngrx/store';
 import { PassengersInterface } from 'src/app/modules/home/models/passenger-types.models';
-import { OrderActionTypes } from '../../models/action-types/order.action-types';
+import { OrderActionTypes } from '../action-types/order.action-types';
 import { AirportResponseInterface } from '../../models/airport-response.interface';
 import { OrderInterface } from '../../models/order.models';
 

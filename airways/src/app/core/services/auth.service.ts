@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthResponseData } from '../models/action-types/auth.action-types';
 import { environment } from 'src/environments/environment';
+import { AuthResponseData } from '../models/auth-response.interface';
 
 @Injectable({
   providedIn: 'root',
