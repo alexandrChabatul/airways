@@ -49,7 +49,7 @@ export class HeaderComponent implements OnInit {
 
   private changeStepper(newPath: string): void {
     const pathArray = newPath.split('/');
-    const mainPath = pathArray[1];
+    const mainPath = pathArray[1].split('?')[0];
 
     if (mainPath === '') {
       this.isMainPage = true;
@@ -59,7 +59,7 @@ export class HeaderComponent implements OnInit {
       this.isBookingPage = true;
 
       if (pathArray.length > 2) {
-        const innerPath = pathArray[2];
+        const innerPath = pathArray[2].split('?')[0];
 
         if (innerPath === 'passengers') {
           this.stepNumber = 2;
