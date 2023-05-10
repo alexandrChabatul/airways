@@ -1,2 +1,61 @@
 @import './core';
 @import './home';
+@import './auth/';
+@import './booking';
+
+.title,
+h1 {
+  @include title-l;
+  font-size: 700;
+  color: $primary;
+  margin: 0;
+
+  @include medium {
+    font-size: 20px;
+  }
+
+  @include small {
+    font-size: 18px;
+  }
+
+  @include mobile {
+    font-size: 16px;
+  }
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 0;
+  width: 100%;
+
+  @include medium {
+    gap: 10px;
+  }
+
+  @include small {
+    gap: 8px;
+  }
+
+  @include mobile {
+    gap: 6px;
+  }
+
+  .mat-icon {
+    height: auto;
+    width: auto;
+
+    @include medium {
+      font-size: 20px;
+    }
+
+    @include small {
+      font-size: 18px;
+    }
+
+    @include mobile {
+      font-size: 16px;
+    }
+  }
+}

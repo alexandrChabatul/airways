@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { MatIconRegistry } from '@angular/material/icon';
 import { Location } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { selectCurrencyFormat, selectDateFormat } from '../../store/selectors/formats.selectors';
@@ -31,24 +29,13 @@ export class HeaderComponent implements OnInit {
 
   public stepNumber = 1;
 
-  public isUserLoggedIn = true; //TODO: get value from store
+  public isUserLoggedIn = false; //TODO: get value from store
 
   public userName = 'Harry Potter'; //TODO: get value from store
 
   public orderCount = 1; //TODO: get value from store
 
-  constructor(
-    iconRegistry: MatIconRegistry,
-    sanitizer: DomSanitizer,
-    private location: Location,
-    private store: Store,
-    private router: Router,
-  ) {
-    iconRegistry.addSvgIcon(
-      'basket',
-      sanitizer.bypassSecurityTrustResourceUrl('../../../../assets/icons/basket.svg'),
-    );
-  }
+  constructor(private location: Location, private store: Store, private router: Router) {}
 
   public ngOnInit(): void {
     this.location.onUrlChange((path) => {
@@ -99,7 +86,7 @@ export class HeaderComponent implements OnInit {
   }
 
   public navigateToLogin(): void {
-    // this.router.navigateByUrl('/login'); //TODO: change urls
+    this.router.navigate([{ outlets: { auth: ['auth'] } }], { queryParamsHandling: 'preserve' });
   }
 
   public navigateToUserPage(): void {

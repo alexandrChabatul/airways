@@ -76,13 +76,10 @@ export class DatePickerComponent implements OnInit, OnDestroy {
         this.dateFormats.parse.dateInput = format;
         this.updateDateFormsFormat();
       });
-    const typeListener = this.store
-      .select(selectIsRoundTrip)
-      .pipe(filter(Boolean))
-      .subscribe((type) => {
-        this.isRound = type;
-        this.toggleValidation(type);
-      });
+    const typeListener = this.store.select(selectIsRoundTrip).subscribe((type) => {
+      this.isRound = type;
+      this.toggleValidation(type);
+    });
     this.subscriptions.push(departureListener, arrivalListener, formatListener, typeListener);
   }
 

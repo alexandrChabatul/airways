@@ -1,7 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'airways-auth-page',
   templateUrl: './auth-page.component.html',
 })
-export class AuthPageComponent {}
+export class AuthPageComponent {
+  constructor(private router: Router) {}
+
+  @HostListener('document:keydown.escape', ['$event'])
+  onKeydownHandler() {
+    this.router.navigate([{ outlets: { auth: null } }]);
+  }
+
+  closeAuth() {
+    this.router.navigate([{ outlets: { auth: null } }]);
+  }
+}

@@ -1,15 +1,18 @@
 import { CurrencyFormatType, DateFormatType } from '../models/formats.models';
+import { User } from '../models/action-types/auth.action-types';
 import { OrderInterface } from '../models/order.models';
 
 export interface AppStateInterface {
-  auth: AuthStateInterface;
+  authState: AuthStateInterface;
   formats: FormatsStateInterface;
   order: OrderStateInterface;
 }
 
 export interface AuthStateInterface {
-  isLoggedIn: boolean;
-  username: string | null;
+  accessToken: string | null;
+  user: User | null;
+  errorMessage?: string | null;
+  isAuthenticated: boolean;
 }
 
 export interface FormatsStateInterface {
