@@ -7,6 +7,8 @@ import { selectCurrencyFormat } from '../store/selectors/formats.selectors';
 import { forkJoin, of, catchError, map, Observable, switchMap, combineLatest } from 'rxjs';
 import { ExtendedTicketInterface, TicketInterface } from '../models/ticket.models';
 import { AutocompleteService } from './autocomplete.service';
+import airportTimezone from 'airport-timezone';
+import { AirportTimeZoneInterface } from '../models/airport-timezone.model';
 
 @Injectable({
   providedIn: 'root',
@@ -57,6 +59,9 @@ export class TicketsService {
         const departureTicketString = moment(item.departure_at).format('MM-DD-YYYY').toString();
         const timeZone = moment.parseZone(item.departure_at).utcOffset() / 60;
         const dateTicket = moment.utc(item.departure_at);
+        const destinationUtcOffset = airportTimezone.filter(
+          (airport: AirportTimeZoneInterface) => airport.code === item.destination_airport,
+        )[0].offset.dst;
 
         const originAutocomplete$ = this.autocompleteService.getAirportByCode(item.origin);
         const destinationAutocomplete$ = this.autocompleteService.getAirportByCode(
@@ -74,6 +79,9 @@ export class TicketsService {
             maxSeats: 100,
             originAutocomplete,
             destinationAutocomplete,
+            destinationUtcOffset: `UTC${
+              destinationUtcOffset >= 0 ? `+${destinationUtcOffset}` : destinationUtcOffset
+            }`,
           })),
         );
       },

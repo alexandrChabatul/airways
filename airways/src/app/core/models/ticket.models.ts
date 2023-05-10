@@ -26,4 +26,5 @@ export interface ExtendedTicketInterface extends TicketInterface {
   maxSeats: number;
   originAutocomplete: AirportResponseInterface | null;
   destinationAutocomplete: AirportResponseInterface | null;
+  destinationUtcOffset: string;
 }
