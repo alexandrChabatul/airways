@@ -15,8 +15,7 @@
   </div>
   <div class="flight__price-seats">
     <div class="price-seats__container">
-      <!-- directive for bg color -->
-      <div class="seats"> {{item.seats}} seats<br class="line-breaker"> availible</div>
+      <div class="seats" [airwaysSeatsColor]="item"> {{item.seats}} seats<br class="line-breaker"> availible</div>
       <div class="price">
         <span class="price__title">Price</span>
         <span class="price__sum">{{ item.price | currency: 'EUR'}}</span>

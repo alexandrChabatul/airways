@@ -22,8 +22,7 @@
         <span class="item__day">{{day.departure_at | date: 'EEEE'}}</span>
         <span class="item__price">{{day.price | currency: (currency$ | async) || ''}}</span>
         <mat-icon svgIcon="no_flights" class="item__no-flights"></mat-icon>
-        <!-- color directive for item__color -->
-        <div class="item__color"></div>
+        <div class="item__color" [airwaysSeatsColor]="day"></div>
       </div>
     </ng-template>
     <ng-template pTemplate="nexticon">

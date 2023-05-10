@@ -22,7 +22,6 @@ export class FlightInfoComponent implements OnInit {
   ngOnInit(): void {
     const selector = this.isBack ? selectActiveTicketBack : selectActiveTicket;
     this.selectedItem = this.store.select(selector);
-    this.selectedItem.subscribe((val) => console.log(this.isBack, val));
   }
 
   public getDurationString(duration: number): string {

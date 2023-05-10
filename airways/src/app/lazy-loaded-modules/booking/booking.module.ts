@@ -15,6 +15,7 @@ import { StoreModule } from '@ngrx/store';
 import { ticketsReducer } from '../../core/store/reducers/tickets.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { TicketsEffect } from '../../core/store/effects/tickets.effect';
+import { SeatsColorDirective } from './directives/seats-color.directive';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { TicketsEffect } from '../../core/store/effects/tickets.effect';
     FlightTimeComponent,
     WayComponent,
     CalendarComponent,
+    SeatsColorDirective,
   ],
   imports: [
     CommonModule,
