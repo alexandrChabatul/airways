@@ -1,6 +1,7 @@
 import { CurrencyFormatType, DateFormatType } from '../models/formats.models';
 import { User } from '../models/action-types/auth.action-types';
 import { OrderInterface } from '../models/order.models';
+import { CartItemInterface } from '../models/cart.models';
 
 export interface AppStateInterface {
   authState: AuthStateInterface;
@@ -22,4 +23,8 @@ export interface FormatsStateInterface {
 
 export interface OrderStateInterface extends OrderInterface {
   isLoading: boolean;
+}
+
+export interface CartStateInterface {
+  items: CartItemInterface[];
 }
