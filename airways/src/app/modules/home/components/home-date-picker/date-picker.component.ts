@@ -10,13 +10,12 @@ import moment, { Moment } from 'moment';
 import { filter, Subscription } from 'rxjs';
 import { DEFAULT_DATE_FORMAT } from 'src/app/core/constants/formats.constants';
 import { MaterialDateFormatInterface } from 'src/app/core/models/material-date-format.model';
-import { TripType } from 'src/app/core/models/order.models';
 import { updateOrderDateAction } from 'src/app/core/store/actions/order.actions';
 import { selectDateFormatInUppercase } from 'src/app/core/store/selectors/formats.selectors';
 import {
   selectArrivalDate,
   selectDepartureDate,
-  selectTripType,
+  selectIsRoundTrip,
 } from 'src/app/core/store/selectors/order.selectors';
 import { AppStateInterface } from 'src/app/core/store/store.models';
 
@@ -41,7 +40,7 @@ export class DatePickerComponent implements OnInit, OnDestroy {
 
   minDate = new Date();
 
-  tripType: TripType = TripType.ROUND_TRIP;
+  isRound = true;
 
   subscriptions: Subscription[] = [];
 
@@ -60,6 +59,7 @@ export class DatePickerComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 
+  /* eslint-disable @ngrx/no-store-subscription */
   initializeListeners() {
     const departureListener = this.store
       .select(selectDepartureDate)
@@ -77,34 +77,26 @@ export class DatePickerComponent implements OnInit, OnDestroy {
         this.dateFormats.parse.dateInput = format;
         this.updateDateFormsFormat();
       });
-    const typeListener = this.store
-      .select(selectTripType)
-      .pipe(filter(Boolean))
-      .subscribe((type) => {
-        this.tripType = type;
-        this.toggleValidation(type);
-      });
+    const typeListener = this.store.select(selectIsRoundTrip).subscribe((type) => {
+      this.isRound = type;
+      this.toggleValidation(type);
+    });
     this.subscriptions.push(departureListener, arrivalListener, formatListener, typeListener);
   }
+  /* eslint-enable @ngrx/no-store-subscription */
 
   initializeForm() {
     this.parentForm.form.addControl('departure', this.departure);
     this.parentForm.form.addControl('arrival', this.arrival);
   }
 
-  toggleValidation(type: string): void {
-    if (type === 'round-trip') {
+  toggleValidation(type: boolean): void {
+    if (type) {
       this.arrival.setValidators([Validators.required]);
     } else {
       this.arrival.removeValidators([Validators.required]);
       this.arrival.setErrors(null);
       this.arrival.setValue(null);
-      this.store.dispatch(
-        updateOrderDateAction({
-          param: 'arrival',
-          data: '',
-        }),
-      );
     }
   }
 

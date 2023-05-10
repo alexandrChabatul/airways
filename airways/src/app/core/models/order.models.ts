@@ -7,10 +7,5 @@ export interface OrderInterface {
   arrival: string | null;
   departure: string | null;
   passengers: PassengersInterface;
-  type: TripType | null;
-}
-
-export enum TripType {
-  ONE_WAY = 'one-way',
-  ROUND_TRIP = 'round-trip',
+  isRound: boolean;
 }

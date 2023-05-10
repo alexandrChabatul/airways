@@ -87,7 +87,7 @@ export class HeaderComponent implements OnInit {
 
   public navigateToLogin(): void {
     this.router.navigate([{ outlets: { auth: ['auth'] } }], { queryParamsHandling: 'preserve' });
-  }  
+  }
 
   public navigateToUserPage(): void {
     // this.router.navigateByUrl('/user'); //TODO: change urls

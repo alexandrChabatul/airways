@@ -1,4 +1,4 @@
-<ng-template [ngIf]="tripType === 'round-trip'" ; [ngIfElse]="simpleDatepicker">
+<ng-template [ngIf]="isRound === true" ; [ngIfElse]="simpleDatepicker">
   <mat-form-field appearance="fill" class="mat-form date-picker" floatLabel="always">
     <mat-label>Date</mat-label>
     <mat-date-range-input [rangePicker]="picker" [min]="minDate">
