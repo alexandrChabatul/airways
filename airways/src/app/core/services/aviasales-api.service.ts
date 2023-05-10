@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Moment } from 'moment';
-import { catchError, map, Observable, of } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { TicketsResponseInterface } from '../models/tickets-response.model';
 import { TicketInterface } from '../models/ticket.models';
@@ -42,11 +42,7 @@ export class AviasalesApiService {
           for (const key in response.data) {
             arr.push(response.data[key]);
           }
-
           return arr;
-        }),
-        catchError(() => {
-          return of([]);
         }),
       );
   }

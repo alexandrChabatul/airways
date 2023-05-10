@@ -9,6 +9,10 @@
       <airways-way [isBack]="true"></airways-way>
     </li>
   </ul>
+  <airways-bottom-buttons
+  [isSummaryPage]="false"
+  [clickBackFn]="navigateBack"
+  [clickContinueFn]="navigateContinue"></airways-bottom-buttons>
 </div>
 <ng-template #loading>
   <div class="spinner">

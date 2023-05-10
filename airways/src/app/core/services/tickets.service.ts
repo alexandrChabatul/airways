@@ -4,7 +4,7 @@ import { AviasalesApiService } from './aviasales-api.service';
 import moment from 'moment';
 import { Store } from '@ngrx/store';
 import { selectCurrencyFormat } from '../store/selectors/formats.selectors';
-import { forkJoin, of, catchError, map, Observable, switchMap, combineLatest } from 'rxjs';
+import { forkJoin, of, map, Observable, switchMap, combineLatest } from 'rxjs';
 import { ExtendedTicketInterface, TicketInterface } from '../models/ticket.models';
 import { AutocompleteService } from './autocomplete.service';
 import airportTimezone from 'airport-timezone';
@@ -129,9 +129,6 @@ export class TicketsService {
         const ticketsWithAdditionalFields = this.getExtendedArray(ticketsArray, dateString);
 
         return forkJoin(ticketsWithAdditionalFields);
-      }),
-      catchError(() => {
-        return of([]);
       }),
     );
   }

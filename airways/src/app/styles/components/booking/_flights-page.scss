@@ -1,25 +1,26 @@
 .ways {
   display: flex;
   flex-direction: column;
+  padding: 20px 155px;
+  gap: 40px;
+
+  @include large {
+    padding: 20px 55px;
+  }
+
+  @include medium {
+    padding: 10px 30px;
+  }
+
+  @include small {
+    padding: 5px 10px;
+  }
 
   &__list {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px 155px;
-
-    @include large {
-      padding: 20px 55px;
-    }
-
-    @include medium {
-      padding: 10px 30px;
-    }
-
-    @include small {
-      padding: 5px 10px;
-    }
   }
 
   &__item {

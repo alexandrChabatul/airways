@@ -1,11 +1,14 @@
-<div class="way__container" *ngIf="selectedItem | async as item">
+<div class="way__container" *ngIf="(origin | async); else no_tickets">
   <div class="title">
     <mat-icon class="title__icon title__icon-flight">flight</mat-icon>
     <h1>
-      {{ item.originAutocomplete?.name || item.origin }} to
-      {{ item.destinationAutocomplete?.name || item.destination }}
+      {{ ((isBack? destination : origin) | async)?.name }} to
+      {{ ((isBack? origin : destination) | async)?.name }}
     </h1>
   </div>
-  <airways-calendar [isBack]="isBack"></airways-calendar>
-  <airways-flight-info [isBack]="isBack"></airways-flight-info>
+  <airways-calendar [isBack]="isBack" *ngIf="!itemSelected"></airways-calendar>
+  <airways-flight-info [isBack]="isBack" (selectTicket)="changeDisplay()"></airways-flight-info>
 </div>
+<ng-template #no_tickets>
+  <p>Looks like there are no tickets for your query</p>
+</ng-template>

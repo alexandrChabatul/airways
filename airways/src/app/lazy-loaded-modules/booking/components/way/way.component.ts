@@ -6,6 +6,11 @@ import {
   selectActiveTicket,
   selectActiveTicketBack,
 } from '../../../../core/store/selectors/tickets.selectors';
+import { OrderInterface } from '../../../../core/models/order.models';
+import {
+  selectDestinationAirport,
+  selectOriginAirport,
+} from '../../../../core/store/selectors/order.selectors';
 
 @Component({
   selector: 'airways-way',
@@ -17,11 +22,23 @@ export class WayComponent implements OnInit {
 
   public selectedItem!: Observable<ExtendedTicketInterface | undefined>;
 
+  public origin!: Observable<OrderInterface['origin']>;
+
+  public destination!: Observable<OrderInterface['destination']>;
+
+  public itemSelected = false;
+
   constructor(private store: Store) {}
 
   public ngOnInit(): void {
     this.selectedItem = this.store.select(
       this.isBack ? selectActiveTicketBack : selectActiveTicket,
     );
+    this.origin = this.store.select(selectOriginAirport);
+    this.destination = this.store.select(selectDestinationAirport);
+  }
+
+  public changeDisplay(): void {
+    this.itemSelected = !this.itemSelected;
   }
 }

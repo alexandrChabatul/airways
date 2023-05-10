@@ -1,0 +1,58 @@
+.btm-btns {
+  display: flex;
+  justify-content: flex-end;
+  gap: 40px;
+  border-radius: 4px;
+
+  @include medium {
+    gap: 30px;
+  }
+
+  @include small {
+    gap: 20px;
+  }
+
+  @include mobile {
+    gap: 10px;
+  }
+
+  &__button {
+    @include font-btn;
+    font-weight: 500;
+
+    @include medium {
+      font-size: 14px;
+      line-height: normal;
+    }
+
+    @include small {
+      font-size: 12px;
+    }
+
+    @include mobile {
+      font-size: 12px;
+    }
+
+    &.mdc-button {
+      min-width: auto;
+      height: auto;
+      padding: 20px 30px;
+
+      @include medium {
+        padding: 10px 20px;
+      }
+
+      @include small {
+        padding: 5px 10px;
+      }
+    }
+
+    &.mat-mdc-button {
+      height: auto;
+    }
+
+    &.btm-btns__button-add {
+      border: 1px solid $primary;
+    }
+  }
+}

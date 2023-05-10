@@ -90,6 +90,7 @@
     &__edit {
       @include font-btn;
       font-weight: 500;
+      background-color: $secondary-90;
 
       @include medium {
         font-size: 14px;
@@ -99,6 +100,16 @@
 
       @include small {
         font-size: 12px;
+      }
+
+      &.mdc-button {
+        min-width: auto;
+        height: auto;
+        padding: 4px 8px;
+      }
+
+      &.mat-mdc-button {
+        height: auto;
       }
     }
 
