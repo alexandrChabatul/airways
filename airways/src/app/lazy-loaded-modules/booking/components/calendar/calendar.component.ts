@@ -20,7 +20,7 @@ import { selectCurrencyFormat } from '../../../../core/store/selectors/formats.s
 export class CalendarComponent implements OnInit {
   @Input() isBack = false;
 
-  public days$!: Observable<ExtendedTicketInterface[]>; // take according to isBack value
+  public days$!: Observable<ExtendedTicketInterface[]>;
 
   public currency$!: Observable<CurrencyFormatType>;
 
@@ -51,7 +51,7 @@ export class CalendarComponent implements OnInit {
 
   public toggleActive(item: ExtendedTicketInterface): void {
     if (!item.isOutdated) {
-      this.store.dispatch(ticketsChangeActive({ index: item.index, isBack: this.isBack })); // get isBack from input
+      this.store.dispatch(ticketsChangeActive({ index: item.index, isBack: this.isBack }));
     }
   }
 

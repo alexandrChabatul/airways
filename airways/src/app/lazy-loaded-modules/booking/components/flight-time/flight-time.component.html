@@ -4,5 +4,5 @@
     <span class="date__time">{{getTime(item) | date: 'HH:mm': item.utcOffset}}</span>
     <span class="date__time-utc">{{item.utcOffset}}</span>
   </div>
-  <div class="date__airport">{{isArrival ? item.destination : item.origin}}</div>
+  <div class="date__airport">{{isArrival ? item.destinationAutocomplete?.name : item.originAutocomplete?.name}}</div>
 </div>

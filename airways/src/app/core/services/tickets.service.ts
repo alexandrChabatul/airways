@@ -46,6 +46,42 @@ export class TicketsService {
     return Math.floor(Math.random() * (maxSeats - minSeats + 1)) + minSeats;
   }
 
+  private getExtendedArray(
+    array: TicketInterface[],
+    dateString: string,
+  ): Observable<ExtendedTicketInterface>[] {
+    const dateNow = moment.utc();
+
+    const ticketsWithAdditionalFields: Observable<ExtendedTicketInterface>[] = array.map(
+      (item, index) => {
+        const departureTicketString = moment(item.departure_at).format('MM-DD-YYYY').toString();
+        const timeZone = moment.parseZone(item.departure_at).utcOffset() / 60;
+        const dateTicket = moment.utc(item.departure_at);
+
+        const originAutocomplete$ = this.autocompleteService.getAirportByCode(item.origin);
+        const destinationAutocomplete$ = this.autocompleteService.getAirportByCode(
+          item.destination,
+        );
+
+        return combineLatest([originAutocomplete$, destinationAutocomplete$]).pipe(
+          map(([originAutocomplete, destinationAutocomplete]) => ({
+            ...item,
+            isActive: dateString === departureTicketString,
+            index,
+            utcOffset: `UTC${timeZone >= 0 ? `+${timeZone}` : timeZone}`,
+            isOutdated: dateNow > dateTicket ? true : false,
+            seats: this.getRandomSeats(),
+            maxSeats: 100,
+            originAutocomplete,
+            destinationAutocomplete,
+          })),
+        );
+      },
+    );
+
+    return ticketsWithAdditionalFields;
+  }
+
   private getRequestObservable(
     params: Params,
     isBack: boolean,
@@ -81,35 +117,8 @@ export class TicketsService {
     return forkJoin([currentMonthTickets$, additionalMonthTickets$]).pipe(
       switchMap((elem: TicketInterface[][]) => {
         const ticketsArray = elem.flat();
-        const dateNow = moment.utc();
         const dateString = date.format('MM-DD-YYYY').toString();
-
-        const ticketsWithAdditionalFields: Observable<ExtendedTicketInterface>[] = ticketsArray.map(
-          (item, index) => {
-            const departureTicketString = moment(item.departure_at).format('MM-DD-YYYY').toString();
-            const timeZone = moment.parseZone(item.departure_at).utcOffset() / 60;
-            const dateTicket = moment.utc(item.departure_at);
-
-            const originAutocomplete$ = this.autocompleteService.getAirportByCode(item.origin);
-            const destinationAutocomplete$ = this.autocompleteService.getAirportByCode(
-              item.destination,
-            );
-
-            return combineLatest([originAutocomplete$, destinationAutocomplete$]).pipe(
-              map(([originAutocomplete, destinationAutocomplete]) => ({
-                ...item,
-                isActive: dateString === departureTicketString,
-                index,
-                utcOffset: `UTC${timeZone >= 0 ? `+${timeZone}` : timeZone}`,
-                isOutdated: dateNow > dateTicket ? true : false,
-                seats: this.getRandomSeats(),
-                maxSeats: 100,
-                originAutocomplete,
-                destinationAutocomplete,
-              })),
-            );
-          },
-        );
+        const ticketsWithAdditionalFields = this.getExtendedArray(ticketsArray, dateString);
 
         return forkJoin(ticketsWithAdditionalFields);
       }),
