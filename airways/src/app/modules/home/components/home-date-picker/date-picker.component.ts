@@ -59,6 +59,7 @@ export class DatePickerComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 
+  /* eslint-disable @ngrx/no-store-subscription */
   initializeListeners() {
     const departureListener = this.store
       .select(selectDepartureDate)
@@ -82,6 +83,7 @@ export class DatePickerComponent implements OnInit, OnDestroy {
     });
     this.subscriptions.push(departureListener, arrivalListener, formatListener, typeListener);
   }
+  /* eslint-enable @ngrx/no-store-subscription */
 
   initializeForm() {
     this.parentForm.form.addControl('departure', this.departure);
