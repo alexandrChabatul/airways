@@ -5,7 +5,7 @@ import { DEFAULT_PASSENGERS } from 'src/app/modules/home/constants/passenger.con
 import { PassengersInterface } from 'src/app/modules/home/models/passenger-types.models';
 import { environment } from 'src/environments/environment';
 import { AirportResponseInterface } from '../models/airport-response.interface';
-import { OrderInterface, TripType } from '../models/order.models';
+import { OrderInterface } from '../models/order.models';
 import { AutocompleteService } from './autocomplete.service';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class OrderService {
   constructor(private autoCompleteService: AutocompleteService) {}
 
   getOrderInformation(params: Params): Observable<OrderInterface> {
-    const { origin, destination, departure, arrival, passengers, type } = params;
+    const { origin, destination, departure, arrival, passengers, isRound } = params;
     const from$: Observable<AirportResponseInterface | null> =
       this.autoCompleteService.getAirportByCode(origin);
     const destination$: Observable<AirportResponseInterface | null> =
@@ -23,20 +23,16 @@ export class OrderService {
     const departureDate = this.getDate(departure);
     const arrivalDate = this.getDate(arrival);
     const passengersObj = this.getPassengersObj(passengers);
-    const tripType = this.getType(type);
+    const isRoundValue = isRound === undefined ? true : Boolean(isRound);
     const orderState$: Observable<OrderInterface> = forkJoin({
       origin: from$,
       destination: destination$,
       departure: of(departureDate),
       arrival: of(arrivalDate),
       passengers: of(passengersObj),
-      type: of(tripType),
+      isRound: of(Boolean(isRoundValue)),
     });
     return orderState$;
-  }
-
-  getType(type: string) {
-    return type === TripType.ONE_WAY || type === TripType.ROUND_TRIP ? type : null;
   }
 
   //FORMAT MM-DD-YYYY

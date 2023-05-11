@@ -9,6 +9,9 @@ import { StoreModule } from '@ngrx/store';
 import { formatsReducer } from './store/reducers/formats.reducers';
 import { AviasalesApiInterceptor } from './interceptors/aviasales-api.interceptor';
 import { EditFlightComponent } from './components/edit-flight/edit-flight.component';
+import { authReducer } from './store/reducers/auth.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './store/effects/auth.effects';
 
 @NgModule({
   declarations: [HeaderComponent, FooterComponent, EditFlightComponent],
@@ -18,6 +21,8 @@ import { EditFlightComponent } from './components/edit-flight/edit-flight.compon
     MaterialDesignModule,
     HttpClientModule,
     StoreModule.forFeature('formats', formatsReducer),
+    StoreModule.forFeature('auth', authReducer),
+    EffectsModule.forFeature([AuthEffects]),
   ],
   exports: [HeaderComponent, FooterComponent],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AviasalesApiInterceptor, multi: true }],

@@ -1,8 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
 import { SvgIconService } from 'src/app/core/services/svg-icon.service';
 import { COUNTRY_CODES } from '../../constants/country-codes.constants';
+import { Store } from '@ngrx/store';
+import { signupRequestAction } from 'src/app/core/store/actions/auth.actions';
+import { selectErrorMessage } from 'src/app/core/store/selectors/auth.selectors';
 
 @Component({
   selector: 'airways-signup-page',
@@ -10,6 +19,8 @@ import { COUNTRY_CODES } from '../../constants/country-codes.constants';
 })
 export class SignupPageComponent implements OnInit {
   signupForm!: FormGroup;
+
+  errorMessage!: Observable<string | null | undefined>;
 
   hide = true;
 
@@ -23,12 +34,18 @@ export class SignupPageComponent implements OnInit {
 
   filteredCountries!: Observable<string[]>;
 
-  constructor(private formBuilder: FormBuilder, private svgIconService: SvgIconService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private svgIconService: SvgIconService,
+    private store: Store,
+  ) {
     this.svgIconService.addSvgIcon('info');
   }
 
   ngOnInit(): void {
     this.createSignupForm();
+
+    this.errorMessage = this.store.select(selectErrorMessage);
 
     this.countries = COUNTRY_CODES.map((country) => country.name);
 
@@ -63,25 +80,70 @@ export class SignupPageComponent implements OnInit {
       .map((country) => country);
   }
 
-  onSignup() {
-    if (this.email.valid) {
-      // this.loginService.login(this.email.value ?? '');
-      // this.router.navigate(['']);
+  checkIfCountryMatches() {
+    const inputValue = this.country.value;
+    const isValueValid = this.codes.some(
+      (countryCode) => countryCode.toLowerCase() === inputValue.toLowerCase(),
+    );
+    if (!isValueValid) {
+      this.country.setValue('');
     }
+  }
+
+  checkIfCitizenshipMatches() {
+    const inputValue = this.citizenship.value;
+    const isValueValid = this.countries.some(
+      (country) => country.toLowerCase() === inputValue.toLowerCase(),
+    );
+    if (!isValueValid) {
+      this.citizenship.setValue('');
+    }
+  }
+
+  onSignUp() {
+    this.signupForm.markAllAsTouched();
+    if (!this.signupForm.valid) {
+      this.signupForm.markAsTouched();
+      this.checkIfCountryMatches();
+      this.checkIfCitizenshipMatches();
+      return;
+    }
+    const credentials = {
+      email: this.email.value,
+      password: this.password.value,
+    };
+    this.store.dispatch(signupRequestAction({ credentials }));
+    this.errorMessage = this.store.select(selectErrorMessage);
   }
 
   createSignupForm() {
     this.signupForm = this.formBuilder.group({
       email: ['', { validators: [Validators.required, Validators.email] }],
       password: ['', { validators: [Validators.required, Validators.minLength(8)] }],
-      firstName: ['', { validators: [Validators.required] }],
-      lastName: ['', { validators: [Validators.required] }],
+      firstName: ['', { validators: [Validators.required, this.onlyLettersValidator] }],
+      lastName: ['', { validators: [Validators.required, this.onlyLettersValidator] }],
       dateOfBirth: ['', { validators: [Validators.required] }],
       gender: ['', { validators: [Validators.required] }],
       country: [''],
-      tel: ['', { validators: [Validators.required] }],
+      tel: ['', { validators: [Validators.required, this.onlyNumbersValidator] }],
       citizenship: [''],
+      terms: ['', [Validators.required]],
     });
+  }
+
+  onlyLettersValidator(control: AbstractControl): ValidationErrors | null {
+    const onlyLettersRegex = /^[A-Za-z]+$/;
+    const isOnlyLetters = onlyLettersRegex.test(control.value);
+    return isOnlyLetters ? null : { isOnlyLetters: true };
+  }
+
+  onlyNumbersValidator(control: AbstractControl) {
+    if (!control.value) {
+      return null;
+    }
+    const onlyNumbersRegex = /^[0-9]+$/;
+    const isOnlyNumbers = onlyNumbersRegex.test(control.value);
+    return isOnlyNumbers ? null : { isOnlyNumbers: true };
   }
 
   get email() {
@@ -118,5 +180,9 @@ export class SignupPageComponent implements OnInit {
 
   get citizenship() {
     return this.signupForm.controls['citizenship'];
+  }
+
+  get terms() {
+    return this.signupForm.controls['terms'];
   }
 }

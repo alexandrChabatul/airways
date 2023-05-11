@@ -23,7 +23,7 @@ export const selectDestinationAirport = createSelector(
   selectOrderFeature,
   (orderState: OrderStateInterface) => orderState.destination,
 );
-export const selectTripType = createSelector(
+export const selectIsRoundTrip = createSelector(
   selectOrderFeature,
-  (orderState: OrderStateInterface) => orderState.type,
+  (orderState: OrderStateInterface) => orderState.isRound,
 );

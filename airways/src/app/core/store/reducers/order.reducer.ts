@@ -1,5 +1,4 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { TripType } from '../../models/order.models';
 import {
   swapAirportsAction,
   updateOrderAction,
@@ -22,7 +21,7 @@ const initialState: OrderStateInterface = {
     child: 0,
     infant: 0,
   },
-  type: TripType.ROUND_TRIP,
+  isRound: true,
   isLoading: false,
 };
 
@@ -44,7 +43,7 @@ const orderReducer = createReducer(
       departure: action.order.departure,
       arrival: action.order.arrival,
       passengers: action.order.passengers,
-      type: action.order.type,
+      isRound: action.order.isRound,
       isLoading: false,
     }),
   ),
@@ -76,7 +75,7 @@ const orderReducer = createReducer(
     updateOrderTypeAction,
     (state, action): OrderStateInterface => ({
       ...state,
-      type: action.data,
+      isRound: action.data,
     }),
   ),
   on(

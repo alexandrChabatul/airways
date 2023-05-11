@@ -1,17 +1,20 @@
+import { User } from '../models/auth-response.interface';
 import { CurrencyFormatType, DateFormatType } from '../models/formats.models';
 import { OrderInterface } from '../models/order.models';
 import { ExtendedTicketInterface } from '../models/ticket.models';
 
 export interface AppStateInterface {
-  auth: AuthStateInterface;
+  authState: AuthStateInterface;
   formats: FormatsStateInterface;
   order: OrderStateInterface;
   tickets: TicketsStateInterface;
 }
 
 export interface AuthStateInterface {
-  isLoggedIn: boolean;
-  username: string | null;
+  accessToken: string | null;
+  user: User | null;
+  errorMessage?: string | null;
+  isAuthenticated: boolean;
 }
 
 export interface FormatsStateInterface {

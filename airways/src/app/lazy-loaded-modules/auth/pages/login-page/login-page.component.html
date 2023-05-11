@@ -2,7 +2,7 @@
 
 <airways-divider>or log in with your email</airways-divider>
 
-<form [formGroup]="loginForm" class="loginFormContainer">
+<form [formGroup]="loginForm" class="loginFormContainer" (ngSubmit)="onLogIn()">
   <mat-form-field>
     <mat-label>Email</mat-label>
     <input 
@@ -37,12 +37,13 @@
       Password should have minimum 8 characters
     </mat-error>
   </mat-form-field>
+
+  <div class="forgot-password-container">
+    <span (click)="onForgotPassword()" class="forgot-password">Forgot password?</span>
+  </div>
+  
+  <button mat-raised-button color="primary" class="login-button" 
+  type="submit">Login</button>
+  
+  <mat-error *ngIf="errorMessage | async">wrong username or password</mat-error>
 </form>
-
-<div class="forgot-password-container">
-  <span (click)="onForgotPassword()" class="forgot-password">Forgot password?</span>
-</div>
-
-<button mat-raised-button color="primary" class="login-button" 
-  (click)="onLogin()"
-  [disabled]="email.invalid || password.invalid">Login</button>

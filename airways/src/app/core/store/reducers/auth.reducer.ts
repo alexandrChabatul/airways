@@ -1,32 +1,57 @@
-import { Action, createReducer, on } from '@ngrx/store';
-import { loginFailureAction, loginSuccessAction } from '../actions/auth.actions';
+import { createReducer, on } from '@ngrx/store';
+import {
+  loginFailureAction,
+  loginSuccessAction,
+  signupFailureAction,
+  signupSuccessAction,
+} from '../actions/auth.actions';
 import { AuthStateInterface } from '../store.models';
 
 const initialState: AuthStateInterface = {
-  isLoggedIn: false,
-  username: null,
+  accessToken: null,
+  user: null,
+  errorMessage: null,
+  isAuthenticated: false,
 };
 
-const authReducer = createReducer(
+export const authReducer = createReducer(
   initialState,
   on(
     loginSuccessAction,
-    (state, action): AuthStateInterface => ({
+    (state, { loginSuccessResponse }): AuthStateInterface => ({
       ...state,
-      username: action.username,
-      isLoggedIn: true,
+      accessToken: loginSuccessResponse.accessToken,
+      user: loginSuccessResponse.user,
+      isAuthenticated: true,
+    }),
+  ),
+  on(
+    signupSuccessAction,
+    (state, { signupSuccessResponse }): AuthStateInterface => ({
+      ...state,
+      accessToken: signupSuccessResponse.accessToken,
+      user: signupSuccessResponse.user,
+      isAuthenticated: true,
     }),
   ),
   on(
     loginFailureAction,
-    (state): AuthStateInterface => ({
+    (state, { loginFailureResponse }): AuthStateInterface => ({
       ...state,
-      username: null,
-      isLoggedIn: false,
+      accessToken: null,
+      user: null,
+      errorMessage: loginFailureResponse,
+      isAuthenticated: false,
+    }),
+  ),
+  on(
+    signupFailureAction,
+    (state, { signupFailureResponse }): AuthStateInterface => ({
+      ...state,
+      accessToken: null,
+      user: null,
+      errorMessage: signupFailureResponse,
+      isAuthenticated: false,
     }),
   ),
 );
-
-export function reducer(state: AuthStateInterface, action: Action) {
-  return authReducer(state, action);
-}
