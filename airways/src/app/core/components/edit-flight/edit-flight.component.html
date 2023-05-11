@@ -3,7 +3,7 @@
     <div class="flight__params">
       <div class="flight__directions">
         <span class="flight__origin">{{ (origin$ | async)?.name }}</span>
-        <div *ngIf="isRoundTrip$ | async" class="flight__round">
+        <div class="flight__round">
           <img src="../../../../../assets/icons/return-arrows.svg" alt="arrows" class="flight__arrows">
           <span class="flight__destination">{{ (destination$ | async)?.name }}</span>
         </div>
