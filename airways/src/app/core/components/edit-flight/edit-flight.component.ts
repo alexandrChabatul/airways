@@ -10,6 +10,7 @@ import {
   selectArrivalDate,
   selectDepartureDate,
   selectPassengers,
+  selectIsRoundTrip,
 } from '../../store/selectors/order.selectors';
 
 @Component({
@@ -18,26 +19,27 @@ import {
   styleUrls: ['./edit-flight.component.scss'],
 })
 export class EditFlightComponent implements OnInit {
-  public isRoundTrip = true; //TODO get from store or url
+  public isRoundTrip$!: Observable<boolean>;
 
-  public origin!: Observable<OrderInterface['origin']>;
+  public origin$!: Observable<OrderInterface['origin']>;
 
-  public destination!: Observable<OrderInterface['destination']>;
+  public destination$!: Observable<OrderInterface['destination']>;
 
-  public arrival!: Observable<OrderInterface['arrival']>;
+  public arrival$!: Observable<OrderInterface['arrival']>;
 
-  public departure!: Observable<OrderInterface['departure']>;
+  public departure$!: Observable<OrderInterface['departure']>;
 
-  public passengers!: Observable<OrderInterface['passengers']>;
+  public passengers$!: Observable<OrderInterface['passengers']>;
 
   constructor(private store: Store, private activateRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.store.dispatch(updateOrderAction({ params: this.activateRoute.snapshot.queryParams }));
-    this.origin = this.store.select(selectOriginAirport);
-    this.destination = this.store.select(selectDestinationAirport);
-    this.arrival = this.store.select(selectArrivalDate);
-    this.departure = this.store.select(selectDepartureDate);
-    this.passengers = this.store.select(selectPassengers);
+    this.origin$ = this.store.select(selectOriginAirport);
+    this.destination$ = this.store.select(selectDestinationAirport);
+    this.arrival$ = this.store.select(selectArrivalDate);
+    this.departure$ = this.store.select(selectDepartureDate);
+    this.passengers$ = this.store.select(selectPassengers);
+    this.isRoundTrip$ = this.store.select(selectIsRoundTrip);
   }
 }

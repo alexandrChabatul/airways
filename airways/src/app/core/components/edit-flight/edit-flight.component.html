@@ -2,23 +2,23 @@
   <div class="flight">
     <div class="flight__params">
       <div class="flight__directions">
-        <span class="flight__origin">{{ (origin | async)?.name }}</span>
-        <div *ngIf="isRoundTrip" class="flight__round">
+        <span class="flight__origin">{{ (origin$ | async)?.name }}</span>
+        <div *ngIf="isRoundTrip$ | async" class="flight__round">
           <img src="../../../../../assets/icons/return-arrows.svg" alt="arrows" class="flight__arrows">
-          <span class="flight__destination">{{ (destination | async)?.name }}</span>
+          <span class="flight__destination">{{ (destination$ | async)?.name }}</span>
         </div>
       </div>
       <div class="flight__info">
-        <span class="flight__return">{{ isRoundTrip ? "Return" : "Depart" }}</span>
+        <span class="flight__return">{{ (isRoundTrip$ | async) ? "Return" : "Depart" }}</span>
         <div class="flight__divider"></div>
         <div class="flight__date">
-          <span class="flight__departure">{{ (departure | async) | date: 'd MMM'}}</span>
-          <span *ngIf="isRoundTrip"> - </span>
-          <span class="flight__arrival" *ngIf="isRoundTrip">{{ (arrival | async) | date: 'd MMM'}}</span>
+          <span class="flight__departure">{{ (departure$ | async) | date: 'd MMM'}}</span>
+          <span *ngIf="isRoundTrip$ | async"> - </span>
+          <span class="flight__arrival" *ngIf="isRoundTrip$ | async">{{ (arrival$ | async) | date: 'd MMM'}}</span>
         </div>
         <div class="flight__divider"></div>
         <div class="flight__passengers">
-          <span class="flight__amount" *ngIf="passengers | async as pass">{{ pass.adults + pass.child + pass.infant }}</span>
+          <span class="flight__amount" *ngIf="passengers$ | async as pass">{{ pass.adults + pass.child + pass.infant }}</span>
           <img src="../../../../../assets/icons/person.svg" alt="icon">
         </div>
       </div>
