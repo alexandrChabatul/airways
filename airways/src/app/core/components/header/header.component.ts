@@ -50,7 +50,7 @@ export class HeaderComponent implements OnInit {
   private changeStepper(newPath: string): void {
     const rootComponent = document.querySelector('airways-root') as HTMLElement;
     const pathArray = newPath.split('/');
-    const mainPath = pathArray[1].split('?')[0];
+    const mainPath = pathArray[1] ? pathArray[1].split('?')[0] : pathArray[0];
 
     if (mainPath === '') {
       this.isMainPage = true;
