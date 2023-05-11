@@ -7,18 +7,3 @@ export enum AuthActionTypes {
   SIGNUP_SUCCESS = '[Auth] Signup success',
   SIGNUP_FAILURE = '[Auth] Signup failure',
 }
-
-export interface AuthResponseData {
-  accessToken: string;
-  user: User;
-}
-
-export interface AuthResponseData {
-  accessToken: string;
-  user: User;
-}
-
-export interface User {
-  id: string;
-  email: string;
-}

@@ -23,7 +23,7 @@ export class OrderService {
     const departureDate = this.getDate(departure);
     const arrivalDate = this.getDate(arrival);
     const passengersObj = this.getPassengersObj(passengers);
-    const isRoundValue = isRound === undefined ? true : Boolean(isRound);
+    const isRoundValue = isRound ? isRound !== 'false' : true;
     const orderState$: Observable<OrderInterface> = forkJoin({
       origin: from$,
       destination: destination$,

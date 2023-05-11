@@ -1,72 +1,75 @@
-<header class="header" [ngClass]="{'solid': !isMainPage, 'registered': isUserLoggedIn}">
-  <img src="../../../../assets/images/logo.png" alt="Logo" class="header__logo" routerLink="/">
-  <div class="header__nav">
-    <div class="header__steps">
-      <span class="header__book-flights" *ngIf="isMainPage; else steps">Book flights</span>
-    </div>
-    <ng-template #steps>
-      <ul class="steps" *ngIf="isBookingPage">
-        <li class="steps__item">
-          <div class="steps__icon" [class.steps__icon_active] = "stepNumber === 1" [class.steps__icon_done] = "stepNumber > 1">
-            <p>1</p>
-          </div>
-          <span>Flights</span>
-        </li>
-        <li class="steps__divider"></li>
-        <li class="steps__item">
-          <div class="steps__icon" [class.steps__icon_active] = "stepNumber === 2" [class.steps__icon_done] = "stepNumber > 2">
-            <p>2</p>
-          </div>
-          <span>Passengers</span>
-        </li>
-        <li class="steps__divider"></li>
-        <li class="steps__item">
-          <div class="steps__icon" [class.steps__icon_active] = "stepNumber === 3">
-            <p>3</p>
-          </div>
-          <span>Review & Payment</span>
-        </li>
-      </ul>
-    </ng-template>
-    <div class="header__forms">
-      <div class="formats" id="header-formats">
-        <mat-form-field appearance="fill" class="formats__date">
-          <mat-select [value]="selectedDateFormat$ | async" (selectionChange)="changeDateFormat($event)">
-            <mat-option [value]="option.value" *ngFor="let option of dateFormats">{{ option.viewValue }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field appearance="fill" class="formats__currency">
-          <mat-select [value]="selectedCurrencyFormat$ | async" (selectionChange)="changeCurrencyFormat($event)">
-            <mat-option [value]="option.value" *ngFor="let option of currencyFormats">{{ option.viewValue }}</mat-option>
-          </mat-select>
-        </mat-form-field>
+<header class="header">
+  <div class="header__container" [ngClass]="{'solid': !isMainPage, 'registered': isUserLoggedIn}">
+    <img src="../../../../assets/images/logo.png" alt="Logo" class="header__logo" routerLink="/">
+    <div class="header__nav">
+      <div class="header__steps">
+        <span class="header__book-flights" *ngIf="isMainPage; else steps">Book flights</span>
       </div>
-      <div class="user">
-        <button mat-button class="user__sign-in" (click)="navigateToLogin()">
-          <mat-icon class="user__icon">person_outline</mat-icon>
-          {{isUserLoggedIn ? userName : "Sign in"}}
-        </button>
-        <button
-        mat-icon-button
-        aria-label="Icon button with a basket icon"
-        class="user__basket"
-        routerLink="/cart"
-        [matBadge]="orderCount"
-        [matBadgeHidden]="orderCount < 1"
-        matBadgeSize="small"
-        matBadgeColor="warn"
-        >
-          <mat-icon class="basket__icon">shopping_basket</mat-icon>
-        </button>
-        <button
-        mat-icon-button
-        aria-label="Icon button with a settings icon"
-        class="user__settings"
-        (click)="toggleFormats()"
-        >
-          <mat-icon class="settings__icon">settings</mat-icon>
-        </button>
+      <ng-template #steps>
+        <ul class="steps" *ngIf="isBookingPage">
+          <li class="steps__item">
+            <div class="steps__icon" [class.steps__icon_active] = "stepNumber === 1" [class.steps__icon_done] = "stepNumber > 1">
+              <p>1</p>
+            </div>
+            <span>Flights</span>
+          </li>
+          <li class="steps__divider"></li>
+          <li class="steps__item">
+            <div class="steps__icon" [class.steps__icon_active] = "stepNumber === 2" [class.steps__icon_done] = "stepNumber > 2">
+              <p>2</p>
+            </div>
+            <span>Passengers</span>
+          </li>
+          <li class="steps__divider"></li>
+          <li class="steps__item">
+            <div class="steps__icon" [class.steps__icon_active] = "stepNumber === 3">
+              <p>3</p>
+            </div>
+            <span>Review & Payment</span>
+          </li>
+        </ul>
+      </ng-template>
+      <div class="header__forms">
+        <div class="formats" id="header-formats">
+          <mat-form-field appearance="fill" class="formats__date">
+            <mat-select [value]="selectedDateFormat$ | async" (selectionChange)="changeDateFormat($event)">
+              <mat-option [value]="option.value" *ngFor="let option of dateFormats">{{ option.viewValue }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="formats__currency">
+            <mat-select [value]="selectedCurrencyFormat$ | async" (selectionChange)="changeCurrencyFormat($event)">
+              <mat-option [value]="option.value" *ngFor="let option of currencyFormats">{{ option.viewValue }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="user">
+          <button mat-button class="user__sign-in" (click)="navigateToLogin()">
+            <mat-icon class="user__icon">person_outline</mat-icon>
+            {{isUserLoggedIn ? userName : "Sign in"}}
+          </button>
+          <button
+          mat-icon-button
+          aria-label="Icon button with a basket icon"
+          class="user__basket"
+          routerLink="/cart"
+          [matBadge]="orderCount"
+          [matBadgeHidden]="orderCount < 1"
+          matBadgeSize="small"
+          matBadgeColor="warn"
+          >
+            <mat-icon class="basket__icon">shopping_basket</mat-icon>
+          </button>
+          <button
+          mat-icon-button
+          aria-label="Icon button with a settings icon"
+          class="user__settings"
+          (click)="toggleFormats()"
+          >
+            <mat-icon class="settings__icon">settings</mat-icon>
+          </button>
+        </div>
       </div>
     </div>
   </div>
+  <airways-edit-flight *ngIf="isBookingPage"></airways-edit-flight>
 </header>

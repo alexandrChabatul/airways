@@ -1,27 +1,34 @@
-<div class="flight__container">
+<div class="flight__container" *ngIf="selectedItem$ | async as item; else no_flights">
   <div class="flight__schedule">
-    <airways-flight-time></airways-flight-time>
+    <airways-flight-time [isBack]="isBack"></airways-flight-time>
     <div class="flight__duration">
-      <span class="flight__hours">{{'2h 50m'}}</span>
+      <span class="flight__hours">{{getDurationString(item.duration)}}</span>
       <div class="plane">
         <div class="plane__divider"></div>
         <mat-icon class="plane__icon">flight_takeoff</mat-icon>
         <div class="plane__divider"></div>
       </div>
-      <span class="flight__stops">{{'Direct'}}</span>
+      <span class="flight__stops">{{item.transfers === 0 ? 'Direct' : item.transfers > 1 ? item.transfers + ' stops' : item.transfers + ' stop'}}</span>
     </div>
-    <airways-flight-time [isArrival]="true"></airways-flight-time>
-    <span class="flight__number-span">Flight no. <br class="line-breaker"><span class="flight__number">{{'FR 1925'}}</span></span>
+    <airways-flight-time [isArrival]="true" [isBack]="isBack"></airways-flight-time>
+    <span class="flight__number-span">Flight no. <br class="line-breaker"><span class="flight__number">{{item.airline + ' ' + item.flight_number}}</span></span>
   </div>
   <div class="flight__price-seats">
     <div class="price-seats__container">
-      <!-- directive for bg color -->
-      <div class="seats"> {{'100'}} seats<br class="line-breaker"> availible</div>
+      <div class="seats" [airwaysSeatsColor]="item" *ngIf="!isTicketSelected"> {{item.seats}} seats
+        <br class="line-breaker">
+         availible</div>
       <div class="price">
-        <span class="price__title">Price</span>
-        <span class="price__sum">{{ '146.70' | currency: 'EUR'}}</span>
+        <span class="price__title" *ngIf="!isTicketSelected">Price</span>
+        <span class="price__sum" [class.selected]="isTicketSelected">{{ item.price | currency: 'EUR'}}</span>
       </div>
     </div>
-    <button mat-button class="select">Select</button>
+    <button mat-button class="select" [disabled]="item.isOutdated" (click)="clickSelect(item)" *ngIf="!isTicketSelected; else edit_flight">Select</button>
+    <ng-template #edit_flight>
+      <button mat-button class="edit" (click)="clickSelect(item)">Edit</button>
+    </ng-template>
   </div>
 </div>
+<ng-template #no_flights>
+  <p>No flights for this day, try picking another one</p>
+</ng-template>

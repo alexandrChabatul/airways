@@ -3,63 +3,69 @@
   top: 0;
   left: 0;
   display: flex;
+  flex-direction: column;
   width: 100%;
-  padding: 25px 155px;
-  justify-content: space-between;
-  background-color: $neutral-70;
-  color: $neutral-100;
 
-  &.solid {
-    background-color: $neutral-100;
-    color: $neutral-10;
+  &__container {
+    display: flex;
+    width: 100%;
+    padding: 25px 155px;
+    justify-content: space-between;
+    background-color: $neutral-70;
+    color: $neutral-100;
 
-    .header__forms {
-      .formats {
-        &__date,
-        &__currency {
-          .mat-mdc-select-value-text,
-          .mat-mdc-select-arrow {
-            color: $neutral-10;
+    &.solid {
+      background-color: $neutral-100;
+      color: $neutral-10;
+
+      .header__forms {
+        .formats {
+          &__date,
+          &__currency {
+            .mat-mdc-select-value-text,
+            .mat-mdc-select-arrow {
+              color: $neutral-10;
+            }
           }
         }
-      }
 
-      .user {
-        &__sign-in {
-          &.mdc-button {
-            color: $neutral-10;
-          }
-        }
-      }
-    }
-  }
-
-  &.registered {
-    color: $primary;
-
-    .header__forms {
-      .user {
-        &__sign-in {
-          &.mdc-button {
-            color: $primary;
-            background-color: transparent;
-            border: none;
+        .user {
+          &__sign-in {
+            &.mdc-button {
+              color: $neutral-10;
+            }
           }
         }
       }
     }
-  }
 
-  @include large {
-    padding: 25px 55px;
-  }
+    &.registered {
+      color: $primary;
 
-  @include medium {
-    padding: 10px 30px;
-  }
+      .header__forms {
+        .user {
+          &__sign-in {
+            &.mdc-button {
+              color: $primary;
+              background-color: transparent;
+              border: none;
+            }
+          }
+        }
+      }
+    }
 
-  @include small {
-    padding: 10px;
+    @include large {
+      padding: 25px 55px;
+    }
+
+    @include medium {
+      padding: 10px 30px;
+    }
+
+    @include small {
+      padding: 10px;
+    }
   }
 
   &__logo {

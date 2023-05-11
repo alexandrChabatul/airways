@@ -1,0 +1,23 @@
+<div class="btm-btns">
+  <button mat-button
+  color="primary"
+  class="btm-btns__button"
+  (click)="clickBackFn()">
+    Back
+  </button>
+  <button
+  mat-button color="primary"
+  class="btm-btns__button btm-btns__button-add"
+  *ngIf="isSummaryPage"
+  (click)="clickAddToOrderFn()">
+    Add to order cart
+  </button>
+  <button
+  mat-button
+  mat-flat-button
+  color="primary"
+  class="btm-btns__button btm-btns__button-continue"
+  (click)="clickContinueFn()">
+    {{isSummaryPage ? 'Buy now': 'Continue'}}
+  </button>
+</div>

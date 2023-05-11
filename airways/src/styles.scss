@@ -48,6 +48,22 @@ airways-root {
   @include mobile {
     padding-top: 95px;
   }
+
+  &.booking {
+    padding-top: 174px;
+
+    @include medium {
+      padding-top: 164px;
+    }
+
+    @include small {
+      padding-top: 134px;
+    }
+
+    @include mobile {
+      padding-top: 122px;
+    }
+  }
 }
 
 main {

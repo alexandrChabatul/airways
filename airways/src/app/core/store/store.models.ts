@@ -1,12 +1,14 @@
+import { User } from '../models/auth-response.interface';
 import { CurrencyFormatType, DateFormatType } from '../models/formats.models';
-import { User } from '../models/action-types/auth.action-types';
 import { OrderInterface } from '../models/order.models';
+import { ExtendedTicketInterface } from '../models/ticket.models';
 import { CartItemInterface } from '../models/cart.models';
 
 export interface AppStateInterface {
   authState: AuthStateInterface;
   formats: FormatsStateInterface;
   order: OrderStateInterface;
+  tickets: TicketsStateInterface;
 }
 
 export interface AuthStateInterface {
@@ -27,4 +29,10 @@ export interface OrderStateInterface extends OrderInterface {
 
 export interface CartStateInterface {
   items: CartItemInterface[];
+}
+
+export interface TicketsStateInterface {
+  data: ExtendedTicketInterface[];
+  dataBack: ExtendedTicketInterface[];
+  isLoading: boolean;
 }
