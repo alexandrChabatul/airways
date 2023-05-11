@@ -125,10 +125,14 @@ export class TicketsService {
     return forkJoin([currentMonthTickets$, additionalMonthTickets$]).pipe(
       switchMap((elem: TicketInterface[][]) => {
         const ticketsArray = elem.flat();
-        const dateString = date.format('MM-DD-YYYY').toString();
-        const ticketsWithAdditionalFields = this.getExtendedArray(ticketsArray, dateString);
 
-        return forkJoin(ticketsWithAdditionalFields);
+        if (ticketsArray.length > 0) {
+          const dateString = date.format('MM-DD-YYYY').toString();
+          const ticketsWithAdditionalFields = this.getExtendedArray(ticketsArray, dateString);
+          return forkJoin(ticketsWithAdditionalFields);
+        }
+
+        return of([]);
       }),
     );
   }
