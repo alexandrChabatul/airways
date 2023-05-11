@@ -19,13 +19,13 @@ export class FlightInfoComponent implements OnInit {
 
   public isTicketSelected = false;
 
-  public selectedItem!: Observable<ExtendedTicketInterface | undefined>;
+  public selectedItem$!: Observable<ExtendedTicketInterface | undefined>;
 
   constructor(private store: Store) {}
 
   ngOnInit(): void {
     const selector = this.isBack ? selectActiveTicketBack : selectActiveTicket;
-    this.selectedItem = this.store.select(selector);
+    this.selectedItem$ = this.store.select(selector);
   }
 
   public getDurationString(duration: number): string {

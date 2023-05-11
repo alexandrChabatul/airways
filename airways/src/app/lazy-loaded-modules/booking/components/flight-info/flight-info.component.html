@@ -1,4 +1,4 @@
-<div class="flight__container" *ngIf="selectedItem | async as item; else no_flights">
+<div class="flight__container" *ngIf="selectedItem$ | async as item; else no_flights">
   <div class="flight__schedule">
     <airways-flight-time [isBack]="isBack"></airways-flight-time>
     <div class="flight__duration">

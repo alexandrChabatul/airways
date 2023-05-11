@@ -20,22 +20,22 @@ import {
 export class WayComponent implements OnInit {
   @Input() isBack = false;
 
-  public selectedItem!: Observable<ExtendedTicketInterface | undefined>;
+  public selectedItem$!: Observable<ExtendedTicketInterface | undefined>;
 
-  public origin!: Observable<OrderInterface['origin']>;
+  public origin$!: Observable<OrderInterface['origin']>;
 
-  public destination!: Observable<OrderInterface['destination']>;
+  public destination$!: Observable<OrderInterface['destination']>;
 
   public itemSelected = false;
 
   constructor(private store: Store) {}
 
   public ngOnInit(): void {
-    this.selectedItem = this.store.select(
+    this.selectedItem$ = this.store.select(
       this.isBack ? selectActiveTicketBack : selectActiveTicket,
     );
-    this.origin = this.store.select(selectOriginAirport);
-    this.destination = this.store.select(selectDestinationAirport);
+    this.origin$ = this.store.select(selectOriginAirport);
+    this.destination$ = this.store.select(selectDestinationAirport);
   }
 
   public changeDisplay(): void {

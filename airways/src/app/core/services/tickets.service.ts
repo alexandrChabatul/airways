@@ -32,7 +32,7 @@ export class TicketsService {
   public getTicketsArray(): Observable<ExtendedTicketInterface[][]> {
     const params = this.route.snapshot.queryParams;
 
-    if (params['type'] === 'round-trip') {
+    if (params['isRound'] === 'true') {
       return forkJoin([
         this.getRequestObservable(params, false),
         this.getRequestObservable(params, true),

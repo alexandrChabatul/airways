@@ -18,13 +18,13 @@ export class FlightTimeComponent implements OnInit {
 
   @Input() isBack = false;
 
-  selectedItem!: Observable<ExtendedTicketInterface | undefined>;
+  selectedItem$!: Observable<ExtendedTicketInterface | undefined>;
 
   constructor(private store: Store) {}
 
   ngOnInit(): void {
     const selector = this.isBack ? selectActiveTicketBack : selectActiveTicket;
-    this.selectedItem = this.store.select(selector);
+    this.selectedItem$ = this.store.select(selector);
   }
 
   public getTime(item: ExtendedTicketInterface): string {
