@@ -1,8 +1,20 @@
-<div class="ways">
-  <airways-edit-flight></airways-edit-flight>
+<div class="ways" *ngIf="(areTicketsLoading$ | async) === false; else loading">
   <ul class="ways__list">
     <li class="ways__item">
       <airways-way></airways-way>
     </li>
+    <li class="ways__item" *ngIf="isRound$ | async">
+      <!-- leave just as true, it will always be true if the component is created -->
+      <airways-way [isBack]="true"></airways-way>
+    </li>
   </ul>
+  <airways-bottom-buttons
+  [isSummaryPage]="false"
+  [clickBackFn]="navigateBack"
+  [clickContinueFn]="navigateContinue"></airways-bottom-buttons>
 </div>
+<ng-template #loading>
+  <div class="spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

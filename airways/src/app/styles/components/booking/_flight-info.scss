@@ -164,6 +164,10 @@ airways-flight-info {
           @include subtitle-l;
           color: $primary;
 
+          &.selected {
+            color: $neutral-black;
+          }
+
           @include medium {
             @include subtitle-m;
           }
@@ -216,6 +220,42 @@ airways-flight-info {
         min-width: auto;
         color: $neutral-100;
       }
+
+      &:disabled {
+        border: none;
+        background: $neutral-60;
+      }
     }
+
+    .edit {
+      @include font-btn;
+      font-weight: 500;
+      background-color: $secondary-90;
+
+      @include medium {
+        font-size: 14px;
+        line-height: normal;
+        padding: 5px;
+      }
+
+      @include small {
+        font-size: 12px;
+      }
+
+      &.mdc-button {
+        min-width: auto;
+        height: auto;
+        padding: 4px 8px;
+      }
+
+      &.mat-mdc-button {
+        height: auto;
+        color: $primary;
+      }
+    }
+  }
+
+  &__no-flights {
+    margin-top: 20px;
   }
 }

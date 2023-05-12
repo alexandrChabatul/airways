@@ -48,18 +48,21 @@ export class HeaderComponent implements OnInit {
   }
 
   private changeStepper(newPath: string): void {
+    const rootComponent = document.querySelector('airways-root') as HTMLElement;
     const pathArray = newPath.split('/');
-    const mainPath = pathArray[1];
+    const mainPath = pathArray[1] ? pathArray[1].split('?')[0] : pathArray[0];
 
     if (mainPath === '') {
       this.isMainPage = true;
       this.isBookingPage = false;
+      rootComponent.classList.remove('booking');
     } else if (mainPath === 'booking') {
+      rootComponent.classList.add('booking');
       this.isMainPage = false;
       this.isBookingPage = true;
 
       if (pathArray.length > 2) {
-        const innerPath = pathArray[2];
+        const innerPath = pathArray[2].split('?')[0];
 
         if (innerPath === 'passengers') {
           this.stepNumber = 2;
@@ -70,6 +73,7 @@ export class HeaderComponent implements OnInit {
         }
       }
     } else {
+      rootComponent.classList.remove('booking');
       this.isMainPage = false;
       this.isBookingPage = false;
     }

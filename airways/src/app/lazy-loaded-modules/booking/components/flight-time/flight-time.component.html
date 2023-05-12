@@ -1,8 +1,8 @@
-<div class="flight__date date" [class.arrival]="isArrival">
-  <span class="date__day">{{'Wed, 1 Mar 2023'}}</span>
+<div class="flight__date date" [class.arrival]="isArrival" *ngIf="selectedItem$ | async as item">
+  <span class="date__day">{{getTime(item)| date: 'EEE, d MMM YYYY': isArrival? item.destinationUtcOffset : item.utcOffset}}</span>
   <div class="date__time-container">
-    <span class="date__time">{{'8:40'}}</span>
-    <span class="date__time-utc">{{'UTC+0'}}</span>
+    <span class="date__time">{{getTime(item) | date: 'HH:mm': isArrival? item.destinationUtcOffset : item.utcOffset}}</span>
+    <span class="date__time-utc">{{isArrival? item.destinationUtcOffset : item.utcOffset}}</span>
   </div>
-  <div class="date__airport">{{'Dublin'}}</div>
+  <div class="date__airport">{{isArrival ? item.destinationAutocomplete?.name : item.originAutocomplete?.name}}</div>
 </div>

@@ -53,7 +53,7 @@ export class UrlParamsService {
   }
 
   getIsRoundType(type: string | undefined): boolean {
-    return type ? Boolean(type) : true;
+    return type ? type !== 'false' : true;
   }
 
   getAirportParamString(data: AirportResponseInterface | null) {

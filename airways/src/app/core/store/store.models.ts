@@ -1,11 +1,13 @@
 import { User } from '../models/auth-response.interface';
 import { CurrencyFormatType, DateFormatType } from '../models/formats.models';
 import { OrderInterface } from '../models/order.models';
+import { ExtendedTicketInterface } from '../models/ticket.models';
 
 export interface AppStateInterface {
   authState: AuthStateInterface;
   formats: FormatsStateInterface;
   order: OrderStateInterface;
+  tickets: TicketsStateInterface;
 }
 
 export interface AuthStateInterface {
@@ -21,5 +23,11 @@ export interface FormatsStateInterface {
 }
 
 export interface OrderStateInterface extends OrderInterface {
+  isLoading: boolean;
+}
+
+export interface TicketsStateInterface {
+  data: ExtendedTicketInterface[];
+  dataBack: ExtendedTicketInterface[];
   isLoading: boolean;
 }
