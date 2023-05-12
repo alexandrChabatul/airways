@@ -11,7 +11,8 @@
   <airways-bottom-buttons
   [isSummaryPage]="false"
   [clickBackFn]="navigateBack"
-  [clickContinueFn]="navigateContinue"></airways-bottom-buttons>
+  [clickContinueFn]="navigateContinue"
+  [disableContinue]="(isOrderValid$ | async) !== true"></airways-bottom-buttons>
 </div>
 <ng-template #loading>
   <div class="spinner">

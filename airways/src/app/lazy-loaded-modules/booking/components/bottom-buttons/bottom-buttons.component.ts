@@ -15,5 +15,7 @@ export class BottomButtonsComponent {
 
   @Input() clickAddToOrderFn!: () => void;
 
+  @Input() disableContinue: boolean | null = false;
+
   constructor(private router: Router) {}
 }

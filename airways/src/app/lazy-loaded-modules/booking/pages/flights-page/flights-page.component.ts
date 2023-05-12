@@ -5,6 +5,7 @@ import { ticketsLoadAction } from '../../../../core/store/actions/tickets.action
 import { Observable } from 'rxjs';
 import { selectTicketsLoading } from '../../../../core/store/selectors/tickets.selectors';
 import { selectIsRoundTrip } from '../../../../core/store/selectors/order.selectors';
+import { selectBookingOrderValidity } from '../../../../core/store/selectors/booking.selectors';
 
 @Component({
   selector: 'airways-flights-page',
@@ -16,12 +17,15 @@ export class FlightsPageComponent implements OnInit {
 
   public areTicketsLoading$!: Observable<boolean>;
 
+  public isOrderValid$!: Observable<boolean>;
+
   constructor(private router: Router, private store: Store, private route: ActivatedRoute) {}
 
   public ngOnInit(): void {
     this.store.dispatch(ticketsLoadAction());
     this.areTicketsLoading$ = this.store.select(selectTicketsLoading);
     this.isRound$ = this.store.select(selectIsRoundTrip);
+    this.isOrderValid$ = this.store.select(selectBookingOrderValidity);
   }
 
   public navigateBack(): void {

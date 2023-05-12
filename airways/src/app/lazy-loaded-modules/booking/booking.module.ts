@@ -16,6 +16,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { TicketsEffect } from '../../core/store/effects/tickets.effect';
 import { SeatsColorDirective } from './directives/seats-color.directive';
 import { BottomButtonsComponent } from './components/bottom-buttons/bottom-buttons.component';
+import { bookingReducer } from '../../core/store/reducers/booking.reducer';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { BottomButtonsComponent } from './components/bottom-buttons/bottom-butto
     MaterialDesignModule,
     CarouselModule,
     StoreModule.forFeature('tickets', ticketsReducer),
+    StoreModule.forFeature('booking', bookingReducer),
     EffectsModule.forFeature([TicketsEffect]),
   ],
 })
