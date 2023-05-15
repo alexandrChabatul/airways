@@ -17,6 +17,7 @@
   mat-flat-button
   color="primary"
   class="btm-btns__button btm-btns__button-continue"
+  [disabled]="disableContinue"
   (click)="clickContinueFn()">
     {{isSummaryPage ? 'Buy now': 'Continue'}}
   </button>
