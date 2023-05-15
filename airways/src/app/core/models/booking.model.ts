@@ -16,8 +16,8 @@ export interface ContactDetailsInterface {
 
 export interface BookingTicketsUpdateInterface {
   isRound: boolean;
-  origin_name: string;
-  destination_name: string;
+  originName: string;
+  destinationName: string;
   queryParams: string;
   ticket: ExtendedTicketInterface;
 }

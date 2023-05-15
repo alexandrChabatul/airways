@@ -5,8 +5,8 @@ import { deleteTicket, updateTicket } from '../actions/booking.actions';
 const initialState: BookingStateInterface = {
   order: {
     isRound: true,
-    origin_name: '',
-    destination_name: '',
+    originName: '',
+    destinationName: '',
     ticket: null,
     queryParams: '',
     isValid: false,
@@ -33,8 +33,8 @@ export const bookingReducer = createReducer(
       newOrderState = {
         ...newOrderState,
         isRound: ticketInfo.isRound,
-        origin_name: ticketInfo.origin_name,
-        destination_name: ticketInfo.destination_name,
+        originName: ticketInfo.originName,
+        destinationName: ticketInfo.destinationName,
         queryParams: ticketInfo.queryParams,
         ticket: null,
         ticketBack: null,

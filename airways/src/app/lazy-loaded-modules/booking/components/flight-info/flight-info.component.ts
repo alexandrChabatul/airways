@@ -43,10 +43,10 @@ export class FlightInfoComponent implements OnInit {
       const queryParams = this.router.routerState.snapshot.url;
       const ticketInfo = {
         isRound: params['isRound'] !== 'false',
-        origin_name: this.isBack
+        originName: this.isBack
           ? item.destinationAutocomplete?.name || ''
           : item.originAutocomplete?.name || '',
-        destination_name: this.isBack
+        destinationName: this.isBack
           ? item.originAutocomplete?.name || ''
           : item.destinationAutocomplete?.name || '',
         queryParams,

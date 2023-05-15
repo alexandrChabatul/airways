@@ -37,8 +37,8 @@ export interface TicketsStateInterface {
 export interface BookingStateInterface {
   order: {
     isRound: boolean;
-    origin_name: string;
-    destination_name: string;
+    originName: string;
+    destinationName: string;
     ticket: ExtendedTicketInterface | null;
     ticketBack?: ExtendedTicketInterface | null;
     queryParams: string;
