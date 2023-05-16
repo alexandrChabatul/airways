@@ -12,3 +12,8 @@ export const selectUserName = createSelector(
   selectAuthFeature,
   (authState: AuthStateInterface) => authState.user?.email,
 );
+
+export const selectIsAuthenticated = createSelector(
+  selectAuthFeature,
+  (authState: AuthStateInterface) => authState.isAuthenticated,
+);
