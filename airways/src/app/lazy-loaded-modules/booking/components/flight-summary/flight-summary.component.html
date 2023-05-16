@@ -1,0 +1,15 @@
+<div class="order">
+  <div class="order__flight">
+    <div class="order__line">
+      <p class="order__flight-number">{{'FR 1925'}}</p>
+      <div class="order__direction">{{'Dublin'}} - {{'Warsaw'}}</div>
+    </div>
+    <div class="order__line">
+      <p class="order__date">{{'Wednesday, 1 March, 2023'}}</p>
+      <div class="order__time">{{'8:40'}} - {{'12:00'}}</div>
+    </div>
+  </div>
+  <div class="order__passengers">
+    <airways-passengers-summary *ngFor="let passenger of [1,2,3]"></airways-passengers-summary>
+  </div>
+</div>

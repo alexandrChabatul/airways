@@ -9,6 +9,7 @@ h1 {
   font-size: 700;
   color: $primary;
   margin: 0;
+  line-height: normal;
 
   @include medium {
     font-size: 20px;
@@ -56,6 +57,10 @@ h1 {
 
     @include mobile {
       font-size: 16px;
+    }
+
+    svg{
+      height: 20px;
     }
   }
 }

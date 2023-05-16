@@ -1,1 +1,19 @@
-<p>summary-page works!</p>
+<div class="summary">
+  <div class="title">
+    <mat-icon class="title__icon title__icon-summary" svgIcon="summary"></mat-icon>
+    <h1>Summary</h1>
+  </div>
+  <div class="summary__flights">
+    <airways-flight-summary *ngFor="let flight of [1,2]"></airways-flight-summary>
+  </div>
+  <div class="summary__payment">
+    <airways-payment-summary *ngFor="let category of [1,2,3]"></airways-payment-summary>
+    <div class="summary__total">
+      <span>TOTAL:</span>
+      <span>{{551.38}}</span>
+    </div>
+  </div>
+  <airways-bottom-buttons
+  [isSummaryPage]="true"
+  [disableContinue]="false"></airways-bottom-buttons>
+</div>
