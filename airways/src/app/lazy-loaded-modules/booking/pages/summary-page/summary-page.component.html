@@ -7,10 +7,14 @@
     <airways-flight-summary *ngFor="let flight of [1,2]"></airways-flight-summary>
   </div>
   <div class="summary__payment">
-    <airways-payment-summary *ngFor="let category of [1,2,3]"></airways-payment-summary>
+    <ul class="summary__fare">
+      <li *ngFor="let category of [1,2,3]">
+        <airways-payment-summary></airways-payment-summary>
+      </li>
+    </ul>
     <div class="summary__total">
       <span>TOTAL:</span>
-      <span>{{551.38}}</span>
+      <span class="total__price">{{551.38 | currency : (currency$ | async) || ''}}</span>
     </div>
   </div>
   <airways-bottom-buttons

@@ -6,7 +6,7 @@
 .title,
 h1 {
   @include title-l;
-  font-size: 700;
+  font-weight: 700;
   color: $primary;
   margin: 0;
   line-height: normal;
@@ -28,7 +28,7 @@ h1 {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 10px 0;
+  margin: 10px 0;
   width: 100%;
 
   @include medium {
@@ -61,6 +61,18 @@ h1 {
 
     svg{
       height: 20px;
+
+      @include medium {
+        height: 18px;
+      }
+
+      @include small {
+        height: 16px;
+      }
+
+      @include mobile {
+        height: 14px;
+      }
     }
   }
 }

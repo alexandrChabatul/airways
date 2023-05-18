@@ -9,7 +9,10 @@
       <div class="order__time">{{'8:40'}} - {{'12:00'}}</div>
     </div>
   </div>
-  <div class="order__passengers">
-    <airways-passengers-summary *ngFor="let passenger of [1,2,3]"></airways-passengers-summary>
-  </div>
+  <ul class="order__passengers">
+    <li *ngFor="let passenger of [1,2,3]">
+      <airways-passengers-summary></airways-passengers-summary>
+      <mat-divider></mat-divider>
+    </li>
+  </ul>
 </div>
