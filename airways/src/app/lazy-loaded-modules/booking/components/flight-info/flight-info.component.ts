@@ -8,6 +8,8 @@ import {
 } from '../../../../core/store/selectors/tickets.selectors';
 import { deleteTicket, updateTicket } from '../../../../core/store/actions/booking.actions';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CurrencyFormatType } from '../../../../core/models/formats.models';
+import { selectCurrencyFormat } from '../../../../core/store/selectors/formats.selectors';
 
 @Component({
   selector: 'airways-flight-info',
@@ -23,11 +25,14 @@ export class FlightInfoComponent implements OnInit {
 
   public selectedItem$!: Observable<ExtendedTicketInterface | undefined>;
 
+  public currency$!: Observable<CurrencyFormatType>;
+
   constructor(private store: Store, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
     const selector = this.isBack ? selectActiveTicketBack : selectActiveTicket;
     this.selectedItem$ = this.store.select(selector);
+    this.currency$ = this.store.select(selectCurrencyFormat);
   }
 
   public getDurationString(duration: number): string {

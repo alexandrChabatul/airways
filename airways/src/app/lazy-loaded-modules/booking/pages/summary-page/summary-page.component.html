@@ -4,7 +4,8 @@
     <h1>Summary</h1>
   </div>
   <div class="summary__flights">
-    <airways-flight-summary *ngFor="let flight of [1,2]"></airways-flight-summary>
+    <airways-flight-summary></airways-flight-summary>
+    <airways-flight-summary *ngIf="isRound$ | async" [isBack]="true"></airways-flight-summary>
   </div>
   <div class="summary__payment">
     <ul class="summary__fare">

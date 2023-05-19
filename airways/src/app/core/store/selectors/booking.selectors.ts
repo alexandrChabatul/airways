@@ -22,3 +22,8 @@ export const selectBookingOrderTicketBack = createSelector(
   selectBookingFeature,
   (bookingState: BookingStateInterface) => bookingState.order.ticketBack,
 );
+
+export const selectBookingIsRound = createSelector(
+  selectBookingFeature,
+  (bookingState: BookingStateInterface) => bookingState.order.isRound,
+);

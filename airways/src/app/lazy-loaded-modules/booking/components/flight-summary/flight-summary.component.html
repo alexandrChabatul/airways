@@ -1,12 +1,12 @@
-<div class="order">
+<div class="order" *ngIf="ticket$ | async as ticket">
   <div class="order__flight">
     <div class="order__line">
-      <p class="order__flight-number">{{'FR 1925'}}</p>
-      <div class="order__direction">{{'Dublin'}} - {{'Warsaw'}}</div>
+      <p class="order__flight-number">{{ticket.airline + ' ' + ticket.flight_number}}</p>
+      <div class="order__direction">{{ticket.originAutocomplete?.name}} - {{ticket.destinationAutocomplete?.name}}</div>
     </div>
     <div class="order__line">
-      <p class="order__date">{{'Wednesday, 1 March, 2023'}}</p>
-      <div class="order__time">{{'8:40'}} - {{'12:00'}}</div>
+      <p class="order__date">{{ticket.departure_at | date: 'EEEE, d MMMM, yyyy':ticket.utcOffset}}</p>
+      <div class="order__time">{{ticket.departure_at | date: 'HH:mm':ticket.utcOffset}} - {{getArrivalTime(ticket) | date: 'HH:mm':ticket.destinationUtcOffset}}</div>
     </div>
   </div>
   <ul class="order__passengers">

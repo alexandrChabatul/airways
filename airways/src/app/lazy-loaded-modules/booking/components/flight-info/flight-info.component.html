@@ -20,7 +20,7 @@
          availible</div>
       <div class="price">
         <span class="price__title" *ngIf="!isTicketSelected">Price</span>
-        <span class="price__sum" [class.selected]="isTicketSelected">{{ item.price | currency: 'EUR'}}</span>
+        <span class="price__sum" [class.selected]="isTicketSelected">{{ item.price | currency: (currency$ | async) || ''}}</span>
       </div>
     </div>
     <button mat-button class="select" [disabled]="item.isOutdated" (click)="clickSelect(item)" *ngIf="!isTicketSelected; else edit_flight">Select</button>
