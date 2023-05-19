@@ -46,6 +46,8 @@ h1 {
   .mat-icon {
     height: auto;
     width: auto;
+    position: relative;
+    z-index: -1;
 
     @include medium {
       font-size: 20px;

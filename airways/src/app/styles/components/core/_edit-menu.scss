@@ -1,0 +1,37 @@
+airways-edit-menu {
+  width: 100%;
+  padding: 0 155px;
+
+  @include large {
+    padding: 0 55px;
+  }
+
+  @include medium {
+    padding: 0 30px;
+  }
+
+  @include small {
+    padding: 0 10px;
+  }
+
+  @include mobile {
+    padding: 0 5px;
+  }
+}
+
+.edit-menu {
+  &__form {
+    display: flex;
+    width: 100%;
+    background-color: $neutral-100;
+    padding: 20px;
+    justify-content: space-evenly;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  &__origin,
+  &__destination {
+    display: flex;
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,40 @@
+<div class="edit-menu">
+  <form class="edit-menu__form" [formGroup]="searchForm">
+    <airways-airway-autocomplete
+    label="From"
+    [controlName]="'origin'"
+    [airport$]="originAirport$"
+    placeholderText="Choose your origin"
+  ></airways-airway-autocomplete>
+  <mat-error
+    *ngIf="
+    searchForm.controls['origin'].touched &&
+    searchForm.controls['origin'].hasError('required')
+    "
+    class="search__error"
+  >Enter your departure point</mat-error>
+  <airways-airway-autocomplete
+    label="Destination"
+    [controlName]="'destination'"
+    [airport$]="destinationAirport$"
+    [airport$]="destinationAirport$"
+    placeholderText="Choose your destination"
+  ></airways-airway-autocomplete>
+  <mat-error
+    *ngIf="
+    searchForm.controls['destination'].touched &&
+    searchForm.controls['destination'].hasError('required')
+    "
+    class="search__error"
+  >Enter your destination</mat-error>
+  <mat-error
+    *ngIf="
+    searchForm.controls['destination'].touched &&
+    searchForm.controls['destination'].hasError('theSameAirportError')
+    "
+    class="search__error"
+  >Origin and destination airports are equal.</mat-error>
+  <airways-date-picker class="search__date-picker"></airways-date-picker>
+  <airways-persons-selector></airways-persons-selector>
+  </form>
+</div>
