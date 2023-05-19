@@ -10,8 +10,8 @@
   </ul>
   <airways-bottom-buttons
   [isSummaryPage]="false"
-  [clickBackFn]="navigateBack"
-  [clickContinueFn]="navigateContinue"
+  [clickBackFn]="navigateBack()"
+  [clickContinueFn]="navigateContinue()"
   [disableContinue]="(isOrderValid$ | async) !== true"></airways-bottom-buttons>
 </div>
 <ng-template #loading>

@@ -28,19 +28,26 @@ export class FlightsPageComponent implements OnInit {
     this.isOrderValid$ = this.store.select(selectBookingOrderValidity);
   }
 
-  public navigateBack(): void {
-    const urlTree = this.router.createUrlTree([''], {
-      queryParamsHandling: 'preserve',
-      preserveFragment: true,
-    });
-    this.router.navigateByUrl(urlTree);
+  public navigateBack(): () => void {
+    const backFn = () => {
+      const urlTree = this.router.createUrlTree([''], {
+        queryParamsHandling: 'preserve',
+        preserveFragment: true,
+      });
+      this.router.navigateByUrl(urlTree);
+    };
+
+    return backFn.bind(this);
   }
 
-  public navigateContinue(): void {
-    const urlTree = this.router.createUrlTree(['booking', 'passengers'], {
-      queryParamsHandling: 'preserve',
-      preserveFragment: true,
-    });
-    this.router.navigateByUrl(urlTree);
+  public navigateContinue(): () => void {
+    const continueFn = () => {
+      const urlTree = this.router.createUrlTree(['booking', 'passengers'], {
+        queryParamsHandling: 'preserve',
+        preserveFragment: true,
+      });
+      this.router.navigateByUrl(urlTree);
+    };
+    return continueFn.bind(this);
   }
 }
