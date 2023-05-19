@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ticketsLoadAction } from '../../../../core/store/actions/tickets.actions';
 import { Observable } from 'rxjs';
@@ -23,12 +23,13 @@ export class FlightsPageComponent implements OnInit {
   constructor(private router: Router, private store: Store, private location: Location) {}
 
   public ngOnInit(): void {
-    this.store.dispatch(ticketsLoadAction());
+    this.store.dispatch(ticketsLoadAction({}));
     this.areTicketsLoading$ = this.store.select(selectTicketsLoading);
     this.isRound$ = this.store.select(selectIsRoundTrip);
     this.isOrderValid$ = this.store.select(selectBookingOrderValidity);
-    this.location.onUrlChange(() => {
-      this.store.dispatch(ticketsLoadAction());
+    this.location.onUrlChange((val) => {
+      const params = this.getParamsObj(val);
+      this.store.dispatch(ticketsLoadAction({ params }));
     });
   }
 
@@ -53,5 +54,16 @@ export class FlightsPageComponent implements OnInit {
       this.router.navigateByUrl(urlTree);
     };
     return continueFn.bind(this);
+  }
+
+  private getParamsObj(link: string): Params {
+    const query = link.split('?')[1];
+    let params = {};
+
+    if (query) {
+      params = Object.fromEntries(query.split('&').map((val) => val.split('=')));
+    }
+
+    return params;
   }
 }

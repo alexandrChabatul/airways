@@ -15,8 +15,10 @@ export class TicketsEffect {
   tickets$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ticketsLoadAction),
-      switchMap(() => {
-        return this.ticketsService.getTicketsArray().pipe(
+      switchMap((action) => {
+        const params = action.params ? action.params : {};
+
+        return this.ticketsService.getTicketsArray(params).pipe(
           map((response: ExtendedTicketInterface[][]) => {
             return ticketsLoadSuccessAction({ data: response[0], dataBack: response[1] });
           }),
