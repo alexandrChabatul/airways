@@ -25,6 +25,8 @@ body {
 }
 
 body {
+  // position: relative;
+  // z-index: -1;
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
   position: relative;
@@ -32,6 +34,8 @@ body {
 }
 
 airways-root {
+  // position: relative;
+  // z-index: -1;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -68,6 +72,8 @@ airways-root {
 
 main {
   flex-grow: 1;
+  // position: relative;
+  // z-index: -1;
 }
 
 p {

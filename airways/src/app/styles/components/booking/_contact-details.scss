@@ -1,0 +1,9 @@
+.contacts {
+  &__forms.card__forms {
+    justify-content: space-between;
+  }
+
+  &__email {
+    flex-grow: 1;
+  }
+}

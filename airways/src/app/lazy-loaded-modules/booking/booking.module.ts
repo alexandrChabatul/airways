@@ -22,6 +22,7 @@ import { PassengersSummaryComponent } from './components/passengers-summary/pass
 import { PaymentSummaryComponent } from './components/payment-summary/payment-summary.component';
 import { PassengerCardComponent } from './components/passenger-card/passenger-card.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ContactDetailsComponent } from './components/contact-details/contact-details.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     PassengersSummaryComponent,
     PaymentSummaryComponent,
     PassengerCardComponent,
+    ContactDetailsComponent,
   ],
   imports: [
     CommonModule,

@@ -98,6 +98,7 @@
 
       @include mobile {
         align-self: flex-end;
+        height: 30px;
       }
     }
 
@@ -142,8 +143,12 @@
       }
 
       @include small {
-        height: 45px;
+        line-height: 45px;
         padding: 0 6px;
+      }
+
+      @include mobile {
+        line-height: 30px;
       }
     }
 

@@ -4,13 +4,16 @@
     <h1>Passengers</h1>
   </div>
   <span class="passenger-page__subtext">Enter the passenger's names as they appear on document (passport or ID).</span>
-  <!-- <div class="passenger-page__card"></div> -->
-  <!-- ngFor amount of customers -->
-  <airways-passenger-card></airways-passenger-card>
+  <ul class="passenger-page__passengers">
+    <li *ngFor="let passenger of [1,2]">
+      <airways-passenger-card></airways-passenger-card>
+    </li>
+  </ul>
   <div class="title">
     <mat-icon fontIcon="contact_page" class="title__icon title__icon-contact"></mat-icon>
     <h1>Contact details</h1>
   </div>
   <span class="passenger-page__subtext">We need contact details to be able to deliver the latest information regarding your flight.</span>
+  <airways-contact-details></airways-contact-details>
   <airways-bottom-buttons></airways-bottom-buttons>
 </div>
