@@ -8,6 +8,7 @@ import { MatSelectChange } from '@angular/material/select';
 import { Observable } from 'rxjs';
 import { CURRENCY_FORMATS, DATE_FORMATS } from '../../constants/formats.constants';
 import { Router } from '@angular/router';
+import { selectIsAuthenticated, selectUserName } from '../../store/selectors/auth.selectors';
 
 @Component({
   selector: 'airways-header',
@@ -29,9 +30,9 @@ export class HeaderComponent implements OnInit {
 
   public stepNumber = 1;
 
-  public isUserLoggedIn = false; //TODO: get value from store
+  public isUserLoggedIn$!: Observable<boolean>;
 
-  public userName = 'Harry Potter'; //TODO: get value from store
+  public userName$!: Observable<string | undefined>;
 
   public orderCount = 1; //TODO: get value from store
 
@@ -43,20 +44,22 @@ export class HeaderComponent implements OnInit {
     });
 
     this.selectedDateFormat$ = this.store.select(selectDateFormat);
-
     this.selectedCurrencyFormat$ = this.store.select(selectCurrencyFormat);
+    this.isUserLoggedIn$ = this.store.select(selectIsAuthenticated);
+    this.userName$ = this.store.select(selectUserName);
   }
 
   private changeStepper(newPath: string): void {
+    const authPath = '(auth:auth)';
     const rootComponent = document.querySelector('airways-root') as HTMLElement;
     const pathArray = newPath.split('/');
     const mainPath = pathArray[1] ? pathArray[1].split('?')[0] : pathArray[0];
 
-    if (mainPath === '') {
+    if (mainPath === '' || mainPath === authPath) {
       this.isMainPage = true;
       this.isBookingPage = false;
       rootComponent.classList.remove('booking');
-    } else if (mainPath === 'booking') {
+    } else if (mainPath === 'booking' || mainPath === 'booking' + authPath) {
       rootComponent.classList.add('booking');
       this.isMainPage = false;
       this.isBookingPage = true;

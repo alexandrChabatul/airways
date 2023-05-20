@@ -31,6 +31,8 @@ export class EditFlightComponent implements OnInit {
 
   public passengers$!: Observable<OrderInterface['passengers']>;
 
+  public isMenuOpened = false;
+
   constructor(private store: Store, private activateRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
@@ -41,5 +43,9 @@ export class EditFlightComponent implements OnInit {
     this.departure$ = this.store.select(selectDepartureDate);
     this.passengers$ = this.store.select(selectPassengers);
     this.isRoundTrip$ = this.store.select(selectIsRoundTrip);
+  }
+
+  public toggleMenu(): void {
+    this.isMenuOpened = !this.isMenuOpened;
   }
 }

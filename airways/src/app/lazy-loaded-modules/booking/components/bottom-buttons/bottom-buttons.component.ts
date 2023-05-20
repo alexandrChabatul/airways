@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'airways-bottom-buttons',
@@ -15,5 +14,5 @@ export class BottomButtonsComponent {
 
   @Input() clickAddToOrderFn!: () => void;
 
-  constructor(private router: Router) {}
+  @Input() disableContinue: boolean | null = false;
 }

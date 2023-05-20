@@ -29,8 +29,9 @@ export class TicketsService {
     });
   }
 
-  public getTicketsArray(): Observable<ExtendedTicketInterface[][]> {
-    const params = this.route.snapshot.queryParams;
+  public getTicketsArray(paramsObj: Params): Observable<ExtendedTicketInterface[][]> {
+    const params =
+      Object.entries(paramsObj).length > 0 ? paramsObj : this.route.snapshot.queryParams;
 
     if (params['isRound'] === 'true') {
       return forkJoin([

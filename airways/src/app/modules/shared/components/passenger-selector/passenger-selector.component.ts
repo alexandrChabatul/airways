@@ -8,7 +8,7 @@ import {
   PassengersInterface,
   PassengersOptionNamesType,
   PassengerTypeInterface,
-} from 'src/app/modules/home/models/passenger-types.models';
+} from 'src/app/modules/shared/models/passenger-types.models';
 import { DEFAULT_PASSENGERS, PASSENGER_TYPES } from '../../constants/passenger.constants';
 
 @Component({

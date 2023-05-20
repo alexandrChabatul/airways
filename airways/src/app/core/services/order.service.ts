@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { forkJoin, Observable, of } from 'rxjs';
-import { DEFAULT_PASSENGERS } from 'src/app/modules/home/constants/passenger.constants';
-import { PassengersInterface } from 'src/app/modules/home/models/passenger-types.models';
+import { DEFAULT_PASSENGERS } from 'src/app/modules/shared/constants/passenger.constants';
+import { PassengersInterface } from 'src/app/modules/shared/models/passenger-types.models';
 import { environment } from 'src/environments/environment';
 import { AirportResponseInterface } from '../models/airport-response.interface';
 import { OrderInterface } from '../models/order.models';
