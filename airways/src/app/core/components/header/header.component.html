@@ -1,5 +1,5 @@
 <header class="header">
-  <div class="header__container" [ngClass]="{'solid': !isMainPage, 'registered': isUserLoggedIn}">
+  <div class="header__container" [ngClass]="{'solid': !isMainPage, 'registered': (isUserLoggedIn$ | async)}">
     <img src="../../../../assets/images/logo.png" alt="Logo" class="header__logo" routerLink="/">
     <div class="header__nav">
       <div class="header__steps">
@@ -43,10 +43,18 @@
           </mat-form-field>
         </div>
         <div class="user">
-          <button mat-button class="user__sign-in" (click)="navigateToLogin()">
-            <mat-icon class="user__icon">person_outline</mat-icon>
-            {{isUserLoggedIn ? userName : "Sign in"}}
-          </button>
+          <ng-container *ngIf="(isUserLoggedIn$ | async) as userLoggedIn; else not_signed">
+            <button mat-button class="user__sign-in" (click)="navigateToUserPage()">
+              <mat-icon class="user__icon">person_outline</mat-icon>
+              {{(userName$ | async)}}
+            </button>
+          </ng-container>
+          <ng-template #not_signed>
+            <button mat-button class="user__sign-in" (click)="navigateToLogin()">
+              <mat-icon class="user__icon">person_outline</mat-icon>
+              Sign in
+            </button>
+          </ng-template>
           <button
           mat-icon-button
           aria-label="Icon button with a basket icon"

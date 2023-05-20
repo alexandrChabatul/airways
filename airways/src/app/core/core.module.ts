@@ -12,9 +12,12 @@ import { EditFlightComponent } from './components/edit-flight/edit-flight.compon
 import { authReducer } from './store/reducers/auth.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './store/effects/auth.effects';
+import { EditMenuComponent } from './components/edit-menu/edit-menu.component';
+import { SharedModule } from '../modules/shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, EditFlightComponent],
+  declarations: [HeaderComponent, FooterComponent, EditFlightComponent, EditMenuComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -23,6 +26,8 @@ import { AuthEffects } from './store/effects/auth.effects';
     StoreModule.forFeature('formats', formatsReducer),
     StoreModule.forFeature('auth', authReducer),
     EffectsModule.forFeature([AuthEffects]),
+    SharedModule,
+    ReactiveFormsModule,
   ],
   exports: [HeaderComponent, FooterComponent],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AviasalesApiInterceptor, multi: true }],

@@ -1,8 +1,12 @@
 import { createAction, props } from '@ngrx/store';
 import { TicketsActionTypes } from '../action-types/tickets.action-types';
 import { ExtendedTicketInterface } from '../../models/ticket.models';
+import { Params } from '@angular/router';
 
-export const ticketsLoadAction = createAction(TicketsActionTypes.LOAD);
+export const ticketsLoadAction = createAction(
+  TicketsActionTypes.LOAD,
+  props<{ params?: Params }>(),
+);
 export const ticketsLoadSuccessAction = createAction(
   TicketsActionTypes.LOAD_SUCCESS,
   props<{ data: ExtendedTicketInterface[]; dataBack: ExtendedTicketInterface[] }>(),

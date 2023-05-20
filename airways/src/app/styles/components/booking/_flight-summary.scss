@@ -1,0 +1,73 @@
+airways-flight-summary {
+  width: 48%;
+
+  @include mobile {
+    width: 100%;
+  }
+}
+
+.order {
+  display: flex;
+  flex-direction: column;
+  border-top: 3px solid $primary;
+  background-color: $neutral-100;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  @include body-l;
+
+  @include medium {
+    @include body-m;
+  }
+
+  @include small {
+    font-size: 12px;
+  }
+
+  &__flight {
+    display: flex;
+    flex-direction: column;
+    padding: 22px 24px;
+    gap: 8px;
+    background-color: $secondary-80;
+
+    @include medium {
+      padding: 18px 20px;
+    }
+
+    @include small {
+      gap: 4px;
+      padding: 10px 14px;
+    }
+
+    @include mobile {
+      padding: 6px 8px;
+    }
+  }
+
+  &__line {
+    display: flex;
+    gap: 20px;
+
+    @include small {
+      gap: 10px;
+    }
+  }
+
+  &__flight-number,
+  &__direction {
+    @include title-m;
+    font-weight: 700;
+
+    @include medium {
+      @include title-s;
+    }
+
+    @include small {
+      font-size: 14px;
+    }
+  }
+
+  &__flight-number {
+    color: $primary;
+  }
+}

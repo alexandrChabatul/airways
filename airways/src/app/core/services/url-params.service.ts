@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import moment from 'moment';
-import { PassengersInterface } from 'src/app/modules/home/models/passenger-types.models';
+import { PassengersInterface } from 'src/app/modules/shared/models/passenger-types.models';
 import { environment } from 'src/environments/environment';
 import { AirportResponseInterface } from '../models/airport-response.interface';
 import { OrderInterface } from '../models/order.models';

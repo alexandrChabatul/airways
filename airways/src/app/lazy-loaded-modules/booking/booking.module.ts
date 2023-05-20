@@ -17,6 +17,9 @@ import { TicketsEffect } from '../../core/store/effects/tickets.effect';
 import { SeatsColorDirective } from './directives/seats-color.directive';
 import { BottomButtonsComponent } from './components/bottom-buttons/bottom-buttons.component';
 import { bookingReducer } from '../../core/store/reducers/booking.reducer';
+import { FlightSummaryComponent } from './components/flight-summary/flight-summary.component';
+import { PassengersSummaryComponent } from './components/passengers-summary/passengers-summary.component';
+import { PaymentSummaryComponent } from './components/payment-summary/payment-summary.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,9 @@ import { bookingReducer } from '../../core/store/reducers/booking.reducer';
     CalendarComponent,
     SeatsColorDirective,
     BottomButtonsComponent,
+    FlightSummaryComponent,
+    PassengersSummaryComponent,
+    PaymentSummaryComponent,
   ],
   imports: [
     CommonModule,

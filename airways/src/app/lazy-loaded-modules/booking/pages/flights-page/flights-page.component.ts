@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ticketsLoadAction } from '../../../../core/store/actions/tickets.actions';
 import { Observable } from 'rxjs';
 import { selectTicketsLoading } from '../../../../core/store/selectors/tickets.selectors';
 import { selectIsRoundTrip } from '../../../../core/store/selectors/order.selectors';
 import { selectBookingOrderValidity } from '../../../../core/store/selectors/booking.selectors';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'airways-flights-page',
@@ -19,28 +20,50 @@ export class FlightsPageComponent implements OnInit {
 
   public isOrderValid$!: Observable<boolean>;
 
-  constructor(private router: Router, private store: Store, private route: ActivatedRoute) {}
+  constructor(private router: Router, private store: Store, private location: Location) {}
 
   public ngOnInit(): void {
-    this.store.dispatch(ticketsLoadAction());
+    this.store.dispatch(ticketsLoadAction({}));
     this.areTicketsLoading$ = this.store.select(selectTicketsLoading);
     this.isRound$ = this.store.select(selectIsRoundTrip);
     this.isOrderValid$ = this.store.select(selectBookingOrderValidity);
+    this.location.onUrlChange((val) => {
+      const params = this.getParamsObj(val);
+      this.store.dispatch(ticketsLoadAction({ params }));
+    });
   }
 
-  public navigateBack(): void {
-    const urlTree = this.router.createUrlTree([''], {
-      queryParamsHandling: 'preserve',
-      preserveFragment: true,
-    });
-    this.router.navigateByUrl(urlTree);
+  public navigateBack(): () => void {
+    const backFn = () => {
+      const urlTree = this.router.createUrlTree([''], {
+        queryParamsHandling: 'preserve',
+        preserveFragment: true,
+      });
+      this.router.navigateByUrl(urlTree);
+    };
+
+    return backFn.bind(this);
   }
 
-  public navigateContinue(): void {
-    const urlTree = this.router.createUrlTree(['booking', 'passengers'], {
-      queryParamsHandling: 'preserve',
-      preserveFragment: true,
-    });
-    this.router.navigateByUrl(urlTree);
+  public navigateContinue(): () => void {
+    const continueFn = () => {
+      const urlTree = this.router.createUrlTree(['booking', 'passengers'], {
+        queryParamsHandling: 'preserve',
+        preserveFragment: true,
+      });
+      this.router.navigateByUrl(urlTree);
+    };
+    return continueFn.bind(this);
+  }
+
+  private getParamsObj(link: string): Params {
+    const query = link.split('?')[1];
+    let params = {};
+
+    if (query) {
+      params = Object.fromEntries(query.split('&').map((val) => val.split('=')));
+    }
+
+    return params;
   }
 }

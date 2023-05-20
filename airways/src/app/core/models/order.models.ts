@@ -1,4 +1,4 @@
-import { PassengersInterface } from 'src/app/modules/home/models/passenger-types.models';
+import { PassengersInterface } from 'src/app/modules/shared/models/passenger-types.models';
 import { AirportResponseInterface } from './airport-response.interface';
 
 export interface OrderInterface {
