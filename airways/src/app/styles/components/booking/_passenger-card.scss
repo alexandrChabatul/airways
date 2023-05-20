@@ -1,0 +1,256 @@
+.card {
+  &__container {
+    display: flex;
+    flex-direction: column;
+    padding: 32px 44px;
+    gap: 24px;
+    margin: 20px 0;
+    background: #FFFFFF;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+
+    @include medium {
+      padding: 20px;
+      gap: 15px;
+    }
+
+    @include small {
+      padding: 10px;
+      gap: 10px;
+    }
+  }
+
+  &__title {
+    color: rgba(16, 38, 76, 1);
+  }
+
+  &__forms {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 20px;
+
+    @include medium {
+      gap: 10px;
+    }
+
+    @include small {
+      gap: 5px;
+    }
+
+    @include mobile {
+      flex-direction: column;
+    }
+
+    .mat-mdc-form-field-hint-wrapper, .mat-mdc-form-field-error-wrapper {
+      @include medium {
+        font-size: 14px;
+        padding: 0 8px;
+      }
+
+      @include small {
+        font-size: 12px;
+        padding: 0 4px;
+      }
+
+      @include mobile {
+        font-size: 10px;
+      }
+    }
+
+    .mat-mdc-icon-button.mat-mdc-button-base,
+    .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input {
+      color: $neutral-0;
+    }
+
+    .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input {
+      @include body-l;
+
+      @include small {
+        @include body-m;
+      }
+    }
+
+    .mat-mdc-form-field .mat-mdc-floating-label.mdc-floating-label {
+      @include small {
+        @include body-m;
+      }
+    }
+
+    mat-button-toggle-group {
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid $neutral-40;
+      @include label-m;
+      font-weight: 500;
+      width: fit-content;
+      color: $neutral-0;
+
+      @include medium {
+        height: 48px;
+      }
+
+      @include small {
+        height: 45px;
+        font-size: 12px;
+      }
+
+      @include mobile {
+        align-self: flex-end;
+      }
+    }
+
+    .mat-button-toggle-group-appearance-standard .mat-button-toggle + .mat-button-toggle {
+      border-left: 1px solid $neutral-40;
+    }
+
+    .mat-button-toggle-appearance-standard {
+      background-color: $secondary-90;
+      width: 107px;
+
+      @include medium {
+        width: 80px;
+      }
+    }
+
+    .mat-button-toggle-checked.mat-button-toggle-appearance-standard {
+      color: $primary;
+
+      .mat-button-toggle-label-content {
+        &::before {
+          content: '✔';
+          position: absolute;
+          left: -5px;
+
+          @include medium {
+            left: -1px;
+          }
+
+          @include small {
+            left: -4px;
+          }
+        }
+      }
+    }
+
+    .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+      line-height: 58px;
+
+      @include medium {
+        line-height: 48px;
+      }
+
+      @include small {
+        height: 45px;
+        padding: 0 6px;
+      }
+    }
+
+    //
+    .mat-mdc-form-field-infix,
+    .mat-mdc-text-field-wrapper:not(.mdc-text-field--outlined) .mat-mdc-form-field-infix {
+      width: auto;
+
+      @include medium {
+        min-height: auto;
+        padding-top: 18px;
+        padding-bottom: 4px;
+      }
+    }
+    .mat-mdc-form-field-type-mat-date-range-input .mat-mdc-form-field-infix {
+      width: auto;
+    }
+
+    .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label {
+      @include medium {
+        top: 22px;
+      }
+    }
+    .mat-mdc-icon-button svg, .mat-mdc-icon-button img {
+      @include medium {
+        height: 20px;
+        width: 20px;
+      }
+    }
+
+    .mat-mdc-icon-button.mat-mdc-button-base {
+      @include medium {
+        display: flex;
+        height: 26px;
+        width: 26px;
+        padding: 3px;
+      }
+    }
+
+    .mat-mdc-icon-button .mat-mdc-button-touch-target {
+      width: 26px;
+      height: 26px;
+    }
+
+    .mdc-text-field {
+      @include small {
+        padding: 0 5px;
+      }
+    }
+  }
+
+  &__sliders {
+    display: flex;
+    justify-content: space-between;
+
+    @include mobile {
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .mat-mdc-slide-toggle .mdc-switch .mdc-switch__track {
+      border-radius: 100px;
+      height: 20px;
+      border: 1px solid $neutral-30;
+      background-color: $secondary-90;
+    }
+
+    .mdc-form-field>label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      margin-left: 20px;
+      @include label-s;
+      line-height: normal;
+
+      @include medium {
+        margin-left: 15px;
+      }
+
+      @include small {
+        margin-left: 10px;
+      }
+
+      @include mobile {
+        font-size: 10px;
+      }
+    }
+
+    .mat-icon {
+      @include medium {
+        height: 20px;
+        width: 20px;
+        font-size: 20px;
+      }
+
+      @include small {
+        height: 18px;
+        width: 18px;
+        font-size: 18px;
+      }
+
+      @include mobile {
+        height: 16px;
+        width: 16px;
+        font-size: 16px;
+      }
+    }
+  }
+}

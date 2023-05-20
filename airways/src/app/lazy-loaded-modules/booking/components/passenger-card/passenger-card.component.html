@@ -1,0 +1,54 @@
+<form [formGroup]="passengerForm" class="card__container">
+  <h1 class="card__title">{{'1'}}. {{'Adult'}}</h1>
+  <div class="card__forms">
+    <mat-form-field>
+      <mat-label>First name</mat-label>
+      <input formControlName="firstName" name="firstName" type="text" matInput required>
+      <button mat-icon-button matSuffix>
+        <mat-icon svgIcon="info"></mat-icon>
+      </button>
+      <mat-error *ngIf="firstName.hasError('required')">
+        First name is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="firstName.hasError('isOnlyLetters')">First name cannot contain numbers</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Last name</mat-label>
+      <input formControlName="lastName" name="lastName" type="text" matInput required>
+      <button mat-icon-button matSuffix>
+        <mat-icon svgIcon="info"></mat-icon>
+      </button>
+      <mat-error *ngIf="lastName.hasError('required')">
+        Last name is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="lastName.hasError('isOnlyLetters')">Last name can not contain numbers</mat-error>
+    </mat-form-field>
+
+    <mat-button-toggle-group formControlName="gender" name="gender" required>
+      <mat-button-toggle value="Male">Male</mat-button-toggle>
+      <mat-button-toggle value="Female">Female</mat-button-toggle>
+    </mat-button-toggle-group>
+    <mat-error *ngIf="gender.hasError('required') && gender.touched">Gender required</mat-error>
+
+    <mat-form-field>
+      <mat-label>Date of birth</mat-label>
+      <input [matDatepicker]="picker" [max]="maxDate" formControlName="dateOfBirth" matInput required>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="dateOfBirth.hasError('required')">
+        Date of birth is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="card__sliders">
+    <mat-slide-toggle formControlName="needAssistance" color="primary">
+      <mat-icon svgIcon="assistance" class="card__assistance"></mat-icon>
+      Need special assistance?
+    </mat-slide-toggle>
+    <mat-slide-toggle formControlName="needBuggage" color="primary">
+      <mat-icon class="card__assistance">work</mat-icon>
+      Include checked-in baggage (20kg max)?
+    </mat-slide-toggle>
+  </div>
+</form>

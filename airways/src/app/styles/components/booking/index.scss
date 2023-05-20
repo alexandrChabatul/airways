@@ -1,12 +1,16 @@
-@import './pages/passengers-page';
-
+// Flight page
 @import './calendar';
 @import './flight-info';
 @import './flight-time';
 @import './flights-page';
 @import './way';
 @import './spinner';
+// Common
 @import './bottom-buttons';
+// Passenger page
+@import './passengers-page';
+@import './passenger-card';
+// Summary page
 @import './summary-page';
 @import './flight-summary';
 @import './passengers-summary';
