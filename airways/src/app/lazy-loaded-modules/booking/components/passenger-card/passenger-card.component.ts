@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -15,6 +15,10 @@ import { SvgIconService } from '../../../../core/services/svg-icon.service';
   styleUrls: ['./passenger-card.component.scss'],
 })
 export class PassengerCardComponent implements OnInit {
+  @Input() passengerType = '';
+
+  @Input() passengerIndex = 0;
+
   public passengerForm!: FormGroup;
 
   public maxDate: Date = new Date();

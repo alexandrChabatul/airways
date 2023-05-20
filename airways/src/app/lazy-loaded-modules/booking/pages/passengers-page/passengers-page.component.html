@@ -4,9 +4,36 @@
     <h1>Passengers</h1>
   </div>
   <span class="passenger-page__subtext">Enter the passenger's names as they appear on document (passport or ID).</span>
-  <ul class="passenger-page__passengers">
-    <li *ngFor="let passenger of [1,2]">
-      <airways-passenger-card></airways-passenger-card>
+  <ul class="passenger-page__passengers" *ngIf="(passengers | async) as passengersInfo">
+    <li *ngIf="passengersInfo.adults">
+      <ul>
+        <li *ngFor="let adult of getArrayFromNumber(passengersInfo.adults); let adultIndex = index">
+          <airways-passenger-card
+          [passengerType]="'Adult'"
+          [passengerIndex]="adultIndex + 1"
+          ></airways-passenger-card>
+        </li>
+      </ul>
+    </li>
+    <li *ngIf="passengersInfo.child">
+      <ul>
+        <li *ngFor="let child of getArrayFromNumber(passengersInfo.child); let childIndex = index">
+          <airways-passenger-card
+          [passengerType]="'Child'"
+          [passengerIndex]="childIndex + 1 + passengersInfo.adults"
+          ></airways-passenger-card>
+        </li>
+      </ul>
+    </li>
+    <li *ngIf="passengersInfo.infant">
+      <ul>
+        <li *ngFor="let infant of getArrayFromNumber(passengersInfo.infant); let infantIndex = index">
+          <airways-passenger-card
+          [passengerType]="'Infant'"
+          [passengerIndex]="infantIndex + 1 + passengersInfo.adults + passengersInfo.child"
+          ></airways-passenger-card>
+        </li>
+      </ul>
     </li>
   </ul>
   <div class="title">

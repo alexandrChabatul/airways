@@ -16,5 +16,13 @@
   &__subtext {
     @include body-l();
     color: $neutral-10;
+
+    @include medium {
+      font-size: 14px;
+  }
+
+  @include small {
+    font-size: 12px;
+  }
   }
 }
