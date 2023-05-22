@@ -45,9 +45,9 @@ export interface BookingStateInterface {
     isValid: boolean;
   };
   passengers: {
-    adults: PassengerInfoInterface[];
-    children: PassengerInfoInterface[];
-    infants: PassengerInfoInterface[];
+    adult: { [key: string]: PassengerInfoInterface } | null;
+    child: { [key: string]: PassengerInfoInterface } | null;
+    infant: { [key: string]: PassengerInfoInterface } | null;
     contactDetails: ContactDetailsInterface;
   };
 }

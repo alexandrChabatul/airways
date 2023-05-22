@@ -5,6 +5,8 @@ import { Store } from '@ngrx/store';
 import { selectPassengers } from '../../../../core/store/selectors/order.selectors';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { updatePassengersInfo } from '../../../../core/store/actions/booking.actions';
+import { BookingStateInterface } from '../../../../core/store/store.models';
 
 @Component({
   selector: 'airways-passengers-page',
@@ -49,6 +51,8 @@ export class PassengersPageComponent implements OnInit {
       });
 
       if (this.passengerPageForm.valid) {
+        const info = this.passengerPageForm.value as BookingStateInterface['passengers'];
+        this.store.dispatch(updatePassengersInfo({ info }));
         this.router.navigateByUrl(urlTree);
       } else {
         this.passengerPageForm.markAllAsTouched();
