@@ -1,9 +1,9 @@
-<form [formGroup]="passengerForm" class="card__container">
+<form class="card__container" [formGroup]="passengerForm">
   <h1 class="card__title">{{passengerIndex}}. {{passengerType}}</h1>
   <div class="card__forms">
     <mat-form-field>
       <mat-label>First name</mat-label>
-      <input formControlName="firstName" name="firstName" type="text" matInput required appendTo="body">
+      <input formControlName="firstName" name="firstName" type="text" matInput required>
       <button mat-icon-button matSuffix>
         <mat-icon svgIcon="info"></mat-icon>
       </button>

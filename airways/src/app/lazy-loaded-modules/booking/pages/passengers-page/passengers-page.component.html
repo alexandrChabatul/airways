@@ -1,4 +1,4 @@
-<div class="passenger-page">
+<form class="passenger-page" [formGroup]="passengerPageForm">
   <div class="title">
     <mat-icon fontIcon="person" class="title__icon title__icon-person"></mat-icon>
     <h1>Passengers</h1>
@@ -11,6 +11,7 @@
           <airways-passenger-card
           [passengerType]="'Adult'"
           [passengerIndex]="adultIndex + 1"
+          [parentForm]="passengerPageForm.controls.adult"
           ></airways-passenger-card>
         </li>
       </ul>
@@ -21,6 +22,7 @@
           <airways-passenger-card
           [passengerType]="'Child'"
           [passengerIndex]="childIndex + 1 + passengersInfo.adults"
+          [parentForm]="passengerPageForm.controls.child"
           ></airways-passenger-card>
         </li>
       </ul>
@@ -31,6 +33,7 @@
           <airways-passenger-card
           [passengerType]="'Infant'"
           [passengerIndex]="infantIndex + 1 + passengersInfo.adults + passengersInfo.child"
+          [parentForm]="passengerPageForm.controls.infant"
           ></airways-passenger-card>
         </li>
       </ul>
@@ -41,6 +44,8 @@
     <h1>Contact details</h1>
   </div>
   <span class="passenger-page__subtext">We need contact details to be able to deliver the latest information regarding your flight.</span>
-  <airways-contact-details></airways-contact-details>
-  <airways-bottom-buttons></airways-bottom-buttons>
-</div>
+  <airways-contact-details [parentForm]="passengerPageForm"></airways-contact-details>
+  <airways-bottom-buttons
+  [clickBackFn]="navigateBack()"
+  [clickContinueFn]="navigateContinue()"></airways-bottom-buttons>
+</form>

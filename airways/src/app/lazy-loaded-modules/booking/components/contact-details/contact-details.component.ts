@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable, map, startWith } from 'rxjs';
@@ -10,6 +10,8 @@ import { COUNTRY_CODES } from '../../../auth/constants/country-codes.constants';
   styleUrls: ['./contact-details.component.scss'],
 })
 export class ContactDetailsComponent implements OnInit {
+  @Input() parentForm!: FormGroup;
+
   public filteredCountryCodes!: Observable<string[]>;
 
   public contactForm!: FormGroup;
@@ -31,6 +33,8 @@ export class ContactDetailsComponent implements OnInit {
       startWith(''),
       map((value) => this.filterCodes(value || '')),
     );
+
+    this.parentForm.addControl('contactDetails', this.contactForm);
   }
 
   private filterCodes(value: string): string[] {

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -6,7 +6,6 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { Store } from '@ngrx/store';
 import { SvgIconService } from '../../../../core/services/svg-icon.service';
 
 @Component({
@@ -14,20 +13,18 @@ import { SvgIconService } from '../../../../core/services/svg-icon.service';
   templateUrl: './passenger-card.component.html',
   styleUrls: ['./passenger-card.component.scss'],
 })
-export class PassengerCardComponent implements OnInit {
+export class PassengerCardComponent implements OnInit, OnDestroy {
   @Input() passengerType = '';
 
   @Input() passengerIndex = 0;
+
+  @Input() parentForm!: FormGroup;
 
   public passengerForm!: FormGroup;
 
   public maxDate: Date = new Date();
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private store: Store,
-    private svgIconService: SvgIconService,
-  ) {
+  constructor(private formBuilder: FormBuilder, private svgIconService: SvgIconService) {
     this.svgIconService.addSvgIcon('info');
     this.svgIconService.addSvgIcon('assistance');
   }
@@ -38,9 +35,15 @@ export class PassengerCardComponent implements OnInit {
       lastName: ['', { validators: [Validators.required, this.onlyLettersValidator] }],
       dateOfBirth: ['', { validators: [Validators.required] }],
       gender: ['', { validators: [Validators.required] }],
-      needAssistance: '',
-      needBuggage: '',
+      needAssistance: false,
+      needBuggage: false,
     });
+
+    this.parentForm.addControl(`${this.passengerIndex}`, this.passengerForm);
+  }
+
+  ngOnDestroy(): void {
+    this.parentForm.removeControl(`${this.passengerIndex}`);
   }
 
   private onlyLettersValidator(control: AbstractControl): ValidationErrors | null {

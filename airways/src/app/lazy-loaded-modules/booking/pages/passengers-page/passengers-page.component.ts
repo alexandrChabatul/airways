@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 import { PassengersInterface } from '../../../../modules/shared/models/passenger-types.models';
 import { Store } from '@ngrx/store';
 import { selectPassengers } from '../../../../core/store/selectors/order.selectors';
+import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'airways-passengers-page',
@@ -11,7 +13,13 @@ import { selectPassengers } from '../../../../core/store/selectors/order.selecto
 export class PassengersPageComponent implements OnInit {
   public passengers!: Observable<PassengersInterface>;
 
-  constructor(private store: Store) {}
+  public passengerPageForm = new FormGroup({
+    adult: new FormGroup({}),
+    child: new FormGroup({}),
+    infant: new FormGroup({}),
+  });
+
+  constructor(private store: Store, private router: Router) {}
 
   ngOnInit(): void {
     this.passengers = this.store.select(selectPassengers);
@@ -19,5 +27,34 @@ export class PassengersPageComponent implements OnInit {
 
   public getArrayFromNumber(number: number): string[] {
     return Array(number).fill('');
+  }
+
+  public navigateBack(): () => void {
+    const backFn = () => {
+      const urlTree = this.router.createUrlTree(['booking'], {
+        queryParamsHandling: 'preserve',
+        preserveFragment: true,
+      });
+      this.router.navigateByUrl(urlTree);
+    };
+
+    return backFn.bind(this);
+  }
+
+  public navigateContinue(): () => void {
+    const continueFn = () => {
+      const urlTree = this.router.createUrlTree(['booking', 'summary'], {
+        queryParamsHandling: 'preserve',
+        preserveFragment: true,
+      });
+
+      if (this.passengerPageForm.valid) {
+        this.router.navigateByUrl(urlTree);
+      } else {
+        this.passengerPageForm.markAllAsTouched();
+      }
+    };
+
+    return continueFn.bind(this);
   }
 }
