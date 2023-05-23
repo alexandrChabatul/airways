@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { CartActionTypes } from '../../models/action-types/cart.action-types';
 import { CartItemInterface } from '../../models/cart.models';
+import { CartActionTypes } from '../action-types/cart.action-types';
 
 export const addToCartAction = createAction(
   CartActionTypes.ADD_TO_CART,

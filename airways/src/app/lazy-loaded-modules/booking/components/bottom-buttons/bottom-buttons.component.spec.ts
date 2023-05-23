@@ -8,9 +8,8 @@ describe('BottomButtonsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BottomButtonsComponent ]
-    })
-    .compileComponents();
+      declarations: [BottomButtonsComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(BottomButtonsComponent);
     component = fixture.componentInstance;

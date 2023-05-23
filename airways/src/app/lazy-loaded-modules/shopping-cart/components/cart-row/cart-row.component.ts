@@ -4,6 +4,4 @@ import { Component } from '@angular/core';
   selector: 'airways-cart-row',
   templateUrl: './cart-row.component.html',
 })
-export class CartRowComponent {
-
-}
+export class CartRowComponent {}
