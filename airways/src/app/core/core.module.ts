@@ -12,6 +12,9 @@ import { EditFlightComponent } from './components/edit-flight/edit-flight.compon
 import { authReducer } from './store/reducers/auth.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './store/effects/auth.effects';
+import { cartReducer } from './store/reducers/cart.reducers';
+import { CartEffects } from './store/effects/cart.effects';
+import { ExchangeRateEffect } from './store/effects/exchange-rate.effect';
 
 @NgModule({
   declarations: [HeaderComponent, FooterComponent, EditFlightComponent],
@@ -22,7 +25,8 @@ import { AuthEffects } from './store/effects/auth.effects';
     HttpClientModule,
     StoreModule.forFeature('formats', formatsReducer),
     StoreModule.forFeature('auth', authReducer),
-    EffectsModule.forFeature([AuthEffects]),
+    StoreModule.forFeature('cart', cartReducer),
+    EffectsModule.forFeature([AuthEffects, CartEffects, ExchangeRateEffect]),
   ],
   exports: [HeaderComponent, FooterComponent],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AviasalesApiInterceptor, multi: true }],

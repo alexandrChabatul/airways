@@ -7,10 +7,10 @@ import {
 import { CartStateInterface } from '../store.models';
 
 const initialState: CartStateInterface = {
-  items: [],
+  items: null,
 };
 
-const cartReducer = createReducer(
+const cartReducerFunction = createReducer(
   initialState,
   on(
     addToCartSuccessAction,
@@ -35,6 +35,6 @@ const cartReducer = createReducer(
   ),
 );
 
-export function reducer(state: CartStateInterface, action: Action) {
-  return cartReducer(state, action);
+export function cartReducer(state: CartStateInterface, action: Action) {
+  return cartReducerFunction(state, action);
 }

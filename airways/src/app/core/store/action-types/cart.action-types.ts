@@ -10,5 +10,4 @@ export enum CartActionTypes {
   UPDATE_CART = '[Cart] Update cart',
   UPDATE_CART_SUCCESS = '[Cart] Update cart success',
   UPDATE_CART_FAILURE = '[Cart] Update cart failure',
-
 }

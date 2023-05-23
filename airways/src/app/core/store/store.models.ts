@@ -21,6 +21,7 @@ export interface AuthStateInterface {
 export interface FormatsStateInterface {
   dateFormat: DateFormatType;
   currencyFormat: CurrencyFormatType;
+  exchangeRates: number;
 }
 
 export interface OrderStateInterface extends OrderInterface {
@@ -28,7 +29,7 @@ export interface OrderStateInterface extends OrderInterface {
 }
 
 export interface CartStateInterface {
-  items: CartItemInterface[];
+  items: CartItemInterface[] | null;
 }
 
 export interface TicketsStateInterface {

@@ -16,7 +16,7 @@ import {
 } from '../actions/cart.actions';
 
 @Injectable()
-export class CartEffect {
+export class CartEffects {
   addToCart$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(addToCartAction),
@@ -38,8 +38,8 @@ export class CartEffect {
       ofType(removeFromCartAction),
       switchMap(({ items }) => {
         return this.cartService.removeFromCart(items).pipe(
-          map((items: CartItemInterface[]) => {
-            return removeFromCartSuccessAction({ items });
+          map((cartItems: CartItemInterface[]) => {
+            return removeFromCartSuccessAction({ items: cartItems });
           }),
           catchError(() => {
             return of(removeFromCartFailureAction());

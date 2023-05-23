@@ -2,13 +2,17 @@ import { PassengersInterface } from 'src/app/modules/home/models/passenger-types
 import { AirportResponseInterface } from './airport-response.interface';
 
 export interface CartItemInterface {
-  flightNumber: string;
+  flightNumber_to: string;
+  flightNumber_from?: string;
   origin: AirportResponseInterface;
   destination: AirportResponseInterface;
   type: 'round trip' | 'one way';
-  departure: Date;
-  arrival?: Date;
-  duration: number;
+  departure_at: string;
+  arrival_at?: string;
+  duration_to: number;
+  duration_from?: number;
   passengers: PassengersInterface;
   price: number;
+  destinationUtcOffset: string;
+  utcOffset: string;
 }

@@ -10,5 +10,5 @@ export const selectCartItems = createSelector(
 
 export const selectCartCount = createSelector(
   selectCartFeature,
-  (cartState: CartStateInterface) => cartState.items.length,
+  (cartState: CartStateInterface) => cartState.items?.length || 0,
 );
