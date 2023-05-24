@@ -16,8 +16,8 @@ const initialState: BookingStateInterface = {
     child: null,
     infant: null,
     contactDetails: {
-      countryCode: '',
-      mobileNumber: '',
+      country: '',
+      tel: '',
       email: '',
     },
   },

@@ -9,9 +9,13 @@ export interface PassengerInfoInterface {
   needBuggage: boolean;
 }
 
+export interface PassengerTypeInfoInterface {
+  [key: string]: PassengerInfoInterface;
+}
+
 export interface ContactDetailsInterface {
-  countryCode: string;
-  mobileNumber: string;
+  country: string;
+  tel: string;
   email: string;
 }
 

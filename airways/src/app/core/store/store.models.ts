@@ -1,5 +1,9 @@
 import { User } from '../models/auth-response.interface';
-import { ContactDetailsInterface, PassengerInfoInterface } from '../models/booking.model';
+import {
+  ContactDetailsInterface,
+  PassengerInfoInterface,
+  PassengerTypeInfoInterface,
+} from '../models/booking.model';
 import { CurrencyFormatType, DateFormatType } from '../models/formats.models';
 import { OrderInterface } from '../models/order.models';
 import { ExtendedTicketInterface } from '../models/ticket.models';
@@ -45,9 +49,9 @@ export interface BookingStateInterface {
     isValid: boolean;
   };
   passengers: {
-    adult: { [key: string]: PassengerInfoInterface } | null;
-    child: { [key: string]: PassengerInfoInterface } | null;
-    infant: { [key: string]: PassengerInfoInterface } | null;
+    adult: PassengerTypeInfoInterface | null;
+    child: PassengerTypeInfoInterface | null;
+    infant: PassengerTypeInfoInterface | null;
     contactDetails: ContactDetailsInterface;
   };
 }

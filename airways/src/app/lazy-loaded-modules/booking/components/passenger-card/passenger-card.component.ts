@@ -7,6 +7,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { SvgIconService } from '../../../../core/services/svg-icon.service';
+import { Observable } from 'rxjs';
+import { PassengerInfoInterface } from '../../../../core/models/booking.model';
+import { Store } from '@ngrx/store';
+import { selectBookingPassengerById } from '../../../../core/store/selectors/booking.selectors';
+import { updatePassengersInfo } from '../../../../core/store/actions/booking.actions';
 
 @Component({
   selector: 'airways-passenger-card',
@@ -24,7 +29,13 @@ export class PassengerCardComponent implements OnInit, OnDestroy {
 
   public maxDate: Date = new Date();
 
-  constructor(private formBuilder: FormBuilder, private svgIconService: SvgIconService) {
+  public passengerInfo$!: Observable<PassengerInfoInterface | null>;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private svgIconService: SvgIconService,
+    private store: Store,
+  ) {
     this.svgIconService.addSvgIcon('info');
     this.svgIconService.addSvgIcon('assistance');
   }
@@ -40,6 +51,25 @@ export class PassengerCardComponent implements OnInit, OnDestroy {
     });
 
     this.parentForm.addControl(`${this.passengerIndex}`, this.passengerForm);
+
+    this.passengerInfo$ = this.store.select(
+      selectBookingPassengerById({
+        id: this.passengerIndex,
+      }),
+    );
+
+    this.passengerInfo$.subscribe((val) => {
+      if (val) {
+        this.passengerForm.controls['firstName'].setValue(val.firstName, { emitEvent: false });
+        this.passengerForm.controls['lastName'].setValue(val.lastName, { emitEvent: false });
+        this.passengerForm.controls['dateOfBirth'].setValue(val.dateOfBirth, { emitEvent: false });
+        this.passengerForm.controls['gender'].setValue(val.gender, { emitEvent: false });
+        this.passengerForm.controls['needAssistance'].setValue(val.needAssistance, {
+          emitEvent: false,
+        });
+        this.passengerForm.controls['needBuggage'].setValue(val.needBuggage, { emitEvent: false });
+      }
+    });
   }
 
   ngOnDestroy(): void {

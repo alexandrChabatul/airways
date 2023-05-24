@@ -63,6 +63,7 @@ export class HeaderComponent implements OnInit {
       rootComponent.classList.add('booking');
       this.isMainPage = false;
       this.isBookingPage = true;
+      this.stepNumber = 1;
 
       if (pathArray.length > 2) {
         const innerPath = pathArray[2].split('?')[0];

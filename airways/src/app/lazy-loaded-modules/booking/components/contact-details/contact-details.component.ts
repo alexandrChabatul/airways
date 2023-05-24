@@ -3,6 +3,8 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { Store } from '@ngrx/store';
 import { Observable, map, startWith } from 'rxjs';
 import { COUNTRY_CODES } from '../../../auth/constants/country-codes.constants';
+import { ContactDetailsInterface } from '../../../../core/models/booking.model';
+import { selectBookingContactDetails } from '../../../../core/store/selectors/booking.selectors';
 
 @Component({
   selector: 'airways-contact-details',
@@ -15,6 +17,8 @@ export class ContactDetailsComponent implements OnInit {
   public filteredCountryCodes!: Observable<string[]>;
 
   public contactForm!: FormGroup;
+
+  public contactInfo$!: Observable<ContactDetailsInterface>;
 
   private codes = COUNTRY_CODES.map(
     (country) => (country.name = country.name + ' (' + country.dial_code + ')'),
@@ -35,6 +39,13 @@ export class ContactDetailsComponent implements OnInit {
     );
 
     this.parentForm.addControl('contactDetails', this.contactForm);
+
+    this.contactInfo$ = this.store.select(selectBookingContactDetails);
+    this.contactInfo$.subscribe((val) => {
+      this.contactForm.controls['email'].setValue(val.email, { emitEvent: false });
+      this.contactForm.controls['country'].setValue(val.country, { emitEvent: false });
+      this.contactForm.controls['tel'].setValue(val.tel, { emitEvent: false });
+    });
   }
 
   private filterCodes(value: string): string[] {
