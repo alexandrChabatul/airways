@@ -1,0 +1,31 @@
+<div class="card__container contacts">
+  <form [formGroup]="contactForm" class="card__forms contacts__forms">
+    <mat-form-field>
+      <mat-label>Country code</mat-label>
+      <input type="text" placeholder="Pick one" matInput formControlName="country" name="country" [matAutocomplete]="auto" required>
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option *ngFor="let code of filteredCountryCodes | async" [value]="code">
+          {{ code }}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error *ngIf="country.hasError('required') && country.touched">Choose country code</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Mobile phone number</mat-label>
+      <input matInput formControlName="tel" name="tel" type="tel" required>
+      <mat-error *ngIf="tel.hasError('isOnlyNumbers')">Must be only numbers</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="contacts__email">
+      <mat-label>Email</mat-label>
+      <input formControlName="email" name="email" type="email" matInput placeholder="Ex. pat@example.com" required>
+      <mat-error *ngIf="email.touched && email.hasError('email') && !email.hasError('required')">
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="email.hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </form>
+</div>

@@ -3,14 +3,19 @@ import { ExtendedTicketInterface } from './ticket.models';
 export interface PassengerInfoInterface {
   firstName: string;
   lastName: string;
-  sex: 'Male' | 'Female';
-  dateOfBirth: string;
-  needAssistance?: boolean;
+  gender: 'Male' | 'Female';
+  dateOfBirth: Date;
+  needAssistance: boolean;
+  needBuggage: boolean;
+}
+
+export interface PassengerTypeInfoInterface {
+  [key: string]: PassengerInfoInterface;
 }
 
 export interface ContactDetailsInterface {
-  countryCode: string;
-  mobileNumber: string;
+  country: string;
+  tel: string;
   email: string;
 }
 

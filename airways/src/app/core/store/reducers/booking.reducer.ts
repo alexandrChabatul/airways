@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { BookingStateInterface } from '../store.models';
-import { deleteTicket, updateTicket } from '../actions/booking.actions';
+import { deleteTicket, updatePassengersInfo, updateTicket } from '../actions/booking.actions';
 
 const initialState: BookingStateInterface = {
   order: {
@@ -12,12 +12,12 @@ const initialState: BookingStateInterface = {
     isValid: false,
   },
   passengers: {
-    adults: [],
-    children: [],
-    infants: [],
+    adult: null,
+    child: null,
+    infant: null,
     contactDetails: {
-      countryCode: '',
-      mobileNumber: '',
+      country: '',
+      tel: '',
       email: '',
     },
   },
@@ -76,6 +76,12 @@ export const bookingReducer = createReducer(
         ticket: null,
         isValid: false,
       },
+    };
+  }),
+  on(updatePassengersInfo, (state, { info }): BookingStateInterface => {
+    return {
+      ...state,
+      passengers: { ...info },
     };
   }),
 );

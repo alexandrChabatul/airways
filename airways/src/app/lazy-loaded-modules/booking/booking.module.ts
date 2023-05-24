@@ -20,6 +20,9 @@ import { bookingReducer } from '../../core/store/reducers/booking.reducer';
 import { FlightSummaryComponent } from './components/flight-summary/flight-summary.component';
 import { PassengersSummaryComponent } from './components/passengers-summary/passengers-summary.component';
 import { PaymentSummaryComponent } from './components/payment-summary/payment-summary.component';
+import { PassengerCardComponent } from './components/passenger-card/passenger-card.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ContactDetailsComponent } from './components/contact-details/contact-details.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +38,8 @@ import { PaymentSummaryComponent } from './components/payment-summary/payment-su
     FlightSummaryComponent,
     PassengersSummaryComponent,
     PaymentSummaryComponent,
+    PassengerCardComponent,
+    ContactDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -44,6 +49,7 @@ import { PaymentSummaryComponent } from './components/payment-summary/payment-su
     StoreModule.forFeature('tickets', ticketsReducer),
     StoreModule.forFeature('booking', bookingReducer),
     EffectsModule.forFeature([TicketsEffect]),
+    ReactiveFormsModule,
   ],
 })
 export class BookingModule {}
