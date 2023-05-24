@@ -23,7 +23,7 @@
         </div>
       </div>
     </div>
-    <button mat-button class="flight__edit" color="primary">Edit</button>
+    <button mat-button class="flight__edit" color="primary" (click)="toggleMenu()">Edit</button>
   </div>
-  <!-- Add search form from main (with button) -->
+  <airways-edit-menu *ngIf="isMenuOpened"></airways-edit-menu>
 </div>

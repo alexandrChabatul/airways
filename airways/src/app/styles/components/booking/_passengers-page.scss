@@ -1,0 +1,28 @@
+.passenger-page {
+  padding: 20px 155px;
+
+  @include large {
+      padding: 20px 55px;
+  }
+
+  @include medium {
+      padding: 10px 30px;
+  }
+
+  @include small {
+      padding: 5px 10px;
+  }
+
+  &__subtext {
+    @include body-l();
+    color: $neutral-10;
+
+    @include medium {
+      font-size: 14px;
+  }
+
+  @include small {
+    font-size: 12px;
+  }
+  }
+}

@@ -1,0 +1,40 @@
+.summary {
+  .payment {
+    &__container {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    &__total,
+    &__fare {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &__total {
+      @include title-s;
+      font-weight: 700;
+
+      @include medium {
+        @include body-m;
+      }
+
+      @include small {
+        font-size: 12px;
+      }
+    }
+
+    &__charges {
+      padding-left: 40px;
+
+      @include medium {
+        padding-left: 20px;
+      }
+
+      @include small {
+        padding-left: 10px;
+      }
+    }
+  }
+}

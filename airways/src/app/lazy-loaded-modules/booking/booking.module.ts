@@ -16,6 +16,13 @@ import { EffectsModule } from '@ngrx/effects';
 import { TicketsEffect } from '../../core/store/effects/tickets.effect';
 import { SeatsColorDirective } from './directives/seats-color.directive';
 import { BottomButtonsComponent } from './components/bottom-buttons/bottom-buttons.component';
+import { bookingReducer } from '../../core/store/reducers/booking.reducer';
+import { FlightSummaryComponent } from './components/flight-summary/flight-summary.component';
+import { PassengersSummaryComponent } from './components/passengers-summary/passengers-summary.component';
+import { PaymentSummaryComponent } from './components/payment-summary/payment-summary.component';
+import { PassengerCardComponent } from './components/passenger-card/passenger-card.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ContactDetailsComponent } from './components/contact-details/contact-details.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +35,11 @@ import { BottomButtonsComponent } from './components/bottom-buttons/bottom-butto
     CalendarComponent,
     SeatsColorDirective,
     BottomButtonsComponent,
+    FlightSummaryComponent,
+    PassengersSummaryComponent,
+    PaymentSummaryComponent,
+    PassengerCardComponent,
+    ContactDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -35,7 +47,9 @@ import { BottomButtonsComponent } from './components/bottom-buttons/bottom-butto
     MaterialDesignModule,
     CarouselModule,
     StoreModule.forFeature('tickets', ticketsReducer),
+    StoreModule.forFeature('booking', bookingReducer),
     EffectsModule.forFeature([TicketsEffect]),
+    ReactiveFormsModule,
   ],
 })
 export class BookingModule {}

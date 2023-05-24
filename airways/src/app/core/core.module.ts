@@ -12,12 +12,15 @@ import { EditFlightComponent } from './components/edit-flight/edit-flight.compon
 import { authReducer } from './store/reducers/auth.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './store/effects/auth.effects';
+import { EditMenuComponent } from './components/edit-menu/edit-menu.component';
+import { SharedModule } from '../modules/shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 import { cartReducer } from './store/reducers/cart.reducers';
 import { CartEffects } from './store/effects/cart.effects';
 import { ExchangeRateEffect } from './store/effects/exchange-rate.effect';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, EditFlightComponent],
+  declarations: [HeaderComponent, FooterComponent, EditFlightComponent, EditMenuComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -27,6 +30,8 @@ import { ExchangeRateEffect } from './store/effects/exchange-rate.effect';
     StoreModule.forFeature('auth', authReducer),
     StoreModule.forFeature('cart', cartReducer),
     EffectsModule.forFeature([AuthEffects, CartEffects, ExchangeRateEffect]),
+    SharedModule,
+    ReactiveFormsModule,
   ],
   exports: [HeaderComponent, FooterComponent],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AviasalesApiInterceptor, multi: true }],

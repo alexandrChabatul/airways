@@ -45,6 +45,10 @@
       @include small {
         padding: 5px 10px;
       }
+
+      &:disabled {
+        background-color: $secondary-80;
+      }
     }
 
     &.mat-mdc-button {

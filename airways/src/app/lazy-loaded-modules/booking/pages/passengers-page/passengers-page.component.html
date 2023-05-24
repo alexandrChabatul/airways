@@ -1,1 +1,51 @@
-<p>passengers-page works!</p>
+<form class="passenger-page" [formGroup]="passengerPageForm">
+  <div class="title">
+    <mat-icon fontIcon="person" class="title__icon title__icon-person"></mat-icon>
+    <h1>Passengers</h1>
+  </div>
+  <span class="passenger-page__subtext">Enter the passenger's names as they appear on document (passport or ID).</span>
+  <ul class="passenger-page__passengers" *ngIf="(passengers | async) as passengersInfo">
+    <li *ngIf="passengersInfo.adults">
+      <ul>
+        <li *ngFor="let adult of getArrayFromNumber(passengersInfo.adults); let adultIndex = index">
+          <airways-passenger-card
+          [passengerType]="'Adult'"
+          [passengerIndex]="adultIndex + 1"
+          [parentForm]="passengerPageForm.controls.adult"
+          ></airways-passenger-card>
+        </li>
+      </ul>
+    </li>
+    <li *ngIf="passengersInfo.child">
+      <ul>
+        <li *ngFor="let child of getArrayFromNumber(passengersInfo.child); let childIndex = index">
+          <airways-passenger-card
+          [passengerType]="'Child'"
+          [passengerIndex]="childIndex + 1 + passengersInfo.adults"
+          [parentForm]="passengerPageForm.controls.child"
+          ></airways-passenger-card>
+        </li>
+      </ul>
+    </li>
+    <li *ngIf="passengersInfo.infant">
+      <ul>
+        <li *ngFor="let infant of getArrayFromNumber(passengersInfo.infant); let infantIndex = index">
+          <airways-passenger-card
+          [passengerType]="'Infant'"
+          [passengerIndex]="infantIndex + 1 + passengersInfo.adults + passengersInfo.child"
+          [parentForm]="passengerPageForm.controls.infant"
+          ></airways-passenger-card>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <div class="title">
+    <mat-icon fontIcon="contact_page" class="title__icon title__icon-contact"></mat-icon>
+    <h1>Contact details</h1>
+  </div>
+  <span class="passenger-page__subtext">We need contact details to be able to deliver the latest information regarding your flight.</span>
+  <airways-contact-details [parentForm]="passengerPageForm"></airways-contact-details>
+  <airways-bottom-buttons
+  [clickBackFn]="navigateBack()"
+  [clickContinueFn]="navigateContinue()"></airways-bottom-buttons>
+</form>
