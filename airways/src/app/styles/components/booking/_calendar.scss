@@ -4,7 +4,7 @@ airways-calendar {
 
 .calendar {
   position: relative;
-  z-index: -1;
+  z-index: 1;
   border-radius: 2px;
 
   &__previous,

@@ -14,20 +14,12 @@ import { AirportTimeZoneInterface } from '../models/airport-timezone.model';
   providedIn: 'root',
 })
 export class TicketsService {
-  private currency$ = this.store.select(selectCurrencyFormat);
-
-  private currencyLowerCase = '';
-
   constructor(
     private route: ActivatedRoute,
     private apiService: AviasalesApiService,
     private store: Store,
     private autocompleteService: AutocompleteService,
-  ) {
-    this.currency$.subscribe((val) => {
-      this.currencyLowerCase = val.toLocaleLowerCase();
-    });
-  }
+  ) {}
 
   public getTicketsArray(paramsObj: Params): Observable<ExtendedTicketInterface[][]> {
     const params =
@@ -109,18 +101,12 @@ export class TicketsService {
     const monthToAdd = date.date() >= 15 ? 1 : -1; //if date is more than 15 then we'll request tickets for further month and vice versa
     const additionalMonthDeparture = date.clone().add(monthToAdd, 'months');
 
-    const currentMonthTickets$ = this.apiService.getTicketsMapDyDate(
-      origin,
-      destination,
-      date,
-      this.currencyLowerCase,
-    );
+    const currentMonthTickets$ = this.apiService.getTicketsMapDyDate(origin, destination, date);
 
     const additionalMonthTickets$ = this.apiService.getTicketsMapDyDate(
       origin,
       destination,
       additionalMonthDeparture,
-      this.currencyLowerCase,
     );
 
     return forkJoin([currentMonthTickets$, additionalMonthTickets$]).pipe(
