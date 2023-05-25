@@ -11,7 +11,6 @@ import { Observable } from 'rxjs';
 import { PassengerInfoInterface } from '../../../../core/models/booking.model';
 import { Store } from '@ngrx/store';
 import { selectBookingPassengerById } from '../../../../core/store/selectors/booking.selectors';
-import { updatePassengersInfo } from '../../../../core/store/actions/booking.actions';
 
 @Component({
   selector: 'airways-passenger-card',

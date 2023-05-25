@@ -41,7 +41,7 @@
       </mat-error>
     </mat-form-field>
   </div>
-  <div class="card__sliders">
+  <div class="card__sliders" *ngIf="passengerType !== 'Infant'">
     <mat-slide-toggle formControlName="needAssistance" color="primary">
       <mat-icon svgIcon="assistance" class="card__assistance"></mat-icon>
       Need special assistance?

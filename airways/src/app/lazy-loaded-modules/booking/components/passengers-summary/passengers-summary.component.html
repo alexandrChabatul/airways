@@ -1,8 +1,8 @@
 <div class="passenger-summary">
-  <p class="passenger__name">{{'Harry Potter'}}</p>
+  <p class="passenger__name">{{passengerInfo.firstName + ' ' + passengerInfo.lastName}}</p>
   <ul class="passenger__data">
-    <li class="passenger__bag">{{'1 checked bag (total 23 kg) included'}}</li>
+    <li class="passenger__bag" *ngIf="passengerInfo.needBuggage">{{'1 checked bag (total 23 kg) included'}}</li>
     <li class="passenger__cabin">{{'1 cabin bag + 1 personal item (max. 8 kg) included'}}</li>
-    <li class="passenger__seat">Seat {{'19E'}}</li>
+    <li class="passenger__seat" *ngIf="passengerInfo.type !== 'infant'">Seat {{'19E'}}</li>
   </ul>
 </div>
