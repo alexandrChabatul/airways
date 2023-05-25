@@ -10,10 +10,14 @@ export class AuthPageComponent {
 
   @HostListener('document:keydown.escape', ['$event'])
   onKeydownHandler() {
-    this.router.navigate([{ outlets: { auth: null } }]);
+    this.router.navigate([{ outlets: { auth: null } }], {
+      queryParamsHandling: 'preserve',
+    });
   }
 
   closeAuth() {
-    this.router.navigate([{ outlets: { auth: null } }]);
+    this.router.navigate([{ outlets: { auth: null } }], {
+      queryParamsHandling: 'preserve',
+    });
   }
 }
