@@ -1,18 +1,25 @@
-import { PassengersInterface } from 'src/app/modules/home/models/passenger-types.models';
-import { AirportResponseInterface } from './airport-response.interface';
+import { ExtendedTicketInterface } from './ticket.models';
+import { ContactDetailsInterface, PassengerTypeInfoInterface } from './booking.model';
 
 export interface CartItemInterface {
-  flightNumber_to: string;
-  flightNumber_from?: string;
-  origin: AirportResponseInterface;
-  destination: AirportResponseInterface;
-  type: 'round trip' | 'one way';
-  departure_at: string;
-  arrival_at?: string;
-  duration_to: number;
-  duration_from?: number;
-  passengers: PassengersInterface;
-  price: number;
-  destinationUtcOffset: string;
-  utcOffset: string;
+  order: {
+    isRound: boolean;
+    originName: string;
+    destinationName: string;
+    ticket: ExtendedTicketInterface | null;
+    ticketBack?: ExtendedTicketInterface | null;
+    queryParams: string;
+    isValid: boolean;
+  };
+  passengers: {
+    adult: PassengerTypeInfoInterface | null;
+    child: PassengerTypeInfoInterface | null;
+    infant: PassengerTypeInfoInterface | null;
+    contactDetails: ContactDetailsInterface;
+  };
+  totalPrice: number;
+}
+
+export interface CartItemWithFlagInterface extends CartItemInterface {
+  isActive: boolean;
 }

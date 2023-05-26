@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
-import { CartItemInterface } from '../../models/cart.models';
+import { CartItemWithFlagInterface } from '../../models/cart.models';
 import { CartService } from '../../services/cart.service';
 import {
   addToCartAction,
@@ -22,7 +22,7 @@ export class CartEffects {
       ofType(addToCartAction),
       switchMap(({ item }) => {
         return this.cartService.addToCart(item).pipe(
-          map((items: CartItemInterface[]) => {
+          map((items: CartItemWithFlagInterface[]) => {
             return addToCartSuccessAction({ items });
           }),
           catchError(() => {
@@ -38,7 +38,7 @@ export class CartEffects {
       ofType(removeFromCartAction),
       switchMap(({ items }) => {
         return this.cartService.removeFromCart(items).pipe(
-          map((cartItems: CartItemInterface[]) => {
+          map((cartItems: CartItemWithFlagInterface[]) => {
             return removeFromCartSuccessAction({ items: cartItems });
           }),
           catchError(() => {
@@ -54,7 +54,7 @@ export class CartEffects {
       ofType(updateCartAction),
       switchMap(() => {
         return this.cartService.updateCart().pipe(
-          map((items: CartItemInterface[]) => {
+          map((items: CartItemWithFlagInterface[]) => {
             return updateCartSuccessAction({ items });
           }),
           catchError(() => {

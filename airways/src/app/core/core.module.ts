@@ -18,9 +18,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { cartReducer } from './store/reducers/cart.reducers';
 import { CartEffects } from './store/effects/cart.effects';
 import { ExchangeRateEffect } from './store/effects/exchange-rate.effect';
+import { CurrencyPipe } from './pipes/currency.pipe';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, EditFlightComponent, EditMenuComponent],
+  declarations: [
+    HeaderComponent,
+    FooterComponent,
+    EditFlightComponent,
+    EditMenuComponent,
+    CurrencyPipe,
+  ],
   imports: [
     CommonModule,
     RouterModule,
@@ -33,7 +40,7 @@ import { ExchangeRateEffect } from './store/effects/exchange-rate.effect';
     SharedModule,
     ReactiveFormsModule,
   ],
-  exports: [HeaderComponent, FooterComponent],
+  exports: [HeaderComponent, FooterComponent, CurrencyPipe],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AviasalesApiInterceptor, multi: true }],
 })
 export class CoreModule {}

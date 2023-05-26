@@ -6,9 +6,10 @@ import { ShoppingCartPageComponent } from './pages/shopping-cart-page/shopping-c
 import { CartRowComponent } from './components/cart-row/cart-row.component';
 import { MaterialDesignModule } from 'src/app/material-design/material-design.module';
 import { FormsModule } from '@angular/forms';
+import { CoreModule } from 'src/app/core/core.module';
 
 @NgModule({
   declarations: [ShoppingCartPageComponent, CartRowComponent],
-  imports: [CommonModule, ShoppingCartRoutingModule, MaterialDesignModule, FormsModule],
+  imports: [CommonModule, ShoppingCartRoutingModule, MaterialDesignModule, FormsModule, CoreModule],
 })
 export class ShoppingCartModule {}

@@ -7,6 +7,7 @@ import {
   selectBookingOrderTicketTo,
 } from '../../../../core/store/selectors/booking.selectors';
 import moment from 'moment';
+import { BookingStateInterface } from 'src/app/core/store/store.models';
 
 @Component({
   selector: 'airways-flight-summary',

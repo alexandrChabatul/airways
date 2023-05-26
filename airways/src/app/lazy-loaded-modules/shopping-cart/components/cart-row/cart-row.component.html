@@ -1,50 +1,61 @@
 <div class="cart-item">
-  <mat-checkbox class="cart-item__checkbox" [(ngModel)]="checked"></mat-checkbox>
+  <mat-checkbox class="cart-item__checkbox" [(ngModel)]="item.isActive" color="primary"></mat-checkbox>
   <div class="cart-item__flight-numbers">
-    <p class="cart-item__flight-number">{{ item.flightNumber_to }}</p>
+    <p class="cart-item__flight-number">{{ item.order.ticket?.flight_number }}</p>
     <p
       class="cart-item__flight-number"
-      *ngIf="item.type === 'round trip' && item.flightNumber_from"
+      *ngIf="item.order.isRound && item.order.ticketBack?.flight_number"
     >
-      {{ item.flightNumber_from }}
+      {{ item.order.ticketBack?.flight_number }}
     </p>
   </div>
   <div class="cart-item__flight">
     <p class="cart-item__flight-way">
-      {{ item.origin.city_name }} - {{ item.destination.city_name }}
+      {{ item.order.originName }} - {{ item.order.destinationName }}
     </p>
-    <p class="cart-item__flight-way" *ngIf="item.type === 'round trip'">
-      {{ item.destination.city_name }} - {{ item.origin.city_name }}
+    <p class="cart-item__flight-way" *ngIf="item.order.isRound">
+      {{ item.order.destinationName }} - {{ item.order.originName }}
     </p>
   </div>
-  <p class="cart-item__type">{{ item.type | titlecase }}</p>
+  <p class="cart-item__type">{{ (item.order.isRound ? 'round trip' : 'onew way') | titlecase }}</p>
   <div class="cart-item__time">
     <p class="cart-item__time-to">
       <span class="cart-item__time-start">{{
-        item.departure_at | date : 'd MMM, YYYY, HH:mm' : item.utcOffset
+        item.order.ticket?.departure_at | date : 'd MMM, YYYY, HH:mm' : item.order.ticket?.utcOffset
       }}</span>
-      -
+      —
       <span class="cart-item__time-start">{{
-        getTime(item.departure_at, true) | date : 'd MMM, YYYY, HH:mm' : item.destinationUtcOffset
+        getTime(item.order.ticket?.departure_at, true)
+          | date : 'HH:mm' : item.order.ticketBack?.utcOffset
       }}</span>
     </p>
-    <p class="cart-item__time-from" *ngIf="item.type === 'round trip' && item.arrival_at">
+    <p
+      class="cart-item__time-from"
+      *ngIf="item.order.isRound && item.order.ticketBack?.departure_at"
+    >
       <span class="cart-item__time-start">{{
-        item.arrival_at | date : 'd MMM, YYYY, HH:mm' : item.destinationUtcOffset
+        item.order.ticketBack?.departure_at
+          | date : 'd MMM, YYYY, HH:mm' : item.order.ticketBack?.utcOffset
       }}</span>
-      -
+      —
       <span class="cart-item__time-start">{{
-        getTime(item.arrival_at, false) | date : 'd MMM, YYYY, HH:mm' : item.utcOffset
+        getTime(item.order.ticketBack?.departure_at, false)
+          | date : 'HH:mm' : item.order.ticket?.utcOffset
       }}</span>
     </p>
   </div>
   <div class="cart-item__passengers">
-    <p class="cart-item__passengers-row">{{ item.passengers.adults }} x Adults</p>
-    <p class="cart-item__passengers-row" *ngIf="item.passengers.child > 0">
-      {{ item.passengers.child }} x Child
+    <p class="cart-item__passengers-row">{{ passengers.adults }} x Adults</p>
+    <p class="cart-item__passengers-row" *ngIf="passengers.child > 0">
+      {{ passengers.child }} x Child
     </p>
-    <p class="cart-item__passengers-row" *ngIf="item.passengers.infant > 0">
-      {{ item.passengers.infant }} x Infant
+    <p class="cart-item__passengers-row" *ngIf="passengers.infant > 0">
+      {{ passengers.infant }} x Infant
     </p>
   </div>
+  <div class="cart-item__price">{{ item.totalPrice | currency | async }}</div>
+  <div class="cart-item__more-button">
+    <mat-icon>more_vert</mat-icon>
+  </div>
 </div>
+<div class="cart-item-line"></div>
