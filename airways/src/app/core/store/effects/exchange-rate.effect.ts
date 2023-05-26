@@ -11,7 +11,6 @@ export class ExchangeRateEffect {
     return this.actions$.pipe(
       ofType(changeCurrencyFormat),
       switchMap(({ currencyFormat }) => {
-        console.log('change rate');
         return this.exchangeRateService.getExchangeRate(currencyFormat).pipe(
           map((exchangeRate: number) => {
             return changeExchangeRate({ exchangeRate });

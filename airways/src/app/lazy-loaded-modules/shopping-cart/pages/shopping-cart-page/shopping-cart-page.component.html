@@ -3,6 +3,12 @@
     <!-- <ng-container *ngIf="(items$ | async) && (items$ | async)!.length > 0; else emptyCart"> -->
     <h1 class="cart__header">Cart</h1>
     <div class="table-row table-header">
+      <mat-checkbox
+        class="table-header__checkbox"
+        [(ngModel)]="isAllChecked"
+        color="primary"
+        (change)="onCheckboxChange()"
+      ></mat-checkbox>
       <p class="table-header__NO">No.</p>
       <p class="table-header__flight">Flight</p>
       <p class="table-header__type">Trip type</p>
@@ -10,13 +16,16 @@
       <p class="table-header__passengers">Passengers</p>
       <p class="table-header__price">Price</p>
     </div>
-    <airways-cart-row *ngFor="let item of items$ | async" [item]="item"></airways-cart-row>
+    <airways-cart-row
+      *ngFor="let item of items$ | async; let i = index"
+      [item]="item"
+      [index]="i"
+    ></airways-cart-row>
     <div class="cart__result">
-      <button class="cart__new-trip">
-        + Add new trip</button>
+      <button class="cart__new-trip" (click)="onAddTrip()">+ Add new trip</button>
       <div class="cart__summary">
         Total
-        <span class="cart__summary-sum">$350</span>
+        <span class="cart__summary-sum">{{ (totalPrice$ | async)! | currency | async }}</span>
       </div>
     </div>
     <div class="cart-item-line"></div>
@@ -27,8 +36,10 @@
         <button matSuffix mat-button class="cart__input-suffix">APPLY</button>
       </mat-form-field>
       <div class="cart__footer-result">
-        <p class="cart__tickets-count"><span>2</span> selected</p>
-        <button mat-flat-button color="primary" class="cart__footer-button">Payment</button>
+        <p class="cart__tickets-count">
+          <span>{{ totalActive$ | async }}</span> selected
+        </p>
+        <button mat-flat-button color="primary" class="cart__footer-button" (click)="onPayment()">Payment</button>
       </div>
     </div>
     <!-- </ng-container> -->

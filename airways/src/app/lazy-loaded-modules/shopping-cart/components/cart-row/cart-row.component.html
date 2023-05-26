@@ -1,5 +1,10 @@
 <div class="cart-item">
-  <mat-checkbox class="cart-item__checkbox" [(ngModel)]="item.isActive" color="primary"></mat-checkbox>
+  <mat-checkbox
+    class="cart-item__checkbox"
+    [(ngModel)]="isActive"
+    color="primary"
+    (change)="onCheckboxChange()"
+  ></mat-checkbox>
   <div class="cart-item__flight-numbers">
     <p class="cart-item__flight-number">{{ item.order.ticket?.flight_number }}</p>
     <p
@@ -54,8 +59,17 @@
     </p>
   </div>
   <div class="cart-item__price">{{ item.totalPrice | currency | async }}</div>
-  <div class="cart-item__more-button">
+  <div class="cart-item__more-button" [matMenuTriggerFor]="menu">
     <mat-icon>more_vert</mat-icon>
   </div>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="deleteItem()">
+      <span>Delete</span>
+    </button>
+    <div class="line" style="width: 100%; height: 1px; background-color: #e1e5eb"></div>
+    <button mat-menu-item (click)="editItem()">
+      <span>Edit</span>
+    </button>
+  </mat-menu>
 </div>
 <div class="cart-item-line"></div>

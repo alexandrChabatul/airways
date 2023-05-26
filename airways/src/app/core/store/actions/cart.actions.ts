@@ -15,7 +15,7 @@ export const addToCartFailureAction = createAction(CartActionTypes.ADD_TO_CART_F
 
 export const removeFromCartAction = createAction(
   CartActionTypes.REMOVE_FROM_CART,
-  props<{ items: CartItemWithFlagInterface[] }>(),
+  props<{ item: CartItemWithFlagInterface; index: number }>(),
 );
 
 export const removeFromCartSuccessAction = createAction(
@@ -33,3 +33,13 @@ export const updateCartSuccessAction = createAction(
 );
 
 export const updateCartFailureAction = createAction(CartActionTypes.UPDATE_CART_FAILURE);
+
+export const updateCartItemByIndexAction = createAction(
+  CartActionTypes.UPDATE_CART_ITEM_BY_INDEX,
+  props<{ item: CartItemWithFlagInterface; index: number }>(),
+);
+
+export const toggleCartItemsActiveAction = createAction(
+  CartActionTypes.TOGGLE_ALL_CART_ITEMS_ACTIVE,
+  props<{ isActive: boolean }>(),
+);

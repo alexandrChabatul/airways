@@ -21,21 +21,16 @@ export class CartService {
     return of(items);
   }
 
-  removeFromCart(items: CartItemWithFlagInterface[]): Observable<CartItemWithFlagInterface[]> {
+  removeFromCart(
+    item: CartItemWithFlagInterface,
+    index: number,
+  ): Observable<CartItemWithFlagInterface[]> {
     const cartItems: CartItemWithFlagInterface[] = this.storageService.get('cart');
-    let newItems: CartItemWithFlagInterface[] = [];
-    if (!cartItems) return of([]);
-    newItems = cartItems.filter((storageItem) => {
-      const result = items.find((item) => {
-        return (
-          JSON.stringify(storageItem.order) !== JSON.stringify(item.order) &&
-          JSON.stringify(storageItem.passengers) !== JSON.stringify(item.passengers)
-        );
-      });
-      return !result;
-    });
-    this.storageService.set('cart', newItems);
-    return of(newItems);
+    if (cartItems && cartItems[index]) {
+      cartItems.splice(index, 1);
+    }
+    this.storageService.set('cart', cartItems);
+    return of(cartItems);
   }
 
   updateCart(): Observable<CartItemWithFlagInterface[]> {

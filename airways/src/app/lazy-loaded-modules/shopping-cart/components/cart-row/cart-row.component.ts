@@ -1,6 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import moment from 'moment';
 import { CartItemWithFlagInterface } from 'src/app/core/models/cart.models';
+import {
+  removeFromCartAction,
+  updateCartItemByIndexAction,
+} from 'src/app/core/store/actions/cart.actions';
 import { PassengersInterface } from 'src/app/modules/shared/models/passenger-types.models';
 
 @Component({
@@ -10,11 +15,17 @@ import { PassengersInterface } from 'src/app/modules/shared/models/passenger-typ
 export class CartRowComponent implements OnInit {
   @Input() item!: CartItemWithFlagInterface;
 
+  @Input() index!: number;
+
   passengers: PassengersInterface = {
     adults: 1,
     child: 0,
     infant: 0,
   };
+
+  isActive = true;
+
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.passengers = {
@@ -22,9 +33,8 @@ export class CartRowComponent implements OnInit {
       child: this.item.passengers.child ? Object.keys(this.item.passengers.child).length : 0,
       infant: this.item.passengers.infant ? Object.keys(this.item.passengers.infant).length : 0,
     };
+    this.isActive = this.item.isActive;
   }
-
-  checked = false;
 
   public getTime(timeStr: string | undefined, isArrival: boolean): string {
     const time = moment.utc(timeStr);
@@ -38,5 +48,31 @@ export class CartRowComponent implements OnInit {
     }
 
     return newTime.toString();
+  }
+
+  onCheckboxChange() {
+    const newItem = { ...this.item };
+    this.store.dispatch(
+      updateCartItemByIndexAction({
+        item: {
+          ...newItem,
+          isActive: this.isActive,
+        },
+        index: this.index,
+      }),
+    );
+  }
+
+  deleteItem() {
+    this.store.dispatch(
+      removeFromCartAction({
+        item: this.item,
+        index: this.index,
+      }),
+    );
+  }
+
+  editItem() {
+    //TODO add edit logic
   }
 }
