@@ -50,7 +50,9 @@ export class AuthEffects {
       return this.actions$.pipe(
         ofType(...[loginSuccessAction, signupSuccessAction]),
         tap(() => {
-          this.router.navigateByUrl('/');
+          this.router.navigate([{ outlets: { auth: null } }], {
+            queryParamsHandling: 'preserve',
+          });
         }),
       );
     },

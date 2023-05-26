@@ -49,9 +49,7 @@ export class SignupPageComponent implements OnInit {
 
     this.countries = COUNTRY_CODES.map((country) => country.name);
 
-    this.codes = COUNTRY_CODES.map(
-      (country) => (country.name = country.name + ' (' + country.dial_code + ')'),
-    );
+    this.codes = COUNTRY_CODES.map((country) => country.name + ' (' + country.dial_code + ')');
 
     this.filteredCountryCodes = this.country.valueChanges.pipe(
       startWith(''),

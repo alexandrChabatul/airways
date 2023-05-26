@@ -20,7 +20,6 @@ export class AviasalesApiService {
     origin: string,
     destination: string,
     departure: Moment,
-    currency: string,
   ): Observable<TicketInterface[]> {
     const url = `${environment.aviasalesProxy}${this.link}`;
     return this.http
@@ -29,7 +28,7 @@ export class AviasalesApiService {
           origin,
           destination,
           departure_at: departure.format('YYYY-MM'),
-          currency,
+          currency: 'eur',
         },
       })
       .pipe(
