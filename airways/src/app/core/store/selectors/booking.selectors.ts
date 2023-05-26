@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { BookingStateInterface } from '../store.models';
-import { PassengerTypeInfoInterface } from '../../models/booking.model';
+import { PassengerArrayInterface, PassengerTypeInfoInterface } from '../../models/booking.model';
 
 export const selectBookingFeature = createFeatureSelector<BookingStateInterface>('booking');
 
@@ -53,4 +53,46 @@ export const selectBookingPassengerById = (props: { id: number }) =>
 export const selectBookingContactDetails = createSelector(
   selectBookingFeature,
   (bookingState: BookingStateInterface) => bookingState.passengers.contactDetails,
+);
+
+export const selectBookingPassengerArray = createSelector(
+  selectBookingFeature,
+  (bookingState: BookingStateInterface) => {
+    const passengers: PassengerArrayInterface[] = [];
+    if (bookingState.passengers.adult) {
+      for (const id in bookingState.passengers.adult) {
+        passengers.push({ ...bookingState.passengers.adult[id], type: 'adult' });
+      }
+    }
+
+    if (bookingState.passengers.child) {
+      for (const id in bookingState.passengers.child) {
+        passengers.push({ ...bookingState.passengers.child[id], type: 'child' });
+      }
+    }
+
+    if (bookingState.passengers.infant) {
+      for (const id in bookingState.passengers.infant) {
+        passengers.push({ ...bookingState.passengers.infant[id], type: 'infant' });
+      }
+    }
+
+    return passengers;
+  },
+);
+
+export const selectBookingTicketsPrice = createSelector(
+  selectBookingFeature,
+  (bookingState: BookingStateInterface) => {
+    let price = 0;
+    if (bookingState.order.ticket) {
+      price += bookingState.order.ticket.price;
+    }
+
+    if (bookingState.order.ticketBack) {
+      price += bookingState.order.ticketBack.price;
+    }
+
+    return price;
+  },
 );

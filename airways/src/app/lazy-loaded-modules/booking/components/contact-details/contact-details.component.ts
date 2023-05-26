@@ -20,9 +20,9 @@ export class ContactDetailsComponent implements OnInit {
 
   public contactInfo$!: Observable<ContactDetailsInterface>;
 
-  private codes = COUNTRY_CODES.map(
-    (country) => (country.name = country.name + ' (' + country.dial_code + ')'),
-  );
+  private codes = COUNTRY_CODES.map((country) => {
+    return country.name + ' (' + country.dial_code + ')';
+  });
 
   constructor(private formBuilder: FormBuilder, private store: Store) {}
 

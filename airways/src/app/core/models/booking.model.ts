@@ -9,6 +9,10 @@ export interface PassengerInfoInterface {
   needBuggage: boolean;
 }
 
+export interface PassengerArrayInterface extends PassengerInfoInterface {
+  type: 'adult' | 'child' | 'infant';
+}
+
 export interface PassengerTypeInfoInterface {
   [key: string]: PassengerInfoInterface;
 }
