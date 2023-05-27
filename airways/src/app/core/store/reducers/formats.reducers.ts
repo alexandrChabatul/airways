@@ -1,10 +1,15 @@
 import { createReducer, on } from '@ngrx/store';
 import { FormatsStateInterface } from '../store.models';
-import { changeCurrencyFormat, changeDateFormat } from '../actions/formats.actions';
+import {
+  changeCurrencyFormat,
+  changeDateFormat,
+  changeExchangeRate,
+} from '../actions/formats.actions';
 
 const initialState: FormatsStateInterface = {
   dateFormat: 'MM/dd/yyyy',
   currencyFormat: 'EUR',
+  exchangeRates: 1,
 };
 
 export const formatsReducer = createReducer(
@@ -21,6 +26,13 @@ export const formatsReducer = createReducer(
     (state, action): FormatsStateInterface => ({
       ...state,
       currencyFormat: action.currencyFormat,
+    }),
+  ),
+  on(
+    changeExchangeRate,
+    (state, action): FormatsStateInterface => ({
+      ...state,
+      exchangeRates: action.exchangeRate,
     }),
   ),
 );

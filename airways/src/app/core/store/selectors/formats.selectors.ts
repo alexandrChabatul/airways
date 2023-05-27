@@ -17,3 +17,8 @@ export const selectCurrencyFormat = createSelector(
   selectFormatsFeature,
   (formatsState: FormatsStateInterface) => formatsState.currencyFormat,
 );
+
+export const selectExchangeRate = createSelector(
+  selectFormatsFeature,
+  (formatsState: FormatsStateInterface) => formatsState.exchangeRates,
+);

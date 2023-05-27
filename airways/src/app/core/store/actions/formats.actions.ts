@@ -11,3 +11,8 @@ export const changeDateFormat = createAction(
   FormatsActionTypes.CHANGE_DATE_FORMAT,
   props<{ dateFormat: DateFormatType }>(),
 );
+
+export const changeExchangeRate = createAction(
+  FormatsActionTypes.CHANGE_EXCHANGE_RATE,
+  props<{ exchangeRate: number }>(),
+);

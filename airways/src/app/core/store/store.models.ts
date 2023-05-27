@@ -1,17 +1,15 @@
 import { User } from '../models/auth-response.interface';
-import {
-  ContactDetailsInterface,
-  PassengerInfoInterface,
-  PassengerTypeInfoInterface,
-} from '../models/booking.model';
+import { ContactDetailsInterface, PassengerTypeInfoInterface } from '../models/booking.model';
 import { CurrencyFormatType, DateFormatType } from '../models/formats.models';
 import { OrderInterface } from '../models/order.models';
 import { ExtendedTicketInterface } from '../models/ticket.models';
+import { CartItemWithFlagInterface } from '../models/cart.models';
 
 export interface AppStateInterface {
   authState: AuthStateInterface;
   formats: FormatsStateInterface;
   order: OrderStateInterface;
+  cart: CartStateInterface;
   tickets: TicketsStateInterface;
   booking: BookingStateInterface;
 }
@@ -26,6 +24,7 @@ export interface AuthStateInterface {
 export interface FormatsStateInterface {
   dateFormat: DateFormatType;
   currencyFormat: CurrencyFormatType;
+  exchangeRates: number;
 }
 
 export interface OrderStateInterface extends OrderInterface {
@@ -54,4 +53,14 @@ export interface BookingStateInterface {
     infant: PassengerTypeInfoInterface | null;
     contactDetails: ContactDetailsInterface;
   };
+}
+
+export interface CartStateInterface {
+  items: CartItemWithFlagInterface[] | null;
+}
+
+export interface TicketsStateInterface {
+  data: ExtendedTicketInterface[];
+  dataBack: ExtendedTicketInterface[];
+  isLoading: boolean;
 }
