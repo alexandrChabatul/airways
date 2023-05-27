@@ -1,9 +1,10 @@
-<div class="cart-item">
+<div class="cart-item" [ngClass]="{'cart-item__flex': isUserPage}">
   <mat-checkbox
     class="cart-item__checkbox"
     [(ngModel)]="isActive"
     color="primary"
     (change)="onCheckboxChange()"
+    *ngIf="!isUserPage"
   ></mat-checkbox>
   <div class="cart-item__flight-numbers">
     <p class="cart-item__flight-number">{{ item.order.ticket?.flight_number }}</p>
@@ -58,16 +59,19 @@
       {{ passengers.infant }} x Infant
     </p>
   </div>
-  <div class="cart-item__price">{{ item.totalPrice | currency | async }}</div>
+  <div class="cart-item__price">{{ item.totalPrice | currencyExchange | async }}</div>
   <div class="cart-item__more-button" [matMenuTriggerFor]="menu">
     <mat-icon>more_vert</mat-icon>
   </div>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="deleteItem()">
+    <button mat-menu-item (click)="showDetails()" *ngIf="isUserPage">
+      <span>Details</span>
+    </button>
+    <button mat-menu-item (click)="deleteItem()" *ngIf="!isUserPage">
       <span>Delete</span>
     </button>
     <div class="line" style="width: 100%; height: 1px; background-color: #e1e5eb"></div>
-    <button mat-menu-item (click)="editItem()">
+    <button mat-menu-item (click)="editItem()" *ngIf="!isUserPage">
       <span>Edit</span>
     </button>
   </mat-menu>

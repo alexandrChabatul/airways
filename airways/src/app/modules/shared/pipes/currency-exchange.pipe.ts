@@ -1,12 +1,15 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { selectCurrencyFormat, selectExchangeRate } from '../store/selectors/formats.selectors';
+import {
+  selectCurrencyFormat,
+  selectExchangeRate,
+} from '../../../core/store/selectors/formats.selectors';
 import { Store } from '@ngrx/store';
 import { Observable, map, mergeMap } from 'rxjs';
 
 @Pipe({
-  name: 'currency',
+  name: 'currencyExchange',
 })
-export class CurrencyPipe implements PipeTransform {
+export class CurrencyExchangePipe implements PipeTransform {
   constructor(private store: Store) {}
 
   currencyFormat$ = this.store.select(selectCurrencyFormat);

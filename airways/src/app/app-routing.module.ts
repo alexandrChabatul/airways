@@ -15,6 +15,11 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'user-page',
+    loadChildren: () =>
+      import('./lazy-loaded-modules/user-page/user-page.module').then((m) => m.UserPageModule),
+  },
+  {
     path: 'booking',
     loadChildren: () =>
       import('./lazy-loaded-modules/booking/booking.module').then((m) => m.BookingModule),

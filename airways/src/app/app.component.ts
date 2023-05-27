@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { updateCartAction } from './core/store/actions/cart.actions';
+import { updateHistoryAction } from './core/store/actions/user.actions';
 
 @Component({
   selector: 'airways-root',
@@ -14,5 +15,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(updateCartAction());
+    this.store.dispatch(updateHistoryAction());
   }
 }

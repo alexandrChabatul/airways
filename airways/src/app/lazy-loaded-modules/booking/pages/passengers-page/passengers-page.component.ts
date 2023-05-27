@@ -7,7 +7,6 @@ import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { updatePassengersInfo } from '../../../../core/store/actions/booking.actions';
 import { BookingStateInterface } from '../../../../core/store/store.models';
-import { selectBookingPassengersInfo } from '../../../../core/store/selectors/booking.selectors';
 
 @Component({
   selector: 'airways-passengers-page',

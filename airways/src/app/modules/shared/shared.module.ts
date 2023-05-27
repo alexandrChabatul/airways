@@ -6,20 +6,26 @@ import { PassengerSelectorComponent } from './components/passenger-selector/pass
 import { AutoSelectValueDirective } from './directives/auto-select-value.directive';
 import { MaterialDesignModule } from '../../material-design/material-design.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CartRowComponent } from './components/cart-row/cart-row.component';
+import { CurrencyExchangePipe } from './pipes/currency-exchange.pipe';
 
 @NgModule({
   declarations: [
     AirwayAutocompleteComponent,
     DatePickerComponent,
     PassengerSelectorComponent,
+    CartRowComponent,
     AutoSelectValueDirective,
+    CurrencyExchangePipe,
   ],
   imports: [CommonModule, MaterialDesignModule, FormsModule, ReactiveFormsModule],
   exports: [
     AirwayAutocompleteComponent,
     DatePickerComponent,
     PassengerSelectorComponent,
+    CartRowComponent,
     AutoSelectValueDirective,
+    CurrencyExchangePipe,
   ],
 })
 export class SharedModule {}
