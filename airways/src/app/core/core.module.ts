@@ -18,16 +18,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { cartReducer } from './store/reducers/cart.reducers';
 import { CartEffects } from './store/effects/cart.effects';
 import { ExchangeRateEffect } from './store/effects/exchange-rate.effect';
-import { CurrencyPipe } from './pipes/currency.pipe';
+import { UserEffects } from './store/effects/user.effects';
+import { userReducer } from './store/reducers/user.reducers';
 
 @NgModule({
-  declarations: [
-    HeaderComponent,
-    FooterComponent,
-    EditFlightComponent,
-    EditMenuComponent,
-    CurrencyPipe,
-  ],
+  declarations: [HeaderComponent, FooterComponent, EditFlightComponent, EditMenuComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -36,11 +31,12 @@ import { CurrencyPipe } from './pipes/currency.pipe';
     StoreModule.forFeature('formats', formatsReducer),
     StoreModule.forFeature('auth', authReducer),
     StoreModule.forFeature('cart', cartReducer),
-    EffectsModule.forFeature([AuthEffects, CartEffects, ExchangeRateEffect]),
+    StoreModule.forFeature('user', userReducer),
+    EffectsModule.forFeature([AuthEffects, CartEffects, ExchangeRateEffect, UserEffects]),
     SharedModule,
     ReactiveFormsModule,
   ],
-  exports: [HeaderComponent, FooterComponent, CurrencyPipe],
+  exports: [HeaderComponent, FooterComponent],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AviasalesApiInterceptor, multi: true }],
 })
 export class CoreModule {}

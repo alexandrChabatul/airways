@@ -10,6 +10,7 @@ export interface AppStateInterface {
   formats: FormatsStateInterface;
   order: OrderStateInterface;
   cart: CartStateInterface;
+  history: CartStateInterface;
   tickets: TicketsStateInterface;
   booking: BookingStateInterface;
 }
@@ -56,6 +57,10 @@ export interface BookingStateInterface {
 }
 
 export interface CartStateInterface {
+  items: CartItemWithFlagInterface[] | null;
+}
+
+export interface HistoryStateInterface {
   items: CartItemWithFlagInterface[] | null;
 }
 

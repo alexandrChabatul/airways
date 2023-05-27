@@ -8,6 +8,17 @@ export const selectCartItems = createSelector(
   (cartState: CartStateInterface) => cartState.items,
 );
 
+export const selectCartActiveItems = createSelector(
+  selectCartFeature,
+  (cartState: CartStateInterface) =>
+    cartState.items
+      ?.map((item, index) => ({
+        ...item,
+        index,
+      }))
+      .filter((item) => item.isActive) || [],
+);
+
 export const selectCartCount = createSelector(
   selectCartFeature,
   (cartState: CartStateInterface) => cartState.items?.length || 0,

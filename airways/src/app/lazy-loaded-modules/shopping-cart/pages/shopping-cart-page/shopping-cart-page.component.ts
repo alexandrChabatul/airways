@@ -2,10 +2,15 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { CartItemWithFlagInterface } from 'src/app/core/models/cart.models';
+import {
+  CartItemWithFlagAndIndexInterface,
+  CartItemWithFlagInterface,
+} from 'src/app/core/models/cart.models';
 import { toggleCartItemsActiveAction } from 'src/app/core/store/actions/cart.actions';
+import { addToHistoryAction } from 'src/app/core/store/actions/user.actions';
 import {
   selectActiveCount,
+  selectCartActiveItems,
   selectCartItems,
   selectIsAllItemsActive,
   selectTotalCartPrice,
@@ -26,6 +31,10 @@ export class ShoppingCartPageComponent implements OnInit, OnDestroy {
 
   checkedSubscription!: Subscription;
 
+  itemsSubscription!: Subscription;
+
+  activeItems: CartItemWithFlagAndIndexInterface[] = [];
+
   constructor(private store: Store, private router: Router) {}
 
   ngOnInit(): void {
@@ -35,10 +44,14 @@ export class ShoppingCartPageComponent implements OnInit, OnDestroy {
     this.checkedSubscription = this.store
       .select(selectIsAllItemsActive)
       .subscribe((isAllActive) => (this.isAllChecked = isAllActive));
+    this.itemsSubscription = this.store.select(selectCartActiveItems).subscribe((items) => {
+      this.activeItems = items;
+    });
   }
 
   ngOnDestroy(): void {
     this.checkedSubscription.unsubscribe();
+    this.itemsSubscription.unsubscribe();
   }
 
   onCheckboxChange() {
@@ -50,6 +63,8 @@ export class ShoppingCartPageComponent implements OnInit, OnDestroy {
   }
 
   onPayment() {
-    //TODO payment
+    this.activeItems.forEach((item) => {
+      this.store.dispatch(addToHistoryAction({ item }));
+    });
   }
 }

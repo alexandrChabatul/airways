@@ -3,7 +3,6 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { AviasalesApiService } from './aviasales-api.service';
 import moment from 'moment';
 import { Store } from '@ngrx/store';
-import { selectCurrencyFormat } from '../store/selectors/formats.selectors';
 import { forkJoin, of, map, Observable, switchMap, combineLatest } from 'rxjs';
 import { ExtendedTicketInterface, TicketInterface } from '../models/ticket.models';
 import { AutocompleteService } from './autocomplete.service';
