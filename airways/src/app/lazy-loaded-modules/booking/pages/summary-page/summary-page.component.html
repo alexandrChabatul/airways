@@ -32,7 +32,7 @@
   </div>
   <airways-bottom-buttons
   [isSummaryPage]="true"
-  [editMode]="!!(editIndex$ | async)"
+  [editMode]="editModeBoolean(editIndex$ | async)"
   [clickBackFn]="navigateBack()"
   [clickAddToOrderFn]="navigateAddToCart()"
   [clickContinueFn]="navigateBuyNow()"

@@ -77,7 +77,7 @@ export class SummaryPageComponent implements OnInit {
 
   public navigateBuyNow(): () => void {
     const continueFn = () => {
-      if (this.itemIndexInCart) {
+      if (typeof this.itemIndexInCart === 'number') {
         this.store.dispatch(
           updateCartItemByIndexAction({
             item: {
@@ -109,7 +109,7 @@ export class SummaryPageComponent implements OnInit {
 
   public navigateAddToCart(): () => void {
     const addFn = () => {
-      if (!this.itemIndexInCart) {
+      if (typeof this.itemIndexInCart !== 'number') {
         this.store.dispatch(
           addToCartAction({
             item: {
@@ -184,5 +184,9 @@ export class SummaryPageComponent implements OnInit {
       infant: infantPrice,
       total: this.totalPrice,
     };
+  }
+
+  public editModeBoolean(editMode: number | undefined | null): boolean {
+    return typeof editMode === 'number';
   }
 }
