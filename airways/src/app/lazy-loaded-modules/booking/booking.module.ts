@@ -17,9 +17,6 @@ import { TicketsEffect } from '../../core/store/effects/tickets.effect';
 import { SeatsColorDirective } from './directives/seats-color.directive';
 import { BottomButtonsComponent } from './components/bottom-buttons/bottom-buttons.component';
 import { bookingReducer } from '../../core/store/reducers/booking.reducer';
-import { FlightSummaryComponent } from './components/flight-summary/flight-summary.component';
-import { PassengersSummaryComponent } from './components/passengers-summary/passengers-summary.component';
-import { PaymentSummaryComponent } from './components/payment-summary/payment-summary.component';
 import { PassengerCardComponent } from './components/passenger-card/passenger-card.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ContactDetailsComponent } from './components/contact-details/contact-details.component';
@@ -36,9 +33,6 @@ import { SharedModule } from '../../modules/shared/shared.module';
     CalendarComponent,
     SeatsColorDirective,
     BottomButtonsComponent,
-    FlightSummaryComponent,
-    PassengersSummaryComponent,
-    PaymentSummaryComponent,
     PassengerCardComponent,
     ContactDetailsComponent,
   ],

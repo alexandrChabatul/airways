@@ -9,6 +9,7 @@ import {
 } from '../../../../core/store/selectors/booking.selectors';
 import moment from 'moment';
 import { PassengerArrayInterface } from '../../../../core/models/booking.model';
+import { selectDetailsPassengerArray } from '../../../../core/store/selectors/user-details.selectors';
 
 @Component({
   selector: 'airways-flight-summary',
@@ -18,6 +19,10 @@ import { PassengerArrayInterface } from '../../../../core/models/booking.model';
 export class FlightSummaryComponent implements OnInit {
   @Input() isBack = false;
 
+  @Input() ticketDetails: ExtendedTicketInterface | null | undefined = null;
+
+  @Input() isForDetails = false;
+
   public ticket$!: Observable<ExtendedTicketInterface | null | undefined>;
 
   public passengerArray$!: Observable<PassengerArrayInterface[]>;
@@ -25,9 +30,14 @@ export class FlightSummaryComponent implements OnInit {
   constructor(private store: Store) {}
 
   ngOnInit(): void {
-    const selector = this.isBack ? selectBookingOrderTicketBack : selectBookingOrderTicketTo;
-    this.ticket$ = this.store.select(selector);
-    this.passengerArray$ = this.store.select(selectBookingPassengerArray);
+    if (!this.isForDetails) {
+      const selector = this.isBack ? selectBookingOrderTicketBack : selectBookingOrderTicketTo;
+      this.ticket$ = this.store.select(selector);
+    }
+
+    this.passengerArray$ = this.isForDetails
+      ? this.store.select(selectDetailsPassengerArray)
+      : this.store.select(selectBookingPassengerArray);
   }
 
   public getArrivalTime(ticket: ExtendedTicketInterface): string {

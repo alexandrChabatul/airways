@@ -1,4 +1,4 @@
-<div class="order" *ngIf="ticket$ | async as ticket">
+<div class="order" *ngIf="isForDetails? ticketDetails : (ticket$ | async) as ticket">
   <div class="order__flight">
     <div class="order__line">
       <p class="order__flight-number">{{ticket.airline + ' ' + ticket.flight_number}}</p>
