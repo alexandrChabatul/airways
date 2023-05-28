@@ -1,0 +1,79 @@
+<div class="cart-item" [ngClass]="{'cart-item__flex': isUserPage}">
+  <mat-checkbox
+    class="cart-item__checkbox"
+    [(ngModel)]="isActive"
+    color="primary"
+    (change)="onCheckboxChange()"
+    *ngIf="!isUserPage"
+  ></mat-checkbox>
+  <div class="cart-item__flight-numbers">
+    <p class="cart-item__flight-number">{{ item.order.ticket?.flight_number }}</p>
+    <p
+      class="cart-item__flight-number"
+      *ngIf="item.order.isRound && item.order.ticketBack?.flight_number"
+    >
+      {{ item.order.ticketBack?.flight_number }}
+    </p>
+  </div>
+  <div class="cart-item__flight">
+    <p class="cart-item__flight-way">
+      {{ item.order.originName }} - {{ item.order.destinationName }}
+    </p>
+    <p class="cart-item__flight-way" *ngIf="item.order.isRound">
+      {{ item.order.destinationName }} - {{ item.order.originName }}
+    </p>
+  </div>
+  <p class="cart-item__type">{{ (item.order.isRound ? 'round trip' : 'onew way') | titlecase }}</p>
+  <div class="cart-item__time">
+    <p class="cart-item__time-to">
+      <span class="cart-item__time-start">{{
+        item.order.ticket?.departure_at | date : 'd MMM, YYYY, HH:mm' : item.order.ticket?.utcOffset
+      }}</span>
+      —
+      <span class="cart-item__time-start">{{
+        getTime(item.order.ticket?.departure_at, true)
+          | date : 'HH:mm' : item.order.ticketBack?.utcOffset
+      }}</span>
+    </p>
+    <p
+      class="cart-item__time-from"
+      *ngIf="item.order.isRound && item.order.ticketBack?.departure_at"
+    >
+      <span class="cart-item__time-start">{{
+        item.order.ticketBack?.departure_at
+          | date : 'd MMM, YYYY, HH:mm' : item.order.ticketBack?.utcOffset
+      }}</span>
+      —
+      <span class="cart-item__time-start">{{
+        getTime(item.order.ticketBack?.departure_at, false)
+          | date : 'HH:mm' : item.order.ticket?.utcOffset
+      }}</span>
+    </p>
+  </div>
+  <div class="cart-item__passengers">
+    <p class="cart-item__passengers-row">{{ passengers.adults }} x Adults</p>
+    <p class="cart-item__passengers-row" *ngIf="passengers.child > 0">
+      {{ passengers.child }} x Child
+    </p>
+    <p class="cart-item__passengers-row" *ngIf="passengers.infant > 0">
+      {{ passengers.infant }} x Infant
+    </p>
+  </div>
+  <div class="cart-item__price">{{ item.totalPrice | currencyExchange | async }}</div>
+  <div class="cart-item__more-button" [matMenuTriggerFor]="menu">
+    <mat-icon>more_vert</mat-icon>
+  </div>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="showDetails()" *ngIf="isUserPage">
+      <span>Details</span>
+    </button>
+    <button mat-menu-item (click)="deleteItem()" *ngIf="!isUserPage">
+      <span>Delete</span>
+    </button>
+    <div class="line" style="width: 100%; height: 1px; background-color: #e1e5eb"></div>
+    <button mat-menu-item (click)="editItem()" *ngIf="!isUserPage">
+      <span>Edit</span>
+    </button>
+  </mat-menu>
+</div>
+<div class="cart-item-line"></div>

@@ -1,0 +1,27 @@
+<div class="btm-btns">
+  <button mat-button
+  color="primary"
+  class="btm-btns__button"
+  type="button"
+  (click)="clickBackFn()">
+    Back
+  </button>
+  <button
+  mat-button color="primary"
+  class="btm-btns__button btm-btns__button-add"
+  *ngIf="isSummaryPage"
+  type="button"
+  (click)="clickAddToOrderFn()">
+    {{editMode? 'Cancel editing' : 'Add order to cart'}}
+  </button>
+  <button
+  mat-button
+  mat-flat-button
+  color="primary"
+  class="btm-btns__button btm-btns__button-continue"
+  [disabled]="disableContinue"
+  type="button"
+  (click)="clickContinueFn()">
+    {{isSummaryPage ? editMode? 'Apply changes' : 'Buy now': 'Continue'}}
+  </button>
+</div>

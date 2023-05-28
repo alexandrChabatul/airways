@@ -1,0 +1,16 @@
+<div class="payment__container">
+  <div class="payment__total">
+    <span>{{amount}} x {{type}} Fare</span>
+    <span>{{price | currencyExchange | async}}</span>
+  </div>
+  <ul class="payment__charges">
+    <li class="payment__fare">
+      <span>Fare</span>
+      <span>{{price * 0.8 | currencyExchange | async}}</span>
+    </li>
+    <li class="payment__fare">
+      <span>Tax & Service Charge</span>
+      <span>{{price * 0.2 | currencyExchange | async}}</span>
+    </li>
+  </ul>
+</div>

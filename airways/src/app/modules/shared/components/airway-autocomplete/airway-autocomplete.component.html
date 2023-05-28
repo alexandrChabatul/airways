@@ -1,0 +1,26 @@
+<mat-form-field class="mat-form autocomplete" appearance="fill" floatLabel="always">
+  <mat-label>{{ label }}</mat-label>
+  <input
+    airwaysAutoSelectValue
+    [dropdownList]="filteredOptions$ | async"
+    [controlName]="controlName"
+    [formControl]="fieldControl"
+    placeholder="{{ placeholderText }}"
+    type="text"
+    matInput
+    [matAutocomplete]="auto"
+    class="mat-form__input autocomplete__input"
+  />
+  <mat-autocomplete
+    #auto="matAutocomplete"
+    [displayWith]="displayFn.bind(this)"
+    autoActiveFirstOption="true"
+    (optionSelected)="onAirportSelect($event.option.value)"
+  >
+    <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+      {{ option.city_name || option.country_name }} ({{ option.code }})
+      <br />
+      <span class="autocomplete__option-desc">{{ option.name }}, {{ option.country_name }}</span>
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

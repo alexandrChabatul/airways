@@ -1,0 +1,412 @@
+.header {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &__container {
+    display: flex;
+    width: 100%;
+    padding: 25px 155px;
+    justify-content: space-between;
+    background-color: $neutral-70;
+    color: $neutral-100;
+
+    &.solid {
+      background-color: $neutral-100;
+      color: $neutral-10;
+
+      .header__forms {
+        .formats {
+          &__date,
+          &__currency {
+            .mat-mdc-select-value-text,
+            .mat-mdc-select-arrow {
+              color: $neutral-10;
+            }
+          }
+        }
+
+        .user {
+          &__sign-in {
+            &.mdc-button {
+              color: $neutral-10;
+            }
+          }
+        }
+      }
+    }
+
+    &.registered {
+      color: $primary;
+
+      .header__forms {
+        .user {
+          &__sign-in {
+            &.mdc-button {
+              color: $primary;
+              background-color: transparent;
+              border: none;
+            }
+          }
+        }
+      }
+    }
+
+    @include large {
+      padding: 25px 55px;
+    }
+
+    @include medium {
+      padding: 10px 30px;
+    }
+
+    @include small {
+      padding: 10px;
+    }
+  }
+
+  &__logo {
+    object-fit: contain;
+    cursor: pointer;
+
+    @include medium {
+      position: absolute;
+      align-self: baseline;
+    }
+
+    @include small {
+      height: 30px;
+      width: auto;
+    }
+
+    @include mobile {
+      height: 25px;
+    }
+  }
+
+  &__nav {
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+    align-items: center;
+
+    @include medium {
+      flex-direction: column-reverse;
+      align-items: flex-end;
+    }
+  }
+
+  &__steps {
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+
+    @include medium {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  &__book-flights {
+    margin-right: 30px;
+    color: $neutral-100;
+    @include body-l;
+
+    @include small {
+      @include body-m;
+    }
+
+    @include mobile {
+      @include body-s;
+    }
+  }
+
+  .steps {
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 400px;
+
+    @include mobile {
+      min-width: auto;
+    }
+
+    &__item {
+      display: flex;
+      @include label-m;
+      color: $neutral-30;
+      padding: 10px 15px;
+      gap: 8px;
+
+      @include small {
+        padding: 5px 10px;
+        @include label-s;
+      }
+
+      @include mobile {
+        padding: 5px;
+        font-size: 10px;
+      }
+    }
+
+    &__icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 16px;
+      height: 16px;
+      @include label-s;
+      line-height: 100%;
+      color: $neutral-100;
+      font-weight: 600;
+      background-color: $neutral-30;
+      border-radius: 100%;
+
+      @include small {
+        width: 13px;
+        height: 13px;
+        font-size: 10px;
+        font-weight: 400;
+      }
+
+      &_active {
+        color: transparent;
+        background: $secondary-0 url('../../../../assets/icons/active.svg') 3px/60% no-repeat;
+      }
+
+      &_done {
+        color: transparent;
+        background: $secondary-0 url('../../../../assets/icons/done.svg') center/60% no-repeat;
+      }
+    }
+
+    &__divider {
+      height: 1px;
+      background-color: $neutral-40;
+      flex-grow: 1;
+    }
+  }
+
+  &__forms {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    justify-content: space-around;
+    min-width: 415px;
+
+    @include medium {
+      width: 60%;
+      gap: 5px;
+      justify-content: flex-end;
+    }
+
+    @include mobile {
+      width: 100%;
+      min-width: auto;
+      gap: 2px;
+      flex-direction: column-reverse;
+      align-items: flex-end;
+    }
+
+    .formats {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-grow: 1;
+
+      @include mobile {
+        width: 100%;
+        display: none;
+
+        &.visible {
+          display: flex;
+        }
+      }
+
+      &__date,
+      &__currency {
+        .mdc-text-field--filled {
+          background-color: $neutral-90;
+          border: 0.5px solid $neutral-60;
+          border-radius: 4px;
+        }
+
+        .mdc-text-field {
+          @include large {
+            padding: 0 10px;
+          }
+
+          @include mobile {
+            padding: 0 5px;
+          }
+        }
+
+        .mat-mdc-select-value-text,
+        .mat-mdc-select-arrow {
+          @include label-l;
+          color: $neutral-100;
+
+          @include large {
+            @include label-m;
+          }
+
+          @include small {
+            @include label-s;
+          }
+        }
+
+        .mat-mdc-form-field-infix {
+          width: fit-content;
+          padding-top: 10px !important;
+          padding-bottom: 10px !important;
+          min-height: auto;
+
+          @include small {
+            padding-top: 5px !important;
+            padding-bottom: 5px !important;
+          }
+
+          @include mobile {
+            padding-top: 2px !important;
+            padding-bottom: 2px !important;
+          }
+        }
+
+        .mat-mdc-select-arrow-wrapper {
+          margin-left: 10px;
+        }
+
+        .mdc-line-ripple::before {
+          border: none;
+        }
+
+        .mat-mdc-select-arrow-wrapper {
+          height: auto;
+        }
+      }
+
+      &__currency {
+        .mat-mdc-select-arrow-wrapper {
+          display: none;
+        }
+      }
+    }
+
+    .user {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-grow: 1;
+
+      &__sign-in {
+        &.mdc-button {
+          height: 40px;
+          padding: 10px 15px;
+          background-color: $neutral-90;
+          border: 0.5px solid $neutral-60;
+          border-radius: 4px;
+          color: $neutral-100;
+
+          @include small {
+            height: 32px;
+            padding: 5px 10px;
+          }
+
+          @include mobile {
+            padding: 5px;
+          }
+        }
+
+        .mdc-button__label {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          @include font-btn;
+
+          @include small {
+            font-size: 12px;
+            gap: 4px;
+          }
+        }
+      }
+
+      &__icon {
+        @include small {
+          width: 10px;
+          height: 12px;
+        }
+      }
+
+      &__basket,
+      &__settings {
+        &.mat-mdc-icon-button.mat-mdc-button-base {
+          @include small {
+            width: 30px;
+            height: 30px;
+            padding: 0;
+          }
+        }
+
+        .settings__icon,
+        .basket__icon {
+          font-size: 24px;
+
+          &.mat-icon {
+            width: auto;
+            height: auto;
+          }
+
+          @include small {
+            font-size: 16px;
+          }
+        }
+      }
+
+      &__settings {
+        display: none;
+
+        @include mobile {
+          display: block;
+        }
+      }
+    }
+  }
+
+
+  .mat-mdc-form-field-subscript-wrapper {
+    display: none;
+  }
+
+  .mat-badge-content{
+    @include label-s;
+    line-height: 140%;
+    color : $neutral-100;
+
+    @include small {
+      font-size: 10px;
+    }
+  }
+
+  .mat-badge-small.mat-badge-overlap.mat-badge-after .mat-badge-content {
+    right: 5px;
+    top: 5px;
+
+    @include small {
+      right: 0;
+      top: 0;
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  .mat-mdc-option .mdc-list-item__primary-text {
+    @include small {
+      @include label-s;
+    }
+  }
+}

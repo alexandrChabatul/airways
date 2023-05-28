@@ -1,0 +1,18 @@
+<div class="order" *ngIf="isForDetails? ticketDetails : (ticket$ | async) as ticket">
+  <div class="order__flight">
+    <div class="order__line">
+      <p class="order__flight-number">{{ticket.airline + ' ' + ticket.flight_number}}</p>
+      <div class="order__direction">{{ticket.originAutocomplete?.name}} - {{ticket.destinationAutocomplete?.name}}</div>
+    </div>
+    <div class="order__line">
+      <p class="order__date">{{ticket.departure_at | date: 'EEEE, d MMMM, yyyy':ticket.utcOffset}}</p>
+      <div class="order__time">{{ticket.departure_at | date: 'HH:mm':ticket.utcOffset}} - {{getArrivalTime(ticket) | date: 'HH:mm':ticket.destinationUtcOffset}}</div>
+    </div>
+  </div>
+  <ul class="order__passengers">
+    <li *ngFor="let passenger of (passengerArray$ | async)">
+      <airways-passengers-summary [passengerInfo]="passenger"></airways-passengers-summary>
+      <mat-divider></mat-divider>
+    </li>
+  </ul>
+</div>

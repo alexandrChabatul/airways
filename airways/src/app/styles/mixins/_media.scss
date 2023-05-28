@@ -1,0 +1,25 @@
+@import '../constants';
+
+@mixin large {
+  @media (max-width: $bp-l) {
+    @content;
+  }
+}
+
+@mixin medium {
+  @media (max-width: $bp-m) {
+    @content;
+  }
+}
+
+@mixin small {
+  @media (max-width: $bp-s) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: $bp-mobile) {
+    @content;
+  }
+}

@@ -1,0 +1,80 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 35px 200px;
+  border-top: 1px solid $secondary-40;
+  @include body-m;
+
+  @include large {
+    padding: 25px 100px;
+  }
+
+  @include medium {
+    padding: 20px 50px;
+  }
+
+  @include small {
+    padding: 15px 20px;
+    @include body-s;
+  }
+
+  @include mobile {
+    padding: 5px 10px;
+    font-size: 10px;
+  }
+
+  &__info {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    color: $primary;
+
+    @include mobile {
+      flex-direction: column;
+    }
+  }
+
+  .payment {
+    display: flex;
+    gap: 25px;
+    color: $neutral-black;
+
+    @include small {
+      gap: 10px;
+    }
+
+    &__container {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      align-items: center;
+
+      @include small {
+        gap: 5px;
+      }
+    }
+
+    &__icon {
+      @include mobile {
+        width: 15px;
+        height: auto;
+        object-fit: contain;
+      }
+    }
+  }
+
+  &__team {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+
+    @include mobile {
+      justify-content: flex-start;
+    }
+  }
+
+  &__link {
+    color: $neutral-30;
+  }
+}

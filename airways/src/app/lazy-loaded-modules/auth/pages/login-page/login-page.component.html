@@ -1,0 +1,49 @@
+<airways-social-network-signup></airways-social-network-signup>
+
+<airways-divider>or log in with your email</airways-divider>
+
+<form [formGroup]="loginForm" class="loginFormContainer" (ngSubmit)="onLogIn()">
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input 
+      formControlName="email"
+      name="email"
+      type="email"
+      matInput
+      placeholder="Ex. pat@example.com"
+      required>
+    <mat-error *ngIf="email.touched && email.hasError('email') && !email.hasError('required')">
+      Please enter a valid email address
+    </mat-error>
+    <mat-error *ngIf="email.hasError('required')">
+      Email is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Password</mat-label>
+    <input 
+      [type]="hide ? 'password' : 'text'" 
+      formControlName="password"
+      name="password"
+      type="password"
+      matInput 
+      required>
+    <button mat-icon-button matSuffix (click)="togglePasswordVisibility()" [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="hide">
+      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+    <mat-error *ngIf="password.touched && !password.hasError('minLength')">
+      Password should have minimum 8 characters
+    </mat-error>
+  </mat-form-field>
+
+  <div class="forgot-password-container">
+    <span (click)="onForgotPassword()" class="forgot-password">Forgot password?</span>
+  </div>
+  
+  <button mat-raised-button color="primary" class="login-button" 
+  type="submit">Login</button>
+  
+  <mat-error *ngIf="errorMessage | async">wrong username or password</mat-error>
+</form>

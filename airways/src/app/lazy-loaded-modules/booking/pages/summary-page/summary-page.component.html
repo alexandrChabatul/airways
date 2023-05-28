@@ -1,0 +1,40 @@
+<div class="summary">
+  <div class="title">
+    <mat-icon class="title__icon title__icon-summary" svgIcon="summary"></mat-icon>
+    <h1>Summary</h1>
+  </div>
+  <div class="summary__flights">
+    <airways-flight-summary></airways-flight-summary>
+    <airways-flight-summary *ngIf="isRound$ | async" [isBack]="true"></airways-flight-summary>
+  </div>
+  <div class="summary__payment" *ngIf="(passengers$ | async) as passengersInfo">
+    <ul class="summary__fare">
+      <airways-payment-summary
+      [type]="'Adult'"
+      [amount]="getObjectLength(passengersInfo.adult)"
+      [price]="getTotalPrice(passengersInfo, price).adult"
+      *ngIf="getObjectLength(passengersInfo.adult) > 0"></airways-payment-summary>
+      <airways-payment-summary
+      [type]="'Child'"
+      [amount]="getObjectLength(passengersInfo.child)"
+      [price]="getTotalPrice(passengersInfo, price).child"
+      *ngIf="getObjectLength(passengersInfo.child) > 0"></airways-payment-summary>
+      <airways-payment-summary
+      [type]="'Infant'"
+      [amount]="getObjectLength(passengersInfo.infant)"
+      [price]="getTotalPrice(passengersInfo, price).infant"
+      *ngIf="getObjectLength(passengersInfo.infant) > 0"></airways-payment-summary>
+    </ul>
+    <div class="summary__total">
+      <span>TOTAL:</span>
+      <span class="total__price">{{getTotalPrice(passengersInfo, price).total | currencyExchange | async}}</span>
+    </div>
+  </div>
+  <airways-bottom-buttons
+  [isSummaryPage]="true"
+  [editMode]="editModeBoolean(editIndex$ | async)"
+  [clickBackFn]="navigateBack()"
+  [clickAddToOrderFn]="navigateAddToCart()"
+  [clickContinueFn]="navigateBuyNow()"
+  [disableContinue]="false"></airways-bottom-buttons>
+</div>

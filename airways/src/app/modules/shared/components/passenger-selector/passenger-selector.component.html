@@ -1,0 +1,40 @@
+<mat-form-field appearance="fill" style="position: relative" class="mat-form passengers-form">
+  <mat-label>Passengers</mat-label>
+  <mat-select value="passengers">
+    <mat-option value="passengers" style="display: none"
+      >{{ passengers.adults }} Adults, {{ passengers.child }} Child,
+      {{ passengers.infant }} Infant</mat-option
+    >
+    <mat-option *ngFor="let option of selectOptions" class="passengers-form__option">
+      <div class="passengers-form__option-wrapper">
+        <div>
+          <p class="passengers-form__type">{{ option.passenger }}</p>
+          <p class="passengers-form__years">{{ option.years }}</p>
+        </div>
+        <div class="passengers-form__count-selector">
+          <div
+            (click)="removePassenger($event, option.optionName)"
+            [ngClass]="{ 'passengers-form__button_active': option.isRemoveAvailable }"
+            class="passengers-form__button"
+          >
+            <mat-icon>remove</mat-icon>
+          </div>
+
+          <p
+            class="passengers-form__count"
+            [ngClass]="{ 'passengers-form__count_active': passengers[option.optionName] > 0 }"
+          >
+            {{ passengers[option.optionName] }}
+          </p>
+          <div
+            (click)="addPassenger($event, option.optionName)"
+            [ngClass]="{ 'passengers-form__button_active': option.isAddAvailable }"
+            class="passengers-form__button"
+          >
+            <mat-icon>add</mat-icon>
+          </div>
+        </div>
+      </div>
+    </mat-option>
+  </mat-select>
+</mat-form-field>

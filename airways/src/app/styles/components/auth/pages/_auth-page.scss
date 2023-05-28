@@ -1,0 +1,53 @@
+.mainContainer {
+    z-index: 1000;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 95%;
+    max-height: 69%;
+}
+
+.authCardContainer {
+    width: 100%;
+    max-height: 69%;
+}
+
+.auth-close-icon {
+    position: fixed;
+    left: 100%;
+    top: -3%;
+    color: $neutral-10;
+    cursor: pointer;
+
+    @include mobile {
+      left: 95%;
+      top: -5%;
+    }
+}
+
+.authCardContainer .authCard {
+    padding: 20px;
+    width: 500px;
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+
+.authCardContainer .authCard .mat-mdc-tab-labels {
+    border: 0.5px solid $neutral-60;
+    border-radius: 6px;
+}
+
+/* Set the color of the active mat-tab */
+.authCardContainer .authCard .mdc-tab--active {
+    @include secondary90BackgroundContainer();
+    border-bottom: 0 !important;
+}
+
+.authCardContainer .mat-mdc-tab .mdc-tab__text-label, .mat-mdc-tab-link .mdc-tab__text-label {
+    color: $neutral-10;
+}
+
+.mat-elevation-z4 {
+    box-shadow: none;
+}

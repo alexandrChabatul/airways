@@ -1,0 +1,34 @@
+<div class="calendar">
+  <p-carousel
+  [value]="(days$ | async) || []"
+  [numVisible]="5"
+  [numScroll]="1"
+  [circular]="false"
+  [responsiveOptions]="responsiveOptions"
+  [styleClass]="'calendar'"
+  [page]="getPageNumber()"
+  [showIndicators]="false">
+    <ng-template pTemplate="previousicon">
+      <div class="calendar__previous">
+        <mat-icon>chevron_left</mat-icon>
+      </div>
+    </ng-template>
+    <ng-template let-day pTemplate="item">
+      <div class="calendar__item item"
+      (click)="toggleActive(day)"
+      [ngClass]="{'item-active': day.isActive, 'item-outdated': day.isOutdated}"
+      >
+        <span class="item__date">{{day.departure_at | date: 'dd MMM': day.utcOffset}}</span>
+        <span class="item__day">{{day.departure_at | date: 'EEEE'}}</span>
+        <span class="item__price">{{day.price | currencyExchange | async}}</span>
+        <mat-icon svgIcon="no_flights" class="item__no-flights"></mat-icon>
+        <div class="item__color" [airwaysSeatsColor]="day"></div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="nexticon">
+      <div class="calendar__next">
+        <mat-icon>chevron_right</mat-icon>
+      </div>
+    </ng-template>
+  </p-carousel>
+</div>

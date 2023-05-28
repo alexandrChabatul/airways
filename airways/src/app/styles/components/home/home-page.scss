@@ -1,0 +1,108 @@
+.home-wrapper {
+  margin-top: 80px;
+  padding: 25px 155px;
+
+  @include large {
+    padding: 25px 55px;
+  }
+
+  @include medium {
+    padding: 10px 30px;
+    display: flex;
+    justify-content: center;
+  }
+
+  @include small {
+    padding: 10px;
+  }
+
+  &::after {
+    content: '';
+    background: url('../../../../assets/images/Background.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 80%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+  }
+
+  .search {
+    margin-top: 62px;
+    background: $neutral-white;
+    border-radius: 8px;
+    max-width: 580px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    @include small {
+      width: 100%;
+    }
+
+    .mat-mdc-radio-button .mdc-form-field {
+      color: $primary;
+      font-size: $fs-m;
+    }
+
+    &__scheme {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      .mat-mdc-form-field-subscript-wrapper {
+        display: none;
+      }
+    }
+
+    &__swap-button {
+      position: absolute;
+      top: 40px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      background: $secondary-100;
+      border: 0.5px solid $neutral-70;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &__date-passengers {
+      width: 100%;
+      display: flex;
+      gap: 20px;
+
+      @include small {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+
+    &__date-picker {
+      flex-grow: 1;
+    }
+
+    &__button {
+      margin-top: -15px;
+      align-self: flex-end;
+      width: 125px;
+      height: 60px;
+    }
+
+    &__error {
+      padding-left: 16px;
+    }
+
+    .mat-form__input::placeholder {
+      color: $neutral-10;
+    }
+  }
+}

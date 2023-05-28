@@ -1,0 +1,14 @@
+<div class="cart-container">
+  <div class="cart">
+    <ng-container *ngIf="(items$ | async) && (items$ | async)!.length > 0; else emptyCart">
+      <h1 class="cart__header">History</h1>
+      <airways-cart-row
+        *ngFor="let item of items$ | async; let i = index"
+        [item]="item"
+        [index]="i"
+        [isUserPage]="true"
+      ></airways-cart-row>
+    </ng-container>
+    <ng-template #emptyCart> <div class="empty-cart">History is empty.</div> </ng-template>
+  </div>
+</div>

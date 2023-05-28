@@ -1,0 +1,69 @@
+<div class="home-wrapper">
+  <form class="search" [formGroup]="searchForm" (submit)="onSearchFormSubmit()">
+    <mat-radio-group
+      aria-label="Select an option"
+      formControlName="tripType"
+      color="primary"
+      (change)="radioChange()"
+    >
+      <mat-radio-button
+        value="round-trip"
+        [checked]="(type$ | async) === true || (type$ | async) === null"
+        >Round trip</mat-radio-button
+      >
+      <mat-radio-button value="one-way" [checked]="(type$ | async) === false"
+        >One Way</mat-radio-button
+      >
+    </mat-radio-group>
+
+    <div class="search__scheme">
+      <airways-airway-autocomplete
+        label="From"
+        [controlName]="'origin'"
+        [airport$]="originAirport$"
+        placeholderText="Choose your origin"
+      ></airways-airway-autocomplete>
+      <airways-airway-autocomplete
+        label="Destination"
+        [controlName]="'destination'"
+        [airport$]="destinationAirport$"
+        [airport$]="destinationAirport$"
+        placeholderText="Choose your destination"
+      ></airways-airway-autocomplete>
+      <mat-error
+        *ngIf="
+          searchForm.controls['origin'].touched &&
+          searchForm.controls['origin'].hasError('required')
+        "
+        class="search__error"
+        >Enter your departure point</mat-error
+      >
+      <mat-error
+        *ngIf="
+          searchForm.controls['destination'].touched &&
+          searchForm.controls['destination'].hasError('required')
+        "
+        class="search__error"
+        >Enter your destination</mat-error
+      >
+      <mat-error
+        *ngIf="
+          searchForm.controls['destination'].touched &&
+          searchForm.controls['destination'].hasError('theSameAirportError')
+        "
+        class="search__error"
+        >Origin and destination airports are equal.</mat-error
+      >
+      <span class="search__swap-button" (click)="swapFields()">
+        <mat-icon>sync_alt</mat-icon>
+      </span>
+    </div>
+
+    <div class="search__date-passengers">
+      <airways-date-picker class="search__date-picker"></airways-date-picker>
+
+      <airways-persons-selector></airways-persons-selector>
+    </div>
+    <button mat-raised-button color="primary" class="search__button" type="submit">Search</button>
+  </form>
+</div>

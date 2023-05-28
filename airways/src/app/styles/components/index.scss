@@ -1,0 +1,81 @@
+@import './core';
+@import './home';
+@import './auth/';
+@import './booking';
+@import './shopping-cart';
+
+.title,
+h1 {
+  @include title-l;
+  font-weight: 700;
+  color: $primary;
+  margin: 0;
+  line-height: normal;
+
+  @include medium {
+    font-size: 20px;
+  }
+
+  @include small {
+    font-size: 18px;
+  }
+
+  @include mobile {
+    font-size: 16px;
+  }
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 10px 0;
+  width: 100%;
+
+  @include medium {
+    gap: 10px;
+  }
+
+  @include small {
+    gap: 8px;
+  }
+
+  @include mobile {
+    gap: 6px;
+  }
+
+  .mat-icon {
+    height: auto;
+    width: auto;
+    position: relative;
+    z-index: -1;
+
+    @include medium {
+      font-size: 20px;
+    }
+
+    @include small {
+      font-size: 18px;
+    }
+
+    @include mobile {
+      font-size: 16px;
+    }
+
+    svg{
+      height: 20px;
+
+      @include medium {
+        height: 18px;
+      }
+
+      @include small {
+        height: 16px;
+      }
+
+      @include mobile {
+        height: 14px;
+      }
+    }
+  }
+}
