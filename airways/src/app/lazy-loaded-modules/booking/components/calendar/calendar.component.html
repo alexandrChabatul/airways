@@ -20,7 +20,7 @@
       >
         <span class="item__date">{{day.departure_at | date: 'dd MMM': day.utcOffset}}</span>
         <span class="item__day">{{day.departure_at | date: 'EEEE'}}</span>
-        <span class="item__price">{{day.price | currency: (currency$ | async) || ''}}</span>
+        <span class="item__price">{{day.price | currencyExchange | async}}</span>
         <mat-icon svgIcon="no_flights" class="item__no-flights"></mat-icon>
         <div class="item__color" [airwaysSeatsColor]="day"></div>
       </div>

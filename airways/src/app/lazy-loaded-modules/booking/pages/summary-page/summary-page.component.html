@@ -27,7 +27,7 @@
     </ul>
     <div class="summary__total">
       <span>TOTAL:</span>
-      <span class="total__price">{{getTotalPrice(passengersInfo, price).total | currency : (currency$ | async) || ''}}</span>
+      <span class="total__price">{{getTotalPrice(passengersInfo, price).total | currencyExchange | async}}</span>
     </div>
   </div>
   <airways-bottom-buttons
