@@ -10,7 +10,7 @@
   class="btm-btns__button btm-btns__button-add"
   *ngIf="isSummaryPage"
   (click)="clickAddToOrderFn()">
-    Add order to cart
+    {{editMode? 'Cancel editing' : 'Add order to cart'}}
   </button>
   <button
   mat-button
@@ -19,6 +19,6 @@
   class="btm-btns__button btm-btns__button-continue"
   [disabled]="disableContinue"
   (click)="clickContinueFn()">
-    {{isSummaryPage ? 'Buy now': 'Continue'}}
+    {{isSummaryPage ? editMode? 'Apply changes' : 'Buy now': 'Continue'}}
   </button>
 </div>

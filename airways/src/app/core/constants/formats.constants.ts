@@ -11,7 +11,6 @@ export const CURRENCY_FORMATS: CurrencyFormatInterface[] = [
   { value: 'EUR', viewValue: 'EUR' },
   { value: 'USD', viewValue: 'USD' },
   { value: 'RUB', viewValue: 'RUB' },
-  { value: 'PLN', viewValue: 'PLN' },
 ];
 
 export const DEFAULT_DATE_FORMAT = {

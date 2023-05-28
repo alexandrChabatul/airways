@@ -23,6 +23,7 @@ import { PaymentSummaryComponent } from './components/payment-summary/payment-su
 import { PassengerCardComponent } from './components/passenger-card/passenger-card.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ContactDetailsComponent } from './components/contact-details/contact-details.component';
+import { SharedModule } from '../../modules/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { ContactDetailsComponent } from './components/contact-details/contact-de
     StoreModule.forFeature('booking', bookingReducer),
     EffectsModule.forFeature([TicketsEffect]),
     ReactiveFormsModule,
+    SharedModule,
   ],
 })
 export class BookingModule {}

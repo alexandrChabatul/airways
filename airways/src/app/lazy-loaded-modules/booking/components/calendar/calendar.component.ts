@@ -9,8 +9,6 @@ import {
 } from '../../../../core/store/selectors/tickets.selectors';
 import { ticketsChangeActive } from '../../../../core/store/actions/tickets.actions';
 import { SvgIconService } from '../../../../core/services/svg-icon.service';
-import { CurrencyFormatType } from '../../../../core/models/formats.models';
-import { selectCurrencyFormat } from '../../../../core/store/selectors/formats.selectors';
 
 @Component({
   selector: 'airways-calendar',
@@ -21,8 +19,6 @@ export class CalendarComponent implements OnInit {
   @Input() isBack = false;
 
   public days$!: Observable<ExtendedTicketInterface[]>;
-
-  public currency$!: Observable<CurrencyFormatType>;
 
   public responsiveOptions: ResponsiveOptionInterface[] = [
     {
@@ -39,7 +35,6 @@ export class CalendarComponent implements OnInit {
   }
 
   public ngOnInit() {
-    this.currency$ = this.store.select(selectCurrencyFormat);
     this.days$ = this.isBack
       ? this.store.select(selectTicketsBackData)
       : this.store.select(selectTicketsData);

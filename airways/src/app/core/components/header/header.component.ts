@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { CURRENCY_FORMATS, DATE_FORMATS } from '../../constants/formats.constants';
 import { Router } from '@angular/router';
 import { selectIsAuthenticated, selectUserName } from '../../store/selectors/auth.selectors';
+import { selectCartCount } from '../../store/selectors/cart.selectors';
 
 @Component({
   selector: 'airways-header',
@@ -34,7 +35,7 @@ export class HeaderComponent implements OnInit {
 
   public userName$!: Observable<string | undefined>;
 
-  public orderCount = 1; //TODO: get value from store
+  public orderCount$!: Observable<number>;
 
   constructor(private location: Location, private store: Store, private router: Router) {}
 
@@ -47,6 +48,7 @@ export class HeaderComponent implements OnInit {
     this.selectedCurrencyFormat$ = this.store.select(selectCurrencyFormat);
     this.isUserLoggedIn$ = this.store.select(selectIsAuthenticated);
     this.userName$ = this.store.select(selectUserName);
+    this.orderCount$ = this.store.select(selectCartCount);
   }
 
   private changeStepper(newPath: string): void {
@@ -95,6 +97,14 @@ export class HeaderComponent implements OnInit {
 
   public navigateToLogin(): void {
     this.router.navigate([{ outlets: { auth: ['auth'] } }], { queryParamsHandling: 'preserve' });
+  }
+
+  public isBadgeHidden(count: number | null): boolean {
+    if (count && count >= 1) {
+      return false;
+    }
+
+    return true;
   }
 
   public navigateToUserPage(): void {

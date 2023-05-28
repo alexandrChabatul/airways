@@ -96,3 +96,13 @@ export const selectBookingTicketsPrice = createSelector(
     return price;
   },
 );
+
+export const selectBookingEditIndex = createSelector(
+  selectBookingFeature,
+  (bookingState: BookingStateInterface) => bookingState.editItemIndex,
+);
+
+export const selectBookingOrderLink = createSelector(
+  selectBookingFeature,
+  (bookingState: BookingStateInterface) => bookingState.order.queryParams,
+);

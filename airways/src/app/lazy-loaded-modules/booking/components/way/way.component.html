@@ -7,7 +7,7 @@
     </h1>
   </div>
   <airways-calendar [isBack]="isBack" *ngIf="!itemSelected"></airways-calendar>
-  <airways-flight-info [isBack]="isBack" (selectTicket)="changeDisplay()"></airways-flight-info>
+  <airways-flight-info [isBack]="isBack" (selectTicket)="changeDisplay($event)"></airways-flight-info>
 </div>
 <ng-template #no_tickets>
   <p>Looks like there are no tickets for your query</p>
