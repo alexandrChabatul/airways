@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { selectCurrencyFormat, selectDateFormat } from '../../store/selectors/formats.selectors';
@@ -16,7 +16,7 @@ import { selectCartCount } from '../../store/selectors/cart.selectors';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   public dateFormats = DATE_FORMATS;
 
   public currencyFormats = CURRENCY_FORMATS;
@@ -49,6 +49,10 @@ export class HeaderComponent implements OnInit {
     this.isUserLoggedIn$ = this.store.select(selectIsAuthenticated);
     this.userName$ = this.store.select(selectUserName);
     this.orderCount$ = this.store.select(selectCartCount);
+  }
+
+  public ngOnDestroy(): void {
+    this.location.ngOnDestroy();
   }
 
   private changeStepper(newPath: string): void {

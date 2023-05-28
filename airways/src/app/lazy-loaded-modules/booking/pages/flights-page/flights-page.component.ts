@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ticketsLoadAction } from '../../../../core/store/actions/tickets.actions';
@@ -13,7 +13,7 @@ import { Location } from '@angular/common';
   templateUrl: './flights-page.component.html',
   styleUrls: ['./flights-page.component.scss'],
 })
-export class FlightsPageComponent implements OnInit {
+export class FlightsPageComponent implements OnInit, OnDestroy {
   public isRound$!: Observable<boolean>;
 
   public areTicketsLoading$!: Observable<boolean>;
@@ -31,6 +31,10 @@ export class FlightsPageComponent implements OnInit {
       const params = this.getParamsObj(val);
       this.store.dispatch(ticketsLoadAction({ params }));
     });
+  }
+
+  public ngOnDestroy(): void {
+    this.location.ngOnDestroy();
   }
 
   public navigateBack(): () => void {
