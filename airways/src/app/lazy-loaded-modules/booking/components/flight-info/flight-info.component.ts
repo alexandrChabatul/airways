@@ -8,6 +8,10 @@ import {
 } from '../../../../core/store/selectors/tickets.selectors';
 import { deleteTicket, updateTicket } from '../../../../core/store/actions/booking.actions';
 import { ActivatedRoute, Router } from '@angular/router';
+import {
+  selectBookingOrderTicketBack,
+  selectBookingOrderTicketTo,
+} from '../../../../core/store/selectors/booking.selectors';
 
 @Component({
   selector: 'airways-flight-info',
@@ -17,17 +21,57 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class FlightInfoComponent implements OnInit {
   @Input() isBack = false;
 
-  @Output() selectTicket = new EventEmitter<ExtendedTicketInterface>();
+  @Output() selectTicket = new EventEmitter<boolean>();
 
-  public isTicketSelected = false;
+  public isTicketSelected!: boolean;
 
   public selectedItem$!: Observable<ExtendedTicketInterface | undefined>;
+
+  private selectedItem: ExtendedTicketInterface | undefined = undefined;
+
+  private bookedTicket: ExtendedTicketInterface | null = null;
 
   constructor(private store: Store, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
     const selector = this.isBack ? selectActiveTicketBack : selectActiveTicket;
+    const selectorBookedticket = this.isBack
+      ? selectBookingOrderTicketBack
+      : selectBookingOrderTicketTo;
     this.selectedItem$ = this.store.select(selector);
+
+    this.selectedItem$.subscribe((val) => {
+      this.selectedItem = val;
+    });
+
+    this.store.select(selectorBookedticket).subscribe((val) => {
+      if (val) {
+        this.bookedTicket = val;
+      }
+    });
+
+    if (
+      this.selectedItem &&
+      this.bookedTicket &&
+      JSON.stringify({
+        ...this.selectedItem,
+        seats: 0,
+        index: 0,
+        isActive: false,
+        isOutdated: false,
+      }) ===
+        JSON.stringify({
+          ...this.bookedTicket,
+          seats: 0,
+          index: 0,
+          isActive: false,
+          isOutdated: false,
+        })
+    ) {
+      this.isTicketSelected = true;
+    } else {
+      this.isTicketSelected = false;
+    }
   }
 
   public getDurationString(duration: number): string {
@@ -58,6 +102,6 @@ export class FlightInfoComponent implements OnInit {
     }
 
     this.isTicketSelected = !this.isTicketSelected;
-    this.selectTicket.emit(item);
+    this.selectTicket.emit(this.isTicketSelected);
   }
 }

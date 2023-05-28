@@ -38,7 +38,7 @@ export class WayComponent implements OnInit {
     this.destination$ = this.store.select(selectDestinationAirport);
   }
 
-  public changeDisplay(): void {
-    this.itemSelected = !this.itemSelected;
+  public changeDisplay(isSelected: boolean): void {
+    this.itemSelected = isSelected;
   }
 }
