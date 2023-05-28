@@ -23,3 +23,8 @@ export interface CartItemInterface {
 export interface CartItemWithFlagInterface extends CartItemInterface {
   isActive: boolean;
 }
+
+export interface CartItemWithFlagAndIndexInterface extends CartItemInterface {
+  isActive: boolean;
+  index: number;
+}

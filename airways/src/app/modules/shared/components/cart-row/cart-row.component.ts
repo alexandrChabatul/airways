@@ -17,6 +17,8 @@ export class CartRowComponent implements OnInit {
 
   @Input() index!: number;
 
+  @Input() isUserPage!: boolean;
+
   passengers: PassengersInterface = {
     adults: 1,
     child: 0,
@@ -74,5 +76,9 @@ export class CartRowComponent implements OnInit {
 
   editItem() {
     //TODO add edit logic
+  }
+
+  showDetails() {
+    //TODO show details logic
   }
 }
