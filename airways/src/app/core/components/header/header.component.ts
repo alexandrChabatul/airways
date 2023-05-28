@@ -108,7 +108,7 @@ export class HeaderComponent implements OnInit {
   }
 
   public navigateToUserPage(): void {
-    // this.router.navigateByUrl('/user'); //TODO: change urls
+    this.router.navigateByUrl('/user-page');
   }
 
   public toggleFormats(): void {
