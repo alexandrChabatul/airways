@@ -8,6 +8,9 @@ import { MaterialDesignModule } from '../../material-design/material-design.modu
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CartRowComponent } from './components/cart-row/cart-row.component';
 import { CurrencyExchangePipe } from './pipes/currency-exchange.pipe';
+import { FlightSummaryComponent } from './components/flight-summary/flight-summary.component';
+import { PaymentSummaryComponent } from './components/payment-summary/payment-summary.component';
+import { PassengersSummaryComponent } from './components/passengers-summary/passengers-summary.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +20,9 @@ import { CurrencyExchangePipe } from './pipes/currency-exchange.pipe';
     CartRowComponent,
     AutoSelectValueDirective,
     CurrencyExchangePipe,
+    FlightSummaryComponent,
+    PaymentSummaryComponent,
+    PassengersSummaryComponent,
   ],
   imports: [CommonModule, MaterialDesignModule, FormsModule, ReactiveFormsModule],
   exports: [
@@ -26,6 +32,9 @@ import { CurrencyExchangePipe } from './pipes/currency-exchange.pipe';
     CartRowComponent,
     AutoSelectValueDirective,
     CurrencyExchangePipe,
+    FlightSummaryComponent,
+    PaymentSummaryComponent,
+    PassengersSummaryComponent,
   ],
 })
 export class SharedModule {}

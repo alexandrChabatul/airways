@@ -10,6 +10,7 @@ import { PassengersInterface } from 'src/app/modules/shared/models/passenger-typ
 import { insertBookingInfo } from '../../../../core/store/actions/booking.actions';
 import { BookingStateInterface } from '../../../../core/store/store.models';
 import { Router } from '@angular/router';
+import { addDetails } from '../../../../core/store/actions/user-details.actions';
 
 @Component({
   selector: 'airways-cart-row',
@@ -88,6 +89,7 @@ export class CartRowComponent implements OnInit {
   }
 
   showDetails() {
-    //TODO show details logic
+    this.store.dispatch(addDetails({ item: this.item }));
+    this.router.navigate(['user-page', 'details']);
   }
 }

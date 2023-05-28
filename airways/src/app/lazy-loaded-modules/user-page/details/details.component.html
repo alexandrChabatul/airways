@@ -4,8 +4,14 @@
     <h1>Summary</h1>
   </div>
   <div class="summary__flights">
-    <airways-flight-summary></airways-flight-summary>
-    <airways-flight-summary *ngIf="isRound$ | async" [isBack]="true"></airways-flight-summary>
+    <airways-flight-summary
+    [ticketDetails]="(order$ | async)?.ticket"
+    [isForDetails]="true"></airways-flight-summary>
+    <airways-flight-summary
+    *ngIf="(order$ | async)?.isRound"
+    [ticketDetails]="(order$ | async)?.ticketBack"
+    [isForDetails]="true"
+    [isBack]="true"></airways-flight-summary>
   </div>
   <div class="summary__payment" *ngIf="(passengers$ | async) as passengersInfo">
     <ul class="summary__fare">
@@ -30,11 +36,14 @@
       <span class="total__price">{{getTotalPrice(passengersInfo, price).total | currencyExchange | async}}</span>
     </div>
   </div>
-  <airways-bottom-buttons
-  [isSummaryPage]="true"
-  [editMode]="editModeBoolean(editIndex$ | async)"
-  [clickBackFn]="navigateBack()"
-  [clickAddToOrderFn]="navigateAddToCart()"
-  [clickContinueFn]="navigateBuyNow()"
-  [disableContinue]="false"></airways-bottom-buttons>
+  <div class="btm-btns">
+    <button
+    mat-button
+    mat-flat-button
+    color="primary"
+    class="btm-btns__button btm-btns__button-continue"
+    (click)="navigateToUserPage()">
+      Return to Account
+    </button>
+  </div>
 </div>

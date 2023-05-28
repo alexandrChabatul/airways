@@ -13,6 +13,7 @@ export interface AppStateInterface {
   history: CartStateInterface;
   tickets: TicketsStateInterface;
   booking: BookingStateInterface;
+  userDetails: UserDetailsStateInterface;
 }
 
 export interface AuthStateInterface {
@@ -69,4 +70,8 @@ export interface TicketsStateInterface {
   data: ExtendedTicketInterface[];
   dataBack: ExtendedTicketInterface[];
   isLoading: boolean;
+}
+
+export interface UserDetailsStateInterface {
+  details: CartItemWithFlagInterface | null;
 }

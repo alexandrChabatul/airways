@@ -24,6 +24,21 @@
       "email": "sash@gmail.com",
       "password": "$2a$10$X2NPNCN1X0DLSCaVqbxXI.KvAHWjHBu2rktHcJmugIXBeLIc6Aw5.",
       "id": 5
+    },
+    {
+      "email": "test01@gmail.com",
+      "password": "$2a$10$169sObU0iHymzQUBbxx0O.eTBqGawRqsh6Ts94PTl83Hd2lxEEDjO",
+      "id": 6
+    },
+    {
+      "email": "test1@gmail.com",
+      "password": "$2a$10$5ngfkmlupQXSrDIKVci4ZuK1VSzQXYCG7tcBSRLCXLBeY8z3FYVCG",
+      "id": 7
+    },
+    {
+      "email": "test12@gmail.com",
+      "password": "$2a$10$/JY9BwYL90waYeUI2Si7pOj3ef2jPzGBfBtKzys4Zq.MNVJMX3iIK",
+      "id": 8
     }
   ]
 }
