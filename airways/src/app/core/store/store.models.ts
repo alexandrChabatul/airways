@@ -54,6 +54,7 @@ export interface BookingStateInterface {
     infant: PassengerTypeInfoInterface | null;
     contactDetails: ContactDetailsInterface;
   };
+  editItemIndex?: number;
 }
 
 export interface CartStateInterface {

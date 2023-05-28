@@ -7,6 +7,9 @@ import {
   updateCartItemByIndexAction,
 } from 'src/app/core/store/actions/cart.actions';
 import { PassengersInterface } from 'src/app/modules/shared/models/passenger-types.models';
+import { insertBookingInfo } from '../../../../core/store/actions/booking.actions';
+import { BookingStateInterface } from '../../../../core/store/store.models';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'airways-cart-row',
@@ -27,7 +30,7 @@ export class CartRowComponent implements OnInit {
 
   isActive = true;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private router: Router) {}
 
   ngOnInit(): void {
     this.passengers = {
@@ -75,7 +78,13 @@ export class CartRowComponent implements OnInit {
   }
 
   editItem() {
-    //TODO add edit logic
+    const bookingItem: BookingStateInterface = {
+      order: { ...this.item.order },
+      passengers: { ...this.item.passengers },
+      editItemIndex: this.index,
+    };
+    this.store.dispatch(insertBookingInfo({ info: bookingItem }));
+    this.router.navigateByUrl(this.item.order.queryParams);
   }
 
   showDetails() {

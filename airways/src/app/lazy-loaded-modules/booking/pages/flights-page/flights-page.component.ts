@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ticketsLoadAction } from '../../../../core/store/actions/tickets.actions';
@@ -13,7 +13,7 @@ import { Location } from '@angular/common';
   templateUrl: './flights-page.component.html',
   styleUrls: ['./flights-page.component.scss'],
 })
-export class FlightsPageComponent implements OnInit, OnDestroy {
+export class FlightsPageComponent implements OnInit {
   public isRound$!: Observable<boolean>;
 
   public areTicketsLoading$!: Observable<boolean>;
@@ -28,13 +28,11 @@ export class FlightsPageComponent implements OnInit, OnDestroy {
     this.isRound$ = this.store.select(selectIsRoundTrip);
     this.isOrderValid$ = this.store.select(selectBookingOrderValidity);
     this.location.onUrlChange((val) => {
-      const params = this.getParamsObj(val);
-      this.store.dispatch(ticketsLoadAction({ params }));
+      if (this.isFlightSearchPage(val)) {
+        const params = this.getParamsObj(val);
+        this.store.dispatch(ticketsLoadAction({ params }));
+      }
     });
-  }
-
-  public ngOnDestroy(): void {
-    this.location.ngOnDestroy();
   }
 
   public navigateBack(): () => void {
@@ -69,5 +67,14 @@ export class FlightsPageComponent implements OnInit, OnDestroy {
     }
 
     return params;
+  }
+
+  private isFlightSearchPage(link: string): boolean {
+    const pathArray = link.split('/');
+    const mainPath = pathArray[1] ? pathArray[1].split('?')[0] : pathArray[0];
+    if (mainPath === 'booking' && pathArray.length <= 2) {
+      return true;
+    }
+    return false;
   }
 }

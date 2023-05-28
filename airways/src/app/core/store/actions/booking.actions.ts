@@ -19,3 +19,8 @@ export const updatePassengersInfo = createAction(
 );
 
 export const removeBooking = createAction(BookingActionTypes.REMOVE_BOOKING);
+
+export const insertBookingInfo = createAction(
+  BookingActionTypes.INSERT_BOOKING,
+  props<{ info: BookingStateInterface }>(),
+);

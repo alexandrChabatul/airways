@@ -2,6 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import { BookingStateInterface } from '../store.models';
 import {
   deleteTicket,
+  insertBookingInfo,
   removeBooking,
   updatePassengersInfo,
   updateTicket,
@@ -92,6 +93,11 @@ export const bookingReducer = createReducer(
   on(removeBooking, (): BookingStateInterface => {
     return {
       ...initialState,
+    };
+  }),
+  on(insertBookingInfo, (state, { info }): BookingStateInterface => {
+    return {
+      ...info,
     };
   }),
 );

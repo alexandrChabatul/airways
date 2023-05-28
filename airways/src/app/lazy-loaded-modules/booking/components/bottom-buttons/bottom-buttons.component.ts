@@ -15,4 +15,6 @@ export class BottomButtonsComponent {
   @Input() clickAddToOrderFn!: () => void;
 
   @Input() disableContinue: boolean | null = false;
+
+  @Input() editMode: boolean | null = false;
 }

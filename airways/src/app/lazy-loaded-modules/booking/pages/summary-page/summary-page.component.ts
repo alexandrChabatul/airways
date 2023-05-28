@@ -5,6 +5,7 @@ import { CurrencyFormatType } from '../../../../core/models/formats.models';
 import { Store } from '@ngrx/store';
 import { selectCurrencyFormat } from '../../../../core/store/selectors/formats.selectors';
 import {
+  selectBookingEditIndex,
   selectBookingFeature,
   selectBookingIsRound,
   selectBookingPassengersInfo,
@@ -15,6 +16,7 @@ import { BookingStateInterface } from '../../../../core/store/store.models';
 import { PassengerTypeInfoInterface } from '../../../../core/models/booking.model';
 import { addToCartAction } from '../../../../core/store/actions/cart.actions';
 import { removeBooking } from '../../../../core/store/actions/booking.actions';
+import { updateCartItemByIndexAction } from '../../../../core/store/actions/cart.actions';
 
 @Component({
   selector: 'airways-summary-page',
@@ -36,6 +38,10 @@ export class SummaryPageComponent implements OnInit {
 
   public passengers$!: Observable<BookingStateInterface['passengers']>;
 
+  public editIndex$!: Observable<number | undefined>;
+
+  private itemIndexInCart: number | undefined = undefined;
+
   constructor(private iconsService: SvgIconService, private store: Store, private router: Router) {
     this.iconsService.addSvgIcon('summary');
   }
@@ -50,6 +56,10 @@ export class SummaryPageComponent implements OnInit {
     });
     this.store.select(selectBookingFeature).subscribe((val) => {
       this.booking = val;
+    });
+    this.editIndex$ = this.store.select(selectBookingEditIndex);
+    this.editIndex$.subscribe((val) => {
+      this.itemIndexInCart = val;
     });
   }
 
@@ -67,14 +77,28 @@ export class SummaryPageComponent implements OnInit {
 
   public navigateBuyNow(): () => void {
     const continueFn = () => {
-      this.store.dispatch(
-        addToCartAction({
-          item: {
-            ...this.booking,
-            totalPrice: this.totalPrice,
-          },
-        }),
-      );
+      if (this.itemIndexInCart) {
+        this.store.dispatch(
+          updateCartItemByIndexAction({
+            item: {
+              ...this.booking,
+              totalPrice: this.totalPrice,
+              isActive: true,
+            },
+            index: this.itemIndexInCart,
+          }),
+        );
+      } else {
+        this.store.dispatch(
+          addToCartAction({
+            item: {
+              ...this.booking,
+              totalPrice: this.totalPrice,
+            },
+          }),
+        );
+      }
+
       this.store.dispatch(removeBooking());
       const urlTree = this.router.createUrlTree(['cart']);
       this.router.navigateByUrl(urlTree);
@@ -85,14 +109,16 @@ export class SummaryPageComponent implements OnInit {
 
   public navigateAddToCart(): () => void {
     const addFn = () => {
-      this.store.dispatch(
-        addToCartAction({
-          item: {
-            ...this.booking,
-            totalPrice: this.totalPrice,
-          },
-        }),
-      );
+      if (!this.itemIndexInCart) {
+        this.store.dispatch(
+          addToCartAction({
+            item: {
+              ...this.booking,
+              totalPrice: this.totalPrice,
+            },
+          }),
+        );
+      }
       this.store.dispatch(removeBooking());
       const urlTree = this.router.createUrlTree(['']);
       this.router.navigateByUrl(urlTree);
